@@ -11,7 +11,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <script>if(location.protocol.startsWith('http')){const l=document.createElement('link');l.rel='manifest';l.href='manifest.json';document.head.append(l)}</script>
-<script>/* значок окна: Pro — сразу свой (Edge берёт для панели задач первый объявленный значок) */{let pr=false;try{const p=JSON.parse(localStorage.getItem('cal.pro'))||{};pr=/[?&]pro=dev\b/.test(location.search)||!!(p.plan&&p.plan!=='dev'&&(p.until===0&&p.plan!=='trial'||Date.now()<p.until))}catch(e){}
+<script>/* значок окна: Pro — сразу свой (Edge берёт для панели задач первый объявленный значок) */{let pr=false;try{const p=JSON.parse(localStorage.getItem('cal.pro'))||{};pr=!!(p.plan&&p.plan!=='dev'&&(p.until===0&&p.plan!=='trial'||Date.now()<p.until))}catch(e){}
 const ic=pr?'icon-pro.png':'icon-192.png',ico=pr?'crystal-pro.ico':'crystal.ico';document.write('<link rel="icon" sizes="16x16 24x24 32x32 48x48 64x64 128x128 256x256" href="'+ico+'"><link rel="icon" sizes="192x192" href="'+ic+'"><link rel="apple-touch-icon" href="'+ic+'">');if(pr)document.title='Gemday Pro'}</script>
 <noscript><link rel="icon" href="icon-192.png"></noscript>
 <script>try{const st=JSON.parse(localStorage.getItem('cal.settings'))||{};document.documentElement.dataset.theme=st.v===2&&st.theme||'hud'}catch(e){}</script>
@@ -1372,12 +1372,44 @@ button:not(:disabled):focus-visible{outline:2px solid var(--acc);outline-offset:
 .mrow.rci{grid-template-columns:22px 1fr minmax(0,170px) auto}.rci select{min-width:0;width:100%;padding:5px;border-radius:8px;background:var(--input);color:var(--text);border:1px solid var(--line);font-size:12px}
 .rcsum{display:flex;flex-wrap:wrap;gap:4px 12px;font-size:12.5px;color:var(--mut);padding:4px 2px}.rcsum b{color:var(--red)}
 @media(max-width:600px){.mrow.rci{grid-template-columns:22px 1fr auto}.rci select{grid-column:2/-1;grid-row:2}.mrow.prow{grid-template-columns:56px 1fr auto}.prow .pbt{grid-column:1/-1;justify-content:flex-end}}
-.mrow small{color:var(--mut)}.mrow .in{color:var(--green);font-weight:700}.mrow .out{color:var(--red);font-weight:700}.mrow button{border:0;background:transparent;color:var(--mut);cursor:pointer;font-size:15px}
+.srres{display:grid;gap:6px;margin-top:10px;max-height:min(60vh,520px);overflow:auto}.srrow{display:grid;grid-template-columns:6px 1fr auto;gap:10px;align-items:center;text-align:left;background:var(--soft);border:0;border-radius:12px;padding:8px 10px;color:var(--text);cursor:pointer;font:inherit}.srrow:hover{background:var(--soft2)}.srrow i{align-self:stretch;border-radius:3px;background:var(--c)}.srrow span{min-width:0}.srrow small{display:block;color:var(--mut);font-size:12.5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.srrow em{font-style:normal;color:var(--mut);font-size:12.5px;white-space:nowrap}
+@media(max-width:600px){.srrow{grid-template-columns:6px 1fr}.srrow em{grid-column:2}}
+.limrows{display:grid;gap:4px;max-height:min(58vh,520px);overflow:auto}.limr{display:grid;grid-template-columns:1fr 110px 70px;gap:8px;align-items:center;font-size:14px;padding:4px 6px;border-radius:10px}.limr.all{background:var(--soft);font-weight:700}.limr input{width:100%;padding:6px 8px;border-radius:8px;background:var(--input);color:var(--text);border:1px solid var(--line)}.limr small{color:var(--mut);text-align:right;font-size:12px}
+.mcat .r.lim.near b{color:#f59e0b}.mcat .r.lim.over b{color:var(--red)}.mcat .r b small{color:var(--mut);font-weight:400}
+.mlimt{display:grid;gap:4px;margin:0 0 10px;font-size:13.5px}.mlimt .bar{height:8px;border-radius:6px;background:var(--soft2);overflow:hidden}.mlimt .bar i{display:block;height:100%;background:var(--green);border-radius:6px}.mlimt.near .bar i{background:#f59e0b}.mlimt.over .bar i{background:var(--red)}.mlimt.over b{color:var(--red)}
+.gau{display:flex;align-items:center;gap:5px;font-size:13px;color:var(--mut);white-space:nowrap}.prep{color:var(--acc2)!important}.psubm{display:block;color:var(--mut);margin:2px 0 8px}
+.bkinfo{font-size:13.5px;margin:8px 0 0}
+.wgrid{flex:1;min-height:0;display:grid;grid-template-columns:repeat(7,minmax(0,1fr));grid-template-rows:auto 1fr;gap:6px;padding:6px 12px 12px;overflow:auto}
+.wtop{grid-column:1/-1;color:var(--mut);font-size:13px;padding:0 2px}
+.wcol{background:var(--soft);border-radius:calc(var(--rs) + 2px);border:1px solid transparent;padding:8px;display:flex;flex-direction:column;gap:5px;min-width:0;min-height:180px;cursor:pointer;overflow:hidden}
+.wcol.sel{border-color:var(--acc)}.wcol.today .whd b{background:var(--acc);color:#fff;border-radius:50%;width:28px;height:28px;display:inline-grid;place-items:center}
+.wcol.we .whd span,.wcol.hol .whd span{color:var(--red)}
+.whd{display:flex;align-items:baseline;gap:6px;flex-wrap:wrap}.whd span{color:var(--mut);font-size:12px;text-transform:uppercase}.whd b{font-size:18px}.whd small{color:var(--mut);font-size:11.5px;margin-left:auto}
+.whol{font-size:12px;color:var(--c,var(--red));overflow:hidden;text-overflow:ellipsis}
+.witem{display:grid;gap:1px;font-size:12.5px;padding:5px 7px;border-radius:8px;background:color-mix(in srgb,var(--c,var(--acc)) 18%,transparent);border-left:3px solid var(--c,var(--acc));min-width:0}
+.witem .wt{color:var(--mut);font-size:11px}.witem .wt:empty{display:none}.witem .wn{overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical}.witem.done{opacity:.55;text-decoration:line-through}
+.wempty{margin:auto;color:var(--mut);opacity:.4;font-size:20px}
+@media(max-width:760px){.wgrid{grid-template-columns:1fr;grid-template-rows:none;padding:4px 8px 10px}.wcol{min-height:0}.wcol .wempty{display:none}}
+#lockScr{display:none;position:fixed;inset:0;z-index:100000;background:var(--bg,#0b1020);place-items:center;padding:16px}
+html.locked #lockScr{display:grid}html.locked body>*:not(#lockScr):not(script):not(#ydlg){visibility:hidden}html.locked dialog[open]:not(#ydlg){visibility:hidden}html.locked #ydlg{visibility:visible}
+.lkbox{text-align:center;max-width:320px;width:100%;color:var(--text)}.lkico{font-size:40px}.lkbox h3{margin:6px 0 2px;letter-spacing:.1em}.lkbox p{color:var(--mut);margin:0 0 14px;min-height:1.3em}
+.lkdots{display:flex;justify-content:center;gap:12px;margin:0 0 20px}.lkdots i{width:14px;height:14px;border-radius:50%;border:2px solid var(--acc);transition:.12s}.lkdots i.on{background:var(--acc)}
+.lkpad{display:grid;grid-template-columns:repeat(3,72px);gap:12px;justify-content:center}.lkpad button{height:64px;border-radius:50%;border:1px solid var(--line);background:var(--soft);color:var(--text);font-size:24px;cursor:pointer}.lkpad button:active{background:var(--soft2)}
+.lkpad #lkBio:not([hidden])~#lkOk{display:none}.lkpad [data-k="0"]{grid-column:2}.lkpad #lkBio,.lkpad #lkOk{grid-column:1;grid-row:4}
+.lkforgot{margin-top:18px;background:none;border:0;color:var(--mut);text-decoration:underline;cursor:pointer;font:inherit}
+.mrow.med{cursor:pointer}.mrow.med:hover{background:var(--soft2)}.mrow small{color:var(--mut)}.mrow .in{color:var(--green);font-weight:700}.mrow .out{color:var(--red);font-weight:700}.mrow button{border:0;background:transparent;color:var(--mut);cursor:pointer;font-size:15px}
 .vlinks{display:none;gap:8px;flex-wrap:wrap;margin-bottom:14px}.vlinks{grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-bottom:16px}.vlinks .vlh{grid-column:1/-1;margin:0 0 2px}.vlinks button{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;min-height:86px;padding:10px 6px;border-radius:16px;border:1px solid var(--line);background:var(--soft);color:var(--text);font:inherit;font-size:12.5px;font-weight:600;line-height:1.2;text-align:center;cursor:pointer}.vlinks button i{font-style:normal;font-size:24px}.vlinks button:active{transform:scale(.96)}
 @media(max-width:760px){.vlinks{display:grid}.mcat .r{grid-template-columns:100px 1fr 80px}}
 </style>
 </head>
 <body>
+<script>try{if(JSON.parse(localStorage.getItem('cal.lock')||'null')?.h){document.documentElement.classList.add('locked');setTimeout(()=>{if(typeof lkCfg==='undefined')document.documentElement.classList.remove('locked')},8000)}}catch(e){}</script>
+<div id="lockScr" role="dialog" aria-modal="true" aria-label="Gemday"><div class="lkbox">
+  <div class="lkico">🔒</div><h3>Gemday</h3><p id="lkMsg">Введите PIN-код</p>
+  <div class="lkdots" id="lkDots"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+  <div class="lkpad" id="lkPad"><button data-k="1">1</button><button data-k="2">2</button><button data-k="3">3</button><button data-k="4">4</button><button data-k="5">5</button><button data-k="6">6</button><button data-k="7">7</button><button data-k="8">8</button><button data-k="9">9</button><button data-k="bio" id="lkBio" title="Отпечаток пальца" hidden>👆</button><button data-k="ok" id="lkOk" hidden>✓</button><button data-k="0">0</button><button data-k="del" aria-label="Стереть">⌫</button></div>
+  <button class="lkforgot" id="lkForgot" type="button">Забыли PIN?</button>
+</div></div>
 <canvas id="bg"></canvas>
 <div class="app">
   <aside class="side">
@@ -1423,8 +1455,9 @@ button:not(:disabled):focus-visible{outline:2px solid var(--acc);outline-offset:
     <section class="view on" id="v-cal">
       <div class="mhead">
         <div class="mh"><button id="mBtn" title="Выбрать месяц и год"><h2 id="mTitle"></h2></button></div>
-        <div class="seg" id="calMode"><button data-cm="m" class="on">Месяц</button><button data-cm="y">Год</button></div>
+        <div class="seg" id="calMode"><button data-cm="w">Неделя</button><button data-cm="m" class="on">Месяц</button><button data-cm="y">Год</button></div>
         <button class="pill" id="styleBtn" title="Сменить стиль">🎨 Стиль</button>
+        <button class="pill" id="calSearch" title="Поиск по календарю (/)" aria-label="Поиск по календарю">🔍</button>
         <button class="pill" id="todayBtn">Сегодня</button>
         <div class="mp" id="mp" hidden>
           <div class="mpy"><button class="ib" id="ypv" aria-label="Предыдущий год">‹</button><b id="yv"></b><button class="ib" id="ynx" aria-label="Следующий год">›</button></div>
@@ -1436,6 +1469,7 @@ button:not(:disabled):focus-visible{outline:2px solid var(--acc);outline-offset:
       </div>
       <div class="wds" id="wds"></div>
       <div class="grid" id="grid"></div>
+      <div class="wgrid" id="wgrid" hidden></div>
       <div class="ysum" id="ysum" hidden></div>
       <div class="ygrid" id="ygrid" hidden></div>
     </section>
@@ -1659,7 +1693,7 @@ button:not(:disabled):focus-visible{outline:2px solid var(--acc);outline-offset:
           <div class="ccard famc" id="monFam" hidden></div>
           <div class="ccard famc" id="goalBox"></div>
           <div class="ccard"><div class="madd2"><span class="mtype" id="monType"><button data-mt="out" class="on">− Расход</button><button data-mt="in">+ Доход</button></span><input class="amt" id="monAmt" type="number" min="1" step="any" inputmode="decimal" placeholder="Сумма"><select id="monCat" title="Категория" aria-label="Категория"></select><input class="nt" id="monNote" maxlength="120" placeholder="Комментарий (необязательно)"><input type="date" id="monDate" title="Дата" aria-label="Дата"><button class="cta" id="monAdd">Добавить</button><button class="pill" id="monSplit" type="button" title="Один чек — несколько категорий">🧾 Чек по категориям</button></div></div>
-          <div class="ccard"><h3 style="margin:0 0 10px">Куда ушли деньги</h3><div class="mcat" id="monCats"></div></div>
+          <div class="ccard"><div class="rh" style="margin:0 0 10px"><h3 style="margin:0">Куда ушли деньги</h3><button class="pill" id="monLimBtn" type="button" title="Сколько можно тратить в месяц по каждой категории">🎯 Лимиты</button></div><div id="monLimSum"></div><div class="mcat" id="monCats"></div></div>
           <div class="ccard"><h3 style="margin:0 0 10px">Записи</h3><div class="mlist" id="monList"></div></div>
         </div>
       </div>
@@ -1754,9 +1788,18 @@ button:not(:disabled):focus-visible{outline:2px solid var(--acc);outline-offset:
           <ul class="lic"><li><b>qrcode-generator 1.4.4</b> — © 2009 Kazuhiko Arase, лицензия MIT. «QR Code» — зарегистрированный товарный знак DENSO WAVE INCORPORATED.</li><li><b>jsQR 1.4.0</b> — © Cosmo Wolfe, лицензия Apache 2.0.</li><li><b>Tesseract.js 5</b> и языковые данные <b>tessdata</b> — лицензия Apache 2.0 (скачиваются с jsDelivr при первом распознавании фото, работают на устройстве).</li><li>Синхронизация напоминаний — через открытый сервис <b>ntfy.sh</b>; данные шифруются на устройстве (AES-GCM) до отправки.</li><li>Смайлики рисует системный шрифт вашего устройства — в программу они не встроены.</li></ul>
           <p>Названия фильмов, обложки и ссылки, которые сохраняет бот, остаются только на вашем устройстве — для личного напоминания; права на них принадлежат их владельцам.</p>
         </div>
+        <div class="scard">
+          <h3>🔒 Вход по PIN-коду</h3>
+          <p id="lkInfo" style="margin:0 0 8px"></p>
+          <div class="btns" style="justify-content:flex-start"><button class="pill" id="lkSet">🔒 Включить PIN</button><button class="pill" id="lkOff" hidden>Выключить</button></div>
+          <div id="lkOpts" hidden><label class="sw"><span>👆 Входить отпечатком пальца или лицом</span><input type="checkbox" id="lkBioOn"></label>
+          <label class="sw"><span>Запрашивать снова, если программа была свёрнута</span><select id="lkAfter"><option value="0">сразу</option><option value="1">через 1 минуту</option><option value="5">через 5 минут</option><option value="30">через 30 минут</option><option value="-1">только при запуске</option></select></label></div>
+        </div>
         <div class="scard sdanger">
           <h3>Опасная зона</h3>
           <button class="pill" id="wipeBtn" style="color:var(--red)">Удалить все записи</button>
+          <button class="pill" id="myDelBtn" style="color:var(--red)">🗑 Удалить мои данные (и с сервера)</button>
+          <p class="hint">Стирает ваши записи на сервере синхронизации, в семье и на этом устройстве. <a href="privacy.html" target="_blank" rel="noopener">Политика конфиденциальности</a></p>
         </div>
         </div>
         <div class="scol">
@@ -1774,6 +1817,7 @@ button:not(:disabled):focus-visible{outline:2px solid var(--acc);outline-offset:
           <div class="btns" style="justify-content:flex-start"><button class="pill" id="qrBtn">📱 На телефон по QR-коду</button><button class="pill" id="pcBtn" hidden>💻 Подключиться к ПК</button><button class="pill" id="expBtn">⬇ Сохранить в файл</button><button class="pill" id="impBtn">⬆ Загрузить из файла</button></div>
           <div class="sw" id="linkBox" hidden><span>🔄 <b>Синхронизация включена</b> — записи, заметки, цикл, доходы и расходы сами переходят между связанными устройствами (нужен интернет)<br><small id="linkSt" style="color:var(--mut)"></small></span><span class="btns"><button class="pill" id="linkNow">🔄 Синхронизировать сейчас</button><button class="pill" id="linkOff">Отвязать</button></span></div><div class="sw" id="linkNo"><span>⚠ Устройства пока не связаны. На ПК нажмите «📱 На телефон по QR-коду» (или «Синхронизация устройств» слева), на телефоне — «💻 Подключиться к ПК» и наведите камеру на код. После этого всё будет синхронизироваться само.</span></div>
           <input type="file" id="impFile" accept=".json,application/json" hidden>
+          <p id="bkInfo" class="bkinfo"></p>
           <p>📱 QR-код: наведите камеру телефона — записи, заметки, праздники и настройки откроются на телефоне. Или сохраните файл на одном устройстве и загрузите на другом.</p>
         </div>
         <div class="scard">
@@ -1894,7 +1938,8 @@ button:not(:disabled):focus-visible{outline:2px solid var(--acc);outline-offset:
 
 <div id="alarm"><div class="box">
   <div class="bell">⏰</div><h3 id="aTitle"></h3><p id="aText"></p>
-  <div class="btns" style="margin-top:20px"><button class="pill" id="aSnooze">Отложить на 10 мин</button><button class="cta" id="aOk">Понятно</button></div>
+  <div id="aSnooze" style="margin-top:16px"><div style="opacity:.75;font-size:13px;margin-bottom:6px">Отложить на:</div><div class="btns" style="flex-wrap:wrap;justify-content:center;gap:6px"><button class="pill" data-sn="5">5 мин</button><button class="pill" data-sn="10">10 мин</button><button class="pill" data-sn="30">30 мин</button><button class="pill" data-sn="60">1 час</button><button class="pill" data-sn="tm">Завтра</button></div></div>
+  <div class="btns" style="margin-top:14px"><button class="cta" id="aOk">Понятно</button></div>
 </div></div>
 <dialog id="coldlg" class="mdlg"><div class="mde cpd" style="--c:var(--acc2)">
   <h3 style="margin:2px 0 10px">🎨 Цвет записи</h3>
@@ -1981,6 +2026,23 @@ button:not(:disabled):focus-visible{outline:2px solid var(--acc);outline-offset:
   <div class="spsum" id="spSum"></div>
   <div class="dacts"><button class="pill" id="spCancel" type="button">Отмена</button><button class="cta" id="spSave" type="button">💾 Записать</button></div>
 </div></dialog>
+<dialog id="srdlg" class="mdlg"><div class="mde" style="--c:var(--acc);max-width:560px">
+  <h3 style="margin:2px 0 10px">🔍 Поиск по календарю</h3>
+  <input id="srIn" type="search" maxlength="60" placeholder="Например: стоматолог, договор, день рождения" autocomplete="off" style="width:100%">
+  <div id="srRes" class="srres"></div>
+  <div class="dacts"><button class="pill" id="srClose" type="button">Закрыть</button></div>
+</div></dialog>
+<dialog id="limdlg" class="mdlg"><div class="mde" style="--c:var(--acc2);max-width:520px">
+  <h3 style="margin:2px 0 4px">🎯 Лимиты на месяц</h3><p style="color:var(--mut);margin:0 0 10px;font-size:13.5px">Сколько можно тратить в месяц. При 80 % и при превышении Gemday предупредит. Пустое поле — без лимита. Справа — сколько уже потрачено в этом месяце.</p>
+  <div id="limRows" class="limrows"></div>
+  <div class="dacts"><button class="pill" id="limCancel" type="button">Отмена</button><button class="cta" id="limSave" type="button">💾 Сохранить</button></div>
+</div></dialog>
+<dialog id="medlg" class="mdlg"><div class="mde" style="--c:var(--acc2);max-width:460px">
+  <h3 style="margin:2px 0 10px">✏️ Изменить запись</h3>
+  <div class="sprow"><select id="meT" aria-label="Тип"><option value="out">− Расход</option><option value="in">+ Доход</option></select><input id="meA" type="number" min="1" step="any" inputmode="decimal" placeholder="Сумма"><input type="date" id="meD" aria-label="Дата"></div>
+  <div class="sprow"><select id="meC" aria-label="Категория"></select><input id="meN" maxlength="120" placeholder="Комментарий"></div>
+  <div class="dacts"><button class="pill" id="meDel" type="button">🗑 Удалить</button><button class="pill" id="meCancel" type="button">Отмена</button><button class="cta" id="medSave" type="button">💾 Сохранить</button></div>
+</div></dialog>
 <dialog id="famdlg" class="mdlg"><div class="mde" style="--c:var(--acc2);text-align:center;max-width:520px">
   <h3 style="margin:2px 0 6px">👪 Пригласить в семью</h3><p style="color:var(--mut);margin:0 0 8px">На другом телефоне или ПК: Gemday → «👪 Семья» → «📷 Присоединиться по QR» и наведите камеру на этот код. Или отправьте ссылку — её вставляют там же: «🔗 Вставить ссылку».</p>
   <canvas id="famCv" class="qcv" width="10" height="10"></canvas>
@@ -2040,7 +2102,7 @@ function i18nDom(root){
 i18nDom(document.body);document.title=T(document.title);
 // i18n-skip-end
 document.documentElement.style.setProperty('--pk-empty',JSON.stringify(T('Пока ни одного дня')));
-const APP_VER='3.68',APP_DATE='19.11.2026';
+const APP_VER='3.69',APP_DATE='23.11.2026';
 const COLORS=['#7c5cff','#22d3ee','#34d399','#ffb547','#ff5d73','#f472b6','#60a5fa','#b78bff','#fb923c','#2dd4bf','#facc15','#a3e635','#e879f9','#94a3b8','#f8fafc','#ef4444','#f97316','#eab308','#84cc16','#10b981','#06b6d4','#3b82f6','#6366f1','#8b5cf6','#d946ef','#ec4899','#f43f5e','#a16207','#78716c','#c084fc'];
 const TYPE_COLOR={work:'#ffb547',note:'#22d3ee',rem:'#7c5cff',date:'#ff5d73'};
 const REP={d:T('каждый день'),w:T('каждую неделю'),m:T('каждый месяц'),y:T('каждый год')};
@@ -2097,7 +2159,16 @@ const WDS=[T('вс'),T('пн'),T('вт'),T('ср'),T('чт'),T('пт'),T('сб')
 const WDL=[T('воскресенье'),T('понедельник'),T('вторник'),T('среда'),T('четверг'),T('пятница'),T('суббота')];
 
 function load(k,d){try{return JSON.parse(localStorage.getItem(k))??d}catch(e){return d}}
-function save(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){toast(T('⚠ Не удалось сохранить: память браузера заполнена'))}
+// удалённые записи и заметки: {id: когда удалили}, 90 дней — чтобы перенос по QR/файлу не возвращал удалённое
+const GONE=(()=>{const x=load('cal.gone',{})||{},o={},lim=Date.now()-90*864e5;if(x&&typeof x==='object'&&!Array.isArray(x))for(const k of Object.keys(x))if(/^[\w.-]{1,40}$/.test(k)&&+x[k]>lim)o[k]=+x[k];return o})();
+const goneIds={};
+function goneTrack(k,v){if(!Array.isArray(v))return;const cur=new Set(v.map(x=>x&&x.id));
+  if(!goneIds[k])try{goneIds[k]=new Set((JSON.parse(localStorage.getItem(k))||[]).map(x=>x&&x.id))}catch(e){goneIds[k]=new Set()}
+  let ch=false;const t=Date.now();for(const id of cur)if(typeof id==='string'&&Object.prototype.hasOwnProperty.call(GONE,id)){delete GONE[id];ch=true}   // вернули (отмена удаления)
+  for(const id of goneIds[k])if(typeof id==='string'&&!cur.has(id)&&/^[\w.-]{1,40}$/.test(id)){GONE[id]=t;ch=true}
+  goneIds[k]=cur;if(ch)try{localStorage.setItem('cal.gone',JSON.stringify(GONE))}catch(e){}}
+function save(k,v){if(k==='cal.notes'||k==='cal.memos')goneTrack(k,v);
+  try{localStorage.setItem(k,JSON.stringify(v))}catch(e){toast(T('⚠ Не удалось сохранить: память браузера заполнена'))}
   if(/^cal\.(notes|memos|days|dcol|cyc|money|goals|me|imgs|fam)$/.test(k))try{fbSoon()}catch(e){}}
 // всё, что читается из памяти или из файла, проверяется: в разметку попадают только правильные значения
 const RX={id:{test:v=>typeof v==='string'&&/^[\w-]{1,40}$/.test(v)}, // только строка: «undefined» раньше проходил проверку — записи о деньгах оставались без номера и не удалялись
@@ -2400,7 +2471,6 @@ const TPERS={neon:'r,sans,grid,glow,8',cyber:'s,tech,lines,glow,6',matrix:'s,mon
   ruby:'s,serif,checks,glow,12',emerald:'m,serif,grid,bold,10',sapphire:'s,tech,grid,glow,10',amethyst:'p,serif,dots,glow,12',peach:'p,soft,waves,thin,14',arctic:'r,tech,lines,thin,8',desert:'m,serif,diag,bold,12',midnight:'s,tech,dots,glow,8',rose:'p,serif,waves,bold,12',lime:'s,mono,checks,bold,10',teal:'r,soft,waves,glow,10',violet:'p,tech,grid,glow,12',copper:'m,serif,lines,bold,14',steel:'s,mono,grid,bold,6',candy:'p,soft,checks,glow,14',sunrise:'r,soft,diag,thin,12',deepsea:'r,sans,waves,glow,8',lavender:'p,serif,dots,thin,12',retro:'s,mono,lines,bold,14',mono:'s,mono,none,bold,0'};
 const TSHAPE={s:[4,3],m:[12,9],r:[20,14],p:[28,20]},TFONT={sans:'',serif:'Georgia,"Iowan Old Style","Noto Serif","Times New Roman",serif',mono:'"Cascadia Code",Consolas,ui-monospace,monospace',tech:'Bahnschrift,"DIN Alternate","Roboto Condensed","Arial Narrow",sans-serif',soft:'"Trebuchet MS","Segoe UI",Verdana,sans-serif'};
 const tMix=(c,p)=>`color-mix(in srgb,${c} ${p}%,transparent)`;
-const tPat=(k,a)=>({dots:`radial-gradient(${tMix(a,22)} 1.2px,transparent 1.8px) 0 0/22px 22px`,grid:`linear-gradient(${tMix(a,12)} 1px,transparent 1px) 0 0/30px 30px,linear-gradient(90deg,${tMix(a,12)} 1px,transparent 1px) 0 0/30px 30px`,lines:`repeating-linear-gradient(0deg,${tMix(a,9)} 0 1px,transparent 1px 7px)`,diag:`repeating-linear-gradient(135deg,${tMix(a,10)} 0 2px,transparent 2px 20px)`,waves:`radial-gradient(circle at 50% 100%,transparent 40%,${tMix(a,14)} 42% 46%,transparent 48%) 0 0/56px 28px`,checks:`conic-gradient(${tMix(a,8)} 25%,transparent 0 50%,${tMix(a,8)} 0 75%,transparent 0) 0 0/40px 40px`}[k]||'');
 // светлые пастельные темы и яркий цветной фон тёмных тем
 const TLIGHT=new Set(['sakura','peach','mint','arctic','lavender']);
 const tPastel=t=>`color-mix(in srgb,${t.a} 9%,#fbfaff)`;
@@ -2603,7 +2673,10 @@ applyTheme(settings.theme||'hud');
 
 // ---- время работы ----
 const toMin=t=>{if(!t)return null;const[h,m]=t.split(':').map(Number);return h*60+m};
-function workMin(n){const s=toMin(n.start),e=toMin(n.end);if(s===null||e===null)return 0;let d=e-s;if(d<=0)d+=1440;return d}
+function workMin(n){const s=toMin(n.start),e=toMin(n.end);if(s===null||e===null)return 0;let d=e-s;if(d<=0)d+=1440;
+  // смена с датой: настоящие часы — в ночь перевода часов 22:00–06:00 это 7 ч весной и 9 ч осенью
+  if(n.date&&!n.rep&&/^\d{4}-\d\d-\d\d$/.test(n.date)){const a=parseYmd(n.date),b=parseYmd(n.date);a.setHours(Math.floor(s/60),s%60);b.setDate(b.getDate()+(e<=s?1:0));b.setHours(Math.floor(e/60),e%60);const r=Math.round((b-a)/6e4);if(r>0&&Math.abs(r-d)<=60)d=r}
+  return d}
 function fmtDur(min){min=Math.round(min);const h=Math.floor(min/60),m=min%60;return h?T`${h} ч${m?' '+pad(m)+T(' мин'):''}`:T`${m} мин`}
 const fmtDurShort=min=>{min=Math.round(min);const h=Math.floor(min/60),m=min%60;return h?T`${h}ч${m?pad(m):''}`:T`${m}м`};
 const isWd=wd=>settings.workDays.includes(wd);
@@ -2628,10 +2701,14 @@ function occursOn(n,day){
   switch(n.rep){
     case'd':return true;
     case'w':return d.getDay()===s.getDay();
-    case'm':return d.getDate()===s.getDate();
-    case'y':return d.getDate()===s.getDate()&&d.getMonth()===s.getMonth();
+    // «31-го каждый месяц» в коротком месяце — последний день; 29 февраля в невисокосный год — 28-е
+    case'm':return d.getDate()===Math.min(s.getDate(),dimOf(d.getFullYear(),d.getMonth()));
+    case'y':return d.getMonth()===s.getMonth()&&d.getDate()===Math.min(s.getDate(),dimOf(d.getFullYear(),d.getMonth()));
   }return false;
 }
+function dimOf(y,m){return new Date(y,m+1,0).getDate()}
+// та же дата (месяц, число) в году y; число не больше дней в месяце
+function sameDayIn(y,b){return new Date(y,b.getMonth(),Math.min(b.getDate(),dimOf(y,b.getMonth())))}
 const isDone=(n,day)=>n.rep?(n.doneDays||[]).includes(day):!!n.done;
 const sortKey=n=>n.type==='work'?n.start||'':n.type==='rem'?n.time||'99':n.type==='date'?'00':'98';
 const notesOn=day=>notes.filter(n=>occursOn(n,day)).sort((a,b)=>sortKey(a).localeCompare(sortKey(b)));
@@ -2669,7 +2746,7 @@ function since(fromYmd,toDate=new Date()){
 // для ежегодных дат: через сколько следующая и сколько исполнится
 function anniv(n){
   const b=parseYmd(n.date),t=new Date();t.setHours(0,0,0,0);
-  let nx=new Date(t.getFullYear(),b.getMonth(),b.getDate());if(nx<t)nx.setFullYear(nx.getFullYear()+1);if(nx<b)nx=new Date(b);
+  let nx=sameDayIn(t.getFullYear(),b);if(nx<t)nx=sameDayIn(t.getFullYear()+1,b);if(nx<b)nx=new Date(b);
   const days=Math.round((nx-t)/864e5),age=nx.getFullYear()-b.getFullYear();
   const a=age>0?` — ${age} ${plural(age,T('год'),T('года'),T('лет'))}`:'';
   return days?T`следующая через ${days} ${plural(days,T('день'),T('дня'),T('дней'))}${a}`:T`🎉 сегодня${a}`;
@@ -2678,8 +2755,8 @@ function dateInfo(n){
   const b=parseYmd(n.date),t=new Date();t.setHours(0,0,0,0);
   const r={s:since(n.date)};
   if(n.rep==='y'){
-    let nx=new Date(t.getFullYear(),b.getMonth(),b.getDate());if(nx<t)nx.setFullYear(nx.getFullYear()+1);if(nx<b)nx=new Date(b);
-    const prev=new Date(nx);prev.setFullYear(nx.getFullYear()-1);
+    let nx=sameDayIn(t.getFullYear(),b);if(nx<t)nx=sameDayIn(t.getFullYear()+1,b);if(nx<b)nx=new Date(b);
+    const prev=sameDayIn(nx.getFullYear()-1,b);
     r.next=nx;r.left=Math.round((nx-t)/864e5);r.age=nx.getFullYear()-b.getFullYear();
     r.pct=r.left===0?100:Math.max(0,Math.min(100,Math.round((t-prev)/(nx-prev)*100)));
   }
@@ -2727,6 +2804,7 @@ function calFallback(e){try{console.warn('calendar render',e)}catch(x){}const st
   $('#grid').innerHTML=h;if(!calFallback.told){calFallback.told=1;toast(T('⚠ Одна из записей с ошибкой — календарь показан упрощённо. Проверьте время в записях этого месяца.'))}}
 function renderCal0(){
   if(calMode==='y'){renderYear();return}
+  if(calMode==='w'){renderWeek();return}
   $('#mTitle').innerHTML=`${MONTHS[view.getMonth()]} <b>${view.getFullYear()}</b>`;
   const start=new Date(view);start.setDate(1-(view.getDay()+6)%7);
   const today=ymd(new Date());
@@ -2759,15 +2837,40 @@ $('#grid').onclick=e=>{
   render();
   if(innerWidth<=1100)$('#dayp')?.scrollIntoView({behavior:'smooth',block:'start'});
 };
+// ---- поиск по всем записям календаря: название, комментарий, категория ----
+function srRun(){const q=$('#srIn').value.trim().toLowerCase(),el=$('#srRes');if(q.length<2){el.innerHTML=`<small style="color:var(--mut)">${T('Введите хотя бы 2 буквы')}</small>`;return}
+  const now=new Date(),today=ymd(now),L=notes.filter(n=>((n.name||'')+' '+(n.text||'')+' '+(n.type==='work'?T(CATS[catOf(n)]?.name||''):'')).toLowerCase().includes(q))
+    .map(n=>{const nx=n.rep?nextOccurrence(n,now):null;return{n,day:nx?nx.day:n.date}}).sort((a,b)=>(b.day>=today)-(a.day>=today)||(a.day>=today?a.day.localeCompare(b.day):b.day.localeCompare(a.day))).slice(0,80);
+  el.innerHTML=L.length?L.map(({n,day})=>`<button type="button" class="srrow" data-srd="${day}" style="--c:${n.color}"><i></i><span><b>${esc(n.name||TYPE_NAME[n.type]||'')}</b>${n.text?`<small>${esc(n.text.slice(0,90))}</small>`:''}</span><em>${n.rep?'🔁 ':''}${dayLabel(day)} ${parseYmd(day).getFullYear()}${n.time?' · '+n.time:''}</em></button>`).join('')+(L.length===80?`<small style="color:var(--mut)">${T('Показаны первые 80 — уточните запрос')}</small>`:'')
+    :`<small style="color:var(--mut)">${T('Ничего не найдено')}</small>`}
+function srOpen(){$('#srIn').value='';srRun();$('#srdlg').showModal();setTimeout(()=>$('#srIn').focus(),60)}
+$('#calSearch').onclick=srOpen;$('#srIn').oninput=srRun;$('#srClose').onclick=()=>$('#srdlg').close();
+$('#srRes').onclick=e=>{const b=e.target.closest('[data-srd]');if(!b)return;$('#srdlg').close();sel=b.dataset.srd;view=parseYmd(sel);view.setDate(1);showView('cal');if(calMode!=='m')setMode('m');render();
+  if(innerWidth<=1100)$('#dayp')?.scrollIntoView({behavior:'smooth',block:'start'})};
+document.addEventListener('keydown',e=>{if(e.key==='/'&&!e.ctrlKey&&!e.altKey&&!/INPUT|TEXTAREA|SELECT/.test(document.activeElement?.tagName||'')&&!document.querySelector('dialog[open]')&&$('#v-cal').classList.contains('on')){e.preventDefault();srOpen()}});
 $('#grid').ondblclick=e=>{const el=e.target.closest('.day');if(el&&!multi&&!e.ctrlKey&&!e.shiftKey){sel=el.dataset.day;openForm(null,'work')}};
 // ---- календарь на год ----
 let calMode='m';
 function setMode(m){
   calMode=m;
   $$('#calMode button').forEach(b=>b.classList.toggle('on',b.dataset.cm===m));
-  $('#grid').hidden=$('#wds').hidden=m==='y';$('#ygrid').hidden=$('#ysum').hidden=m!=='y';
+  $('#grid').hidden=$('#wds').hidden=m!=='m';$('#ygrid').hidden=$('#ysum').hidden=m!=='y';$('#wgrid').hidden=m!=='w';
   render();
 }
+// ---- неделя: 7 колонок (на телефоне — дни списком), записи по времени, часы за день и за неделю ----
+function renderWeek(){
+  const a=parseYmd(week7(sel)[0]),ks=week7(sel),today=ymd(new Date()),b=parseYmd(ks[6]);
+  $('#mTitle').innerHTML=a.getMonth()===b.getMonth()?`${a.getDate()}–${b.getDate()} ${MONTHS_G[b.getMonth()]} <b>${b.getFullYear()}</b>`:`${a.getDate()} ${MONTHS_G[a.getMonth()].slice(0,3)} – ${b.getDate()} ${MONTHS_G[b.getMonth()].slice(0,3)} <b>${b.getFullYear()}</b>`;
+  const wt=ks.reduce((t,k)=>t+workOn(k),0);
+  $('#wgrid').innerHTML=`<div class="wtop">${T('Неделя')} ${isoWeek(a)}${wt?` · ⏱ ${fmtDur(wt)}`:''}</div>`+ks.map(k=>{const d=parseYmd(k),ns=notesOn(k).slice().sort((x,y)=>sortKey(x).localeCompare(sortKey(y))),wm=workOn(k),hl=holOn(k),dc=dayCats[k],fd=typeof famOnDay==='function'?famOnDay(k):[];
+    return `<div class="wcol ${dayKind(k,d.getDay())}${k===today?' today':''}${k===sel?' sel':''}" data-day="${k}"><div class="whd"><span>${WDS[d.getDay()]}</span><b>${d.getDate()}</b>${wm?`<small>⏱ ${fmtDurShort(wm)}</small>`:''}</div>`
+      +(hl.length?`<div class="whol">🎉 ${esc(hl.map(x=>x.n).join(', '))}</div>`:'')+(dc&&DAYCATS[dc]?`<div class="whol" style="--c:${DAYCATS[dc].c}">${DAYCATS[dc].i} ${esc(DAYCATS[dc].n)}</div>`:'')
+      +ns.map(n=>`<div class="witem${isDone(n,k)?' done':''}" style="--c:${n.color}"><span class="wt">${n.type==='work'?(n.start||'')+(n.end?'–'+n.end:''):''}</span><span class="wn">${chipText(n)}</span></div>`).join('')
+      +fd.slice(0,3).map(x=>`<div class="witem fam" style="--c:${x.n.color}"><span class="wn">👪 ${esc(x.by)}: ${chipText(x.n)}</span></div>`).join('')
+      +(ns.length||fd.length?'':`<div class="wempty">＋</div>`)+'</div>'}).join('');
+}
+$('#wgrid').onclick=e=>{const c=e.target.closest('.wcol');if(!c)return;sel=c.dataset.day;const d=parseYmd(sel);if(d.getMonth()!==view.getMonth()){view=d;view.setDate(1)}render();if(innerWidth<=1100)$('#dayp')?.scrollIntoView({behavior:'smooth',block:'start'})};
+$('#wgrid').ondblclick=e=>{const c=e.target.closest('.wcol');if(c){sel=c.dataset.day;openForm(null,'work')}};
 $('#calMode').onclick=e=>{const b=e.target.closest('[data-cm]');if(b)setMode(b.dataset.cm)};
 function renderYear(){
   const y=view.getFullYear(),now=new Date(),today=ymd(now),norm=settings.norm*60;
@@ -2881,7 +2984,10 @@ const shift=k=>{if(k){const r=rotDay(k);if(r)return[r.s,r.e]} // по графи
 const halfEnd=()=>{const[a,z]=shift();return addMinT(a,Math.round(workMin({start:a,end:z})/2/5)*5)};
 const addMinT=(t,m)=>{const x=(toMin(t)+m+1440)%1440;return pad(Math.floor(x/60))+':'+pad(x%60)};
 const newId=i=>Date.now().toString(36)+Math.random().toString(36).slice(2,6)+(i||'');
-function addWork(day,start,end,cat,text,i){if(notes.some(n=>n.type==='work'&&n.date===day&&n.start===start&&n.end===end&&catOf(n)===cat))return false;notes.push({id:newId(i),type:'work',cat,date:day,start,end,text:text||'',name:'',time:'',rem:-1,rep:'',color:CATS[cat].color,done:false,doneDays:[],fired:[]});return true}
+// номер смены — «естественный»: день + вид + слот (w-2026-11-21-work-1). Один и тот же день, заданный на ПК и на телефоне,
+// даёт те же номера → при синхронизации запись заменяется более новой, а не складывается («30ч30»)
+function workId(day,cat){const has=new Set(notes.map(n=>n.id));for(let s=1;s<60;s++){const id=`w-${day}-${cat}-${s}`;if(!has.has(id))return id}return newId()}
+function addWork(day,start,end,cat,text,i){if(notes.some(n=>n.type==='work'&&n.date===day&&n.start===start&&n.end===end&&catOf(n)===cat))return false;notes.push({id:RX.date.test(day)&&CATS[cat]?workId(day,cat):newId(i),type:'work',cat,date:day,start,end,text:text||'',name:'',time:'',rem:-1,rep:'',color:CATS[cat].color,done:false,doneDays:[],fired:[]});return true}
 const hasWork=k=>notes.some(n=>n.type==='work'&&n.date===k&&catOf(n)==='work');
 const isOff=k=>['off','vac','sick','holiday'].includes(dayCats[k])||holOn(k).some(x=>x.off)||notes.some(n=>n.type==='note'&&n.date===k&&(n.text.startsWith(T('🌴 Выходной'))||n.text.startsWith(T('🌴 Выходной'))));
 function prevWorkDay(k){const ds=[...new Set(notes.filter(n=>n.type==='work'&&n.date<k).map(n=>n.date))].sort();return ds[ds.length-1]}
@@ -2959,7 +3065,7 @@ $('#dsdlg').onclick=e=>{const k=sel,c=e.target.closest('[data-dsc]'),l=e.target.
   if(c){setDayCat([k],c.dataset.dsc);dsOpen()}
   else if(l){if(l.dataset.dcl)dayCol[k]=l.dataset.dcl;else delete dayCol[k];saveDayCol();render();dsOpen()}
   else if(j){dsJob=+j.dataset.dsj;$$('#dsJobs button').forEach(b=>b.classList.toggle('on',b===j))}
-  else if(e.target.id==='dsWork'){const a=$('#dsStart').value,z=$('#dsEnd').value;if(!a||!z)return toast(T('Укажите время начала и конца'));if(notes.some(x=>x.type==='work'&&x.date===k&&x.start===a&&x.end===z&&catOf(x)==='work')){$('#dsdlg').close();return toast(T`Эта смена уже записана: ${a}–${z}`)}const n=cleanNote({id:newId(),type:'work',date:k,start:a,end:z,cat:'work',job:dsJob,text:'',color:JOBC[dsJob]});if(n){notes.push(n);persist();toast(T`💼 ${settings.jobs[dsJob]}: ${a}–${z}`)}$('#dsdlg').close()}
+  else if(e.target.id==='dsWork'){const a=$('#dsStart').value,z=$('#dsEnd').value;if(!a||!z)return toast(T('Укажите время начала и конца'));if(notes.some(x=>x.type==='work'&&x.date===k&&x.start===a&&x.end===z&&catOf(x)==='work')){$('#dsdlg').close();return toast(T`Эта смена уже записана: ${a}–${z}`)}const n=cleanNote({id:workId(k,'work'),type:'work',date:k,start:a,end:z,cat:'work',job:dsJob,text:'',color:JOBC[dsJob]});if(n){notes.push(n);persist();toast(T`💼 ${settings.jobs[dsJob]}: ${a}–${z}`)}$('#dsdlg').close()}
   else if(e.target.id==='dsHrs'){$('#dsdlg').close();hOpen([k])}
   else if(e.target.id==='dsAdd'){$('#dsdlg').close();openForm(null,'rem')}
   else if(e.target.id==='dsClose'||e.target===$('#dsdlg'))$('#dsdlg').close()};
@@ -3214,17 +3320,20 @@ $('#pinList').onclick=e=>{const g=e.target.closest('[data-pg]');if(g){const ph=l
 function render(){for(const f of [renderCal,renderList,updateNext,renderPins,()=>{if($('#v-pins').classList.contains('on'))pinsRender()},()=>{if($('#v-bot').classList.contains('on'))botSavedPaint()},updateWork,()=>{if($('#v-rep').classList.contains('on'))renderReport()}])try{f()}catch(e){try{console.warn('render',e)}catch(x){}}}
 function persist(){noteSigs(true);save('cal.notes',notes);render();androidSync();linkPush();allSoon();if(famReady())famPush()}
 // приложение Android: напоминания на 45 дней вперёд и таймер — в системный будильник, придут даже при закрытом приложении
-function alarmList(withTimer,withImg){const now=Date.now(),L=[];
+function alarmList(withTimer,withImg){const now=Date.now(),L=[],cov={};
     for(const n of notes){if((n.type!=='rem'&&n.type!=='date')||n.rem<0)continue;
-      for(let i=0;i<45&&L.length<300;i++){const d=new Date();d.setDate(d.getDate()+i);const day=ymd(d);
+      for(let i=0;i<45;i++){const d=new Date();d.setDate(d.getDate()+i);const day=ymd(d);
         if(!occursOn(n,day)||isDone(n,day)||(n.fired||[]).includes(day))continue;
         const at=eventAt(n,day).getTime()-n.rem*6e4;if(at<=now)continue;
         const a={id:n.id+'_'+day,at,title:(/^\p{Extended_Pictographic}/u.test(n.name)?'':'⏰ ')+n.name,body:'🕓 '+(n.time||T('Весь день'))+(n.rem>0?' · '+remLabel(n.rem):'')+(n.text?'\n'+n.text:''),color:n.color||''};
         // Android: обложка (фильм/сериал) — один раз на запись, телефон сохранит её в файл cov_<id>
-        if(withImg&&typeof IMGS[n.id]==='string'&&IMGS[n.id].length<400000){a.cov=n.id;if(!L.some(x=>x.cov===n.id))a.img=IMGS[n.id]}
+        if(withImg&&typeof IMGS[n.id]==='string'&&IMGS[n.id].length<400000){a.cov=n.id;cov[n.id]=IMGS[n.id]}
         L.push(a)}}
     if(withTimer){try{L.push(...cycAlarms())}catch(e){}}
     if(withTimer&&tRun&&tEnd>now)L.push({id:'timer',at:tEnd,title:T('⏳ Таймер'),body:$('#tLabel')?.value||T('Время вышло')});
+    // сначала ближайшие, потом обрезка до 300 (раньше обрезалось в порядке создания — у поздних записей будильников не было)
+    L.sort((a,b)=>a.at-b.at);if(L.length>300)L.length=300;
+    for(const a of L)if(a.cov&&cov[a.cov]){a.img=cov[a.cov];delete cov[a.cov]}   // обложка — один раз на запись, у первого будильника
     return L}
 // ПК: расписание напоминаний → помощник gemday-helper.ps1 → отложенные уведомления Windows (придут и при закрытой программе)
 let pcHelper=false,pcT=0;
@@ -3250,8 +3359,9 @@ $('#mpm').onclick=e=>{const b=e.target.closest('[data-m]');if(!b)return;view=new
 $('#mp').addEventListener('click',e=>e.stopPropagation());
 document.addEventListener('click',()=>{$('#mp').hidden=true});
 $('#styleBtn').onclick=()=>$('#themeBtn').click();
-$('#prev').onclick=()=>{view.setMonth(view.getMonth()-(calMode==='y'?12:1));render()};
-$('#nextM').onclick=()=>{view.setMonth(view.getMonth()+(calMode==='y'?12:1));render()};
+function weekStep(n){const d=parseYmd(sel);d.setDate(d.getDate()+7*n);sel=ymd(d);view=new Date(d);view.setDate(1);render()}
+$('#prev').onclick=()=>{if(calMode==='w')return weekStep(-1);view.setMonth(view.getMonth()-(calMode==='y'?12:1));render()};
+$('#nextM').onclick=()=>{if(calMode==='w')return weekStep(1);view.setMonth(view.getMonth()+(calMode==='y'?12:1));render()};
 $('#todayBtn').onclick=()=>{view=new Date();view.setDate(1);sel=ymd(new Date());render()};
 let calHid=0,calDay=ymd(new Date());document.addEventListener('visibilitychange',()=>{if(document.hidden){calHid=Date.now();return}
   if(Date.now()-calHid>10*6e4||ymd(new Date())!==calDay){calDay=ymd(new Date());if(!multi&&!document.querySelector('dialog[open]')){view=new Date();view.setDate(1);sel=calDay;render()}}});
@@ -3495,7 +3605,7 @@ $('#workBtn').onclick=()=>{
   const st=new Date(settings.workStart),en=new Date();
   settings.workStart=null;save('cal.settings',settings);
   if(en-st<60000){toast(T('Меньше минуты — не записано'));updateWork();return}
-  notes.push({id:newId(),type:'work',cat:wcat(),date:ymd(st),start:hm(st),end:hm(en),text:'',name:'',time:'',rem:-1,rep:'',color:CATS[wcat()].color,done:false,doneDays:[],fired:[]});
+  notes.push({id:workId(ymd(st),wcat()),type:'work',cat:wcat(),date:ymd(st),start:hm(st),end:hm(en),text:'',name:'',time:'',rem:-1,rep:'',color:CATS[wcat()].color,done:false,doneDays:[],fired:[]});
   persist();toast(T('Записано: ')+fmtDur((en-st)/6e4));
 };
 
@@ -3950,11 +4060,12 @@ function fire(title,body,n){
   fire.rep=setInterval(()=>{if($('#alarm').style.display!=='flex'||++k>=8){clearInterval(fire.rep);return}beep()},3500);
 }
 $('#aOk').onclick=()=>{$('#alarm').style.display='none'};
-$('#aSnooze').onclick=()=>{
+$('#aSnooze').onclick=e=>{
+  const b=e.target.closest('[data-sn]');if(!b)return;
   $('#alarm').style.display='none';if(!alarmFrom)return;
-  const t=new Date(Date.now()+6e5);
+  const v=b.dataset.sn,t=new Date(Date.now()+(v==='tm'?864e5:v*6e4));
   notes.push({id:newId(),type:'rem',name:alarmFrom.name,text:alarmFrom.text,date:ymd(t),time:hm(t),rem:0,rep:'',color:alarmFrom.color,done:false,doneDays:[],fired:[]});
-  persist();toast(T('Напомню через 10 минут'));
+  persist();toast(v==='tm'?T('Напомню завтра в')+' '+hm(t):T('Напомню через')+' '+(v==60?T('1 час'):v+' '+T('мин')));
 };
 function checkReminders(){
   const now=Date.now();let changed=false;
@@ -4025,7 +4136,7 @@ $('#sound').onchange=e=>{settings.sound=e.target.checked;save('cal.settings',set
 
 // ---- экспорт / импорт ----
 // всё содержимое программы: записи, заметки, дни, настройки, цикл, деньги, цвета дней, обложки (до ~3 МБ)
-function packObj(withImg){const o={v:2,notes,memos,days:dayCats,set:settings,cyc,money:mlog,mdel,goals:mgoals||[],dcol:dayCol,me:typeof me==='object'?me:{}};
+function packObj(withImg){const o={v:2,notes,memos,days:dayCats,set:settings,cyc,money:mlog,mdel,goals:mgoals||[],dcol:dayCol,me:typeof me==='object'?me:{},gone:GONE};
   if(withImg){let sz=0;const im={};for(const n of notes){const v=IMGS[n.id];if(!v)continue;sz+=v.length;if(sz>3e6)break;im[n.id]=v}o.imgs=im}return o}
 // принять «остальное» (цикл, деньги, цвета, обложки) — объединить с тем, что уже есть; проверка полей — при перезапуске
 function mergeExtra(raw){let ch=false;const ob=x=>x&&typeof x==='object'&&!Array.isArray(x),BAD=/^(__proto__|constructor|prototype)$/,
@@ -4041,12 +4152,31 @@ function mergeExtra(raw){let ch=false;const ob=x=>x&&typeof x==='object'&&!Array
   if(ob(raw.dcol)){save('cal.dcol',mix(load('cal.dcol',{}),raw.dcol));ch=true}
   if(ob(raw.imgs)){const cur=mix(load('cal.imgs',{}),{});for(const k of Object.keys(raw.imgs))if(RX.id.test(k)&&typeof raw.imgs[k]==='string'&&raw.imgs[k].length<130000)cur[k]=raw.imgs[k];save('cal.imgs',cur);ch=true}
   return ch}
-$('#expBtn').onclick=()=>download('gemday-'+ymd(new Date())+'.json',JSON.stringify(packObj(true)),'application/json');
+$('#expBtn').onclick=()=>{download('gemday-'+ymd(new Date())+'.json',JSON.stringify({...packObj(true),at:Date.now()}),'application/json');bkSet(Date.now(),'file')};
+// ---- авто-копия раз в неделю: телефон → «Загрузки/Gemday», ПК с помощником → «Документы\Gemday\Копии»; иначе — напоминание ----
+function bkGet(){const o=load('cal.bk',{})||{};return{t:+o.t||0,w:typeof o.w==='string'?o.w.slice(0,10):'',ask:+o.ask||0}}
+function bkSet(t,w){const o=bkGet();o.t=t;o.w=w;save('cal.bk',o);bkUi()}
+function bkUi(){const el=$('#bkInfo');if(!el)return;const b=bkGet(),W={phone:T('в «Загрузки/Gemday» на телефоне'),pc:T('в «Документы\\Gemday\\Копии»'),file:T('в файл')};
+  el.innerHTML=b.t?`🛟 ${T('Последняя копия')}: <b>${new Date(b.t).toLocaleDateString(LOC)}</b> ${W[b.w]||''}${(window.CrystalAndroid&&CrystalAndroid.backupSave)||pcHelper?' · '+T('следующая — сама через неделю'):''}`:`⚠️ ${T('Копии данных ещё не было. Сохраните файл — если телефон потеряется или браузер очистится, записи можно будет вернуть.')}`}
+function autoBackup(){const b=bkGet(),now=Date.now(),wk=7*864e5;if(now-b.t<wk)return;
+  const body=()=>JSON.stringify({...packObj(true),at:now}),name='gemday-auto-'+ymd(new Date())+'.json';
+  if(window.CrystalAndroid&&CrystalAndroid.backupSave){try{if(CrystalAndroid.backupSave(name,body()))return bkSet(now,'phone')}catch(e){}}
+  else if(location.protocol==='file:'&&typeof PCK!=='undefined'&&PCK&&pcHelper){fetch('http://127.0.0.1:47613/backup?k='+PCK,{method:'POST',body:body()}).then(r=>{if(r.ok)bkSet(now,'pc')}).catch(()=>{});return}
+  // нет помощника: раз в 3 дня спросить, если копии нет больше месяца (и есть что терять)
+  if(now-b.t>30*864e5&&now-b.ask>3*864e5&&notes.length+memos.length+mlog.length>=10&&!document.querySelector('dialog[open]')){const o=bkGet();o.ask=now;save('cal.bk',o);
+    yShow('🛟 '+T('Сделайте копию данных'),b.t?T('Последней копии больше месяца. Сохраните файл — им можно вернуть все записи на новом телефоне или ПК.'):T('Все записи хранятся только на этом устройстве. Сохраните файл-копию — им можно вернуть всё, если телефон потеряется или браузер очистится.'),[{t:'⬇ '+T('Сохранить копию'),cta:1,on:()=>$('#expBtn').click()},{t:T('Позже')}])}}
+setTimeout(()=>{bkUi();try{autoBackup()}catch(e){}},12000);setInterval(()=>{try{autoBackup()}catch(e){}},36e5);
 $('#impBtn').onclick=()=>$('#impFile').click();
 $('#impFile').onchange=async e=>{
   const f=e.target.files[0];if(!f)return;
   if(f.size>20e6){toast(T('⚠ Файл слишком большой'));e.target.value='';return}
-  try{const raw=JSON.parse(await f.text()),arr=Array.isArray(raw)?raw:raw.notes;if(!Array.isArray(arr))throw 0;
+  let raw;try{raw=JSON.parse(await f.text());if(!Array.isArray(Array.isArray(raw)?raw:raw.notes))throw 0}catch(err){toast(T('Не удалось прочитать файл'));e.target.value='';return}
+  e.target.value='';
+  // сначала показать, что в копии, — и только после «Восстановить» добавить (своё не затирается, добавляется недостающее)
+  {const A=Array.isArray(raw)?raw:raw.notes,ln=x=>Array.isArray(x)?x.length:0,when=+raw.at>0?new Date(+raw.at).toLocaleString(LOC):'';
+    const ok=await new Promise(r=>yShow('🛟 '+T('Восстановить из копии?'),(when?T('Копия от')+' '+when+'\n':'')+T('Записей календаря')+': '+ln(A)+' · '+T('заметок')+': '+ln(raw.memos)+' · '+T('доходов и расходов')+': '+ln(raw.money)+'\n'+T('Ваши записи останутся — добавится только то, чего нет на этом устройстве.'),[{t:T('Восстановить'),cta:1,on:()=>r(true)},{t:T('Отмена'),on:()=>r(false)}]));
+    if(!ok)return}
+  try{const arr=Array.isArray(raw)?raw:raw.notes;
     const mi=new Set(memos.map(m=>m.id));let added=0,madd=0;
     cleanList(raw.memos,cleanMemo).forEach(m=>{if(!mi.has(m.id)){memos.push(m);mi.add(m.id);madd++}});saveMemos();
     if(raw.days&&typeof raw.days==='object'){for(const k in raw.days)if(RX.date.test(k)&&DAYCATS[raw.days[k]]&&!dayCats[k])dayCats[k]=raw.days[k];saveDays()}
@@ -4055,13 +4185,21 @@ $('#impFile').onchange=async e=>{
     persist();toast(T`Добавлено записей: ${added}`+(madd?T`, заметок: ${madd}`:''));
     if(mergeExtra(raw)){toast(T('✓ Загружено всё: записи, цикл, доходы и расходы, цвета дней, обложки'));setTimeout(()=>location.reload(),1200)}
   }catch(err){toast(T('Не удалось прочитать файл'))}
-  e.target.value='';
 };
 // удалить ВСЁ на этом устройстве: календарь, заметки, цикл, деньги, фото, связь устройств (остаются только настройки вида и покупка Pro)
 $('#wipeBtn').onclick=()=>{if(!confirm(T('Удалить ВСЕ записи на этом устройстве — календарь, заметки, цикл и здоровье, деньги, фото? Связь с другими устройствами отключится. Это нельзя отменить.')))return;
+wipeLocal()};
+function wipeLocal(){
   const keep=/^cal\.(settings|pro|mig.*|lite|dev|batx)$/;try{for(const k of Object.keys(localStorage))if(/^cal\./.test(k)&&!keep.test(k))localStorage.removeItem(k)}catch(e){}
   try{window.CrystalAndroid&&CrystalAndroid.setLink&&CrystalAndroid.setLink('');window.CrystalAndroid&&CrystalAndroid.setAlarms&&CrystalAndroid.setAlarms('[]')}catch(e){}
   toast(T('Все записи удалены'));setTimeout(()=>location.reload(),700)};
+// «Удалить мои данные»: сервер (личная комната синхронизации + своё в семье), потом это устройство
+$('#myDelBtn').onclick=async()=>{if(!confirm(T('Удалить ВСЕ ваши данные — на сервере синхронизации, в семье и на этом устройстве? На другом связанном устройстве записи останутся: удалите их там этой же кнопкой. Это нельзя отменить.')))return;
+  try{if(FB_DB&&link){if(!fbRoom)fbRoom=await fbRoomOf();const r=await fetch(fbUrl('?shallow=true'));if(!r.ok)throw new Error('fb '+r.status);const ks=Object.keys(await r.json()||{});
+      for(let i=0;i<ks.length;i+=500){const b={};for(const k of ks.slice(i,i+500))b[k]=null;const w=await fetch(fbUrl(),{method:'PATCH',body:JSON.stringify(b)});if(!w.ok)throw new Error('fb '+w.status)}}
+    if(FB_DB&&fam)await famFbDrop()}
+  catch(e){return yShow(T('⚠ Нет связи с сервером'),T('Данные на сервере не удалены. Попробуйте ещё раз, когда будет интернет.'),[{t:T('Закрыть')}])}
+  try{fbES&&fbES.close();famES&&famES.close()}catch(e){}link=null;fam=null;wipeLocal()};
 
 // ---- смайлики: вставляются туда, где стоит курсор ----
 const EMO_QUICK='🎂 🎉 🎁 ❤️ 😊 😂 👍 🔥 ⭐ 💼 🏠 🚗'.split(' ');
@@ -4197,7 +4335,7 @@ function loop(){
     $('#clock').textContent=pad(d.getHours())+':'+pad(d.getMinutes())+':'+pad(d.getSeconds());
     $('#clockDate').textContent=`${WDL[d.getDay()]}, ${d.getDate()} ${MONTHS_G[d.getMonth()]}`;
     if(ymd(d)!==curDay){curDay=ymd(d);render()}
-    if(d.getSeconds()===0){renderSum();cycCheck()}
+    if(d.getSeconds()===0){renderSum();cycCheck();try{planTick()}catch(e){}}
     tickCountdowns();updateNext();checkReminders();if(settings.workStart)updateWork();
   }
 }
@@ -4516,7 +4654,7 @@ async function p2pHost(){
   p2pClose();const my=relayOn;qP2P=true;qPhone=false;qParts=[];qSetAuto(false);
   $('#qT').textContent=T('📱 Подключить телефон');$('#qNav').hidden=true;$('#qCam').hidden=true;$('#qOff').hidden=false;
   $('#qSub').textContent=T('Наведите камеру телефона на код и откройте ссылку (или в приложении Gemday: «Подключиться к ПК»).');
-  $('#qNote').textContent=T('Записи зашифрованы ключом, который есть только в этом QR-коде, и лежат на сервисе ntfy.sh не дольше 3 часов — прочитать их там никто не может.');
+  $('#qNote').textContent=FB_DB?T('Записи зашифрованы ключом, который есть только в этом QR-коде, — на сервере синхронизации прочитать их никто не может. Код не устаревает, пока вы не нажмёте «Отвязать».'):T('Записи зашифрованы ключом, который есть только в этом QR-коде, и лежат на сервисе ntfy.sh не дольше 3 часов — прочитать их там никто не может.');
   const cv=$('#qCv');cv.getContext('2d').clearRect(0,0,cv.width,cv.height);qStatus(T('⏳ Готовлю код…'));
   if(!$('#qdlg').open)$('#qdlg').showModal();
   try{
@@ -4587,7 +4725,7 @@ $('#qCam').onclick=()=>{$('#qdlg').close();scanOpen('user')};
 const devId=(()=>{try{let d=localStorage.getItem('cal.dev');if(!/^[a-z0-9]{12}$/.test(d||'')){d=rnd(12);localStorage.setItem('cal.dev',d)}return d}catch(e){return 'x'}})();
 let link=(()=>{const x=load('cal.link',null);return x&&/^crys-[a-z0-9]{24}$/.test(x.topic)&&/^[A-Za-z0-9_-]{43}$/.test(x.key)?{topic:x.topic,key:x.key,last:/^[A-Za-z0-9]{1,20}$/.test(x.last||'')?x.last:''}:null})();
 const remOf=()=>notes.filter(n=>n.type==='rem'||n.type==='date');
-function linkBridge(){try{if(window.CrystalAndroid&&CrystalAndroid.setLink)CrystalAndroid.setLink(link?JSON.stringify({topic:link.topic,key:link.key,dev:devId}):'')}catch(e){}}
+function linkBridge(){try{if(window.CrystalAndroid&&CrystalAndroid.setLink)CrystalAndroid.setLink(link?JSON.stringify({topic:link.topic,key:link.key,dev:devId,fb:FB_DB||''}):'')}catch(e){}}
 async function linkPair(topic,key,d){linkSave(topic,key);yShow(T('🔄 Связываю…'),T('Пара секунд — отправляю ваши записи на компьютер.'),[]);
   if(FB_DB){try{await fbListen(true);clearTimeout(fbSoon.t);await fbPush()}catch(e){}try{const st=load('cal.syncAt',{})||{};st.peer=Date.now();save('cal.syncAt',st)}catch(e){}
     $('#ydlg').close();if(fbErr)toast(T('⚠ Связь с сервером не получилась — повторю сам, когда будет интернет'));else toast(T('🔄 Устройства связаны — дальше всё синхронизируется само'));linkUi();return}
@@ -4595,7 +4733,7 @@ async function linkPair(topic,key,d){linkSave(topic,key);yShow(T('🔄 Связ�
   try{allLast=0;allPush.sig=null;await allPush(true,true)}catch(e){}
   try{const st=load('cal.syncAt',{})||{};st.peer=Date.now();save('cal.syncAt',st)}catch(e){}
   if(d)syncShow(d,false);else{$('#ydlg').close();toast(T('🔄 Устройства связаны'))}}
-function linkSave(topic,key){if(link&&link.topic===topic&&link.key===key)return;link={topic,key,last:''};save('cal.link',link);fbRoom='';fbSent={};fbSeen={};save('cal.fbSent',{});save('cal.fbSeen',{});save('cal.fbSince',0);try{fbStart()}catch(e){}try{const st=load('cal.syncAt',{})||{};st.linked=Date.now();delete st.peer;save('cal.syncAt',st)}catch(e){}try{linkListen()}catch(e){}linkBridge();linkUi();linkPush(true);linkPull();allReq();allPush(true)}
+function linkSave(topic,key){if(link&&link.topic===topic&&link.key===key)return;link={topic,key,last:''};save('cal.link',link);fbRoom='';fbSent={};fbSeen={};fbDirty={};fbListen.got=0;save('cal.fbSent',{});save('cal.fbSeen',{});save('cal.fbDirty',{});save('cal.fbSince',0);save('cal.fbFull',0);try{fbStart()}catch(e){}try{const st=load('cal.syncAt',{})||{};st.linked=Date.now();delete st.peer;save('cal.syncAt',st)}catch(e){}try{linkListen()}catch(e){}linkBridge();linkUi();linkPush(true);linkPull();allReq();allPush(true)}
 // «пришли всё»: другое устройство в ответ отправит полное содержимое
 function allReq(){try{if(link&&!FB_DB)fetch(`${RELAY}${link.topic}?tags=req`,{method:'PUT',body:'req.'+devId}).catch(()=>{})}catch(e){}}
 function relayMine(d){try{const m=JSON.parse(d);const nm=m.attachment&&m.attachment.name||'',msg=m.message||'';return nm===devId+'.bin'||msg==='req.'+devId||msg==='r.'+devId||msg==='hello.'+devId}catch(e){return false}}
@@ -4603,17 +4741,19 @@ function relayMine(d){try{const m=JSON.parse(d);const nm=m.attachment&&m.attachm
 function relaySSE(topic,onOther,st){let es;try{es=new EventSource(`${RELAY}${topic}/sse`)}catch(e){return null}st.fails=st.fails||0;
   es.onopen=()=>{st.fails=0};es.onmessage=ev=>{if(!relayMine(ev.data))onOther()};
   es.onerror=()=>{try{es.close()}catch(e){}st.fails++;clearTimeout(st.t);st.t=setTimeout(()=>st.re&&st.re(),Math.min(15*6e4,6e4*2**Math.min(st.fails-1,4)))};return es}
-function relayBusyText(){return Date.now()<relayState.until?T`⏳ Сервер связи просит подождать — повторю сам через ${Math.ceil((relayState.until-Date.now())/6e4)} мин.`:''}
 function linkUi(){const b=$('#linkBox');if(b)b.hidden=!link;const n=$('#linkNo');if(n)n.hidden=!!link;
   const st=load('cal.syncAt',{})||{},f=t=>t?new Date(t).toLocaleString(LOC,{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'}):'—';
   const e=$('#linkSt');if(!e)return;const code=link?link.topic.slice(-4).toUpperCase():'',since=link?(st.linked||0):0;
   if(link&&!st.linked){st.linked=Date.now();save('cal.syncAt',st)}
   const lost=link&&!st.peer&&Date.now()-(st.linked||Date.now())>3*6e4;
-  e.innerHTML=esc(T`Отправлено: ${f(st.out)} · получено: ${f(st.in)}`)+`<br><b class="lkcode">🔑 ${esc(T('Код связи'))}: ${code}</b>`+(lost?`<span class="lkbad">⚠ ${esc(T('Другое устройство на этом канале ни разу не отвечало. Откройте «Синхронизация устройств» на телефоне: код связи должен быть таким же. Если код другой или его нет — нажмите здесь «📱 Подключить ещё устройство (QR-код)», а на телефоне «📷 Подключиться заново» и наведите камеру на код.'))}</span>`:'')}
+  let head='';try{if(link&&FB_DB){const nq=Object.keys(fbDirty).length,hm=t=>t?new Date(t).toLocaleTimeString(LOC,{hour:'2-digit',minute:'2-digit'}):'—';
+    head=(!navigator.onLine?(nq?T`⏳ Отправлю, когда будет интернет (изменений: ${nq})`:T('⏳ Нет интернета — синхронизирую, когда появится'))
+      :fbErr?T('⚠ Нет связи с сервером — повторю сам через минуту'):nq?T('⏳ Отправляю изменения…'):T`✅ Синхронизировано ${hm(Math.max(st.out||0,st.in||0,st.peer||0))}`)}}catch(x){}
+  e.innerHTML=(head?`<b class="lkst">${esc(head)}</b><br>`:'')+esc(T`Отправлено: ${f(st.out)} · получено: ${f(st.in)}`)+`<br><b class="lkcode">🔑 ${esc(T('Код связи'))}: ${code}</b>`+(lost?`<span class="lkbad">⚠ ${esc(T('Другое устройство на этом канале ни разу не отвечало. Откройте «Синхронизация устройств» на телефоне: код связи должен быть таким же. Если код другой или его нет — нажмите здесь «📱 Подключить ещё устройство (QR-код)», а на телефоне «📷 Подключиться заново» и наведите камеру на код.'))}</span>`:'')}
 function syncMark(k){const st=load('cal.syncAt',{})||{};st[k]=Date.now();save('cal.syncAt',st);linkUi()}
 let linkT=0,linkBusy=false;
 function linkPush(force){
-  try{if(!link||linkBusy)return}catch(e){return} // при запуске программы связь ещё не прочитана
+  try{if(!link||linkBusy||FB_DB)return}catch(e){return} // при запуске программы связь ещё не прочитана; с Firebase напоминания едут ключом FB_REM
   clearTimeout(linkT);
   linkT=setTimeout(async()=>{try{
     const R=remOf(),sig=JSON.stringify(R),day=ymd(new Date());
@@ -4682,8 +4822,19 @@ function allApply(p){try{if(/^[a-z0-9]{12}$/.test(p.dev||'')&&p.dev!==devId){con
   if(Object.keys(x).length&&mergeExtra(x))ex=true;
   if(dedupeNotes()|dedupeMemos())ch=true;
   if(ch){noteSigs(false);save('cal.notes',notes);saveMemos();saveDays();render();try{renderMemos()}catch(e){}androidSync();toast(T('🔄 Записи и заметки обновлены с другого устройства'))}
-  if(ex){const busy=botBusy>0||/INPUT|TEXTAREA|SELECT/.test(document.activeElement&&document.activeElement.tagName||'')||document.querySelector('dialog[open]');if(busy)allPend=true;else location.reload()}}
-document.addEventListener('visibilitychange',()=>{if(document.hidden){allPush(false,true)}else if(allPend&&!botBusy&&!document.querySelector('dialog[open]')){allPend=false;location.reload()}});
+  if(ex){const busy=botBusy>0||/INPUT|TEXTAREA|SELECT/.test(document.activeElement&&document.activeElement.tagName||'')||document.querySelector('dialog[open]');if(busy)allPend=true;else stateRefresh()}}
+document.addEventListener('visibilitychange',()=>{if(document.hidden){allPush(false,true)}else if(allPend&&!botBusy&&!document.querySelector('dialog[open]')){allPend=false;stateRefresh()}});
+// принятое с другого устройства (деньги, цикл, цвета, обложки, профиль) — перечитать из памяти и перерисовать без перезагрузки страницы
+function stateRefresh(){try{
+    {const x=load('cal.imgs',{})||{},ids=new Set(notes.map(n=>n.id)),o={};for(const k in x)if(ids.has(k)&&typeof x[k]==='string'&&/^data:image\/jpeg;base64,[A-Za-z0-9+/=]{20,120000}$/.test(x[k]))o[k]=x[k];IMGS=o}
+    {const x=load('cal.dcol',{}),o={};if(x&&typeof x==='object')for(const k in x)if(RX.date.test(k)&&/^#[0-9a-f]{6}$/i.test(x[k]))o[k]=x[k];dayCol=o}
+    cyc=cycClean(load('cal.cyc',{})||{});
+    mlog=cleanList(load('cal.money',[]),cleanMoney);
+    {const o=load('cal.mdel',{})||{},r={},old=Date.now()-365*864e5;for(const k of Object.keys(o))if(RX.id.test(k)&&+o[k]>old)r[k]=+o[k];mdel=r}
+    mgoals=cleanList(load('cal.goals',[]),cleanGoal);
+    me=cleanMe(load('cal.me',{}),false);
+  }catch(e){location.reload();return}   // не вышло — как раньше, перезагрузка
+  try{render()}catch(e){}try{meNav()}catch(e){}try{androidSync()}catch(e){}fbRefresh();toast(T('🔄 Обновлено с другого устройства'))}
 // после перезагрузки (синхронизация, Android выгрузил программу) — открыть тот раздел, где был человек, если прошло меньше 30 минут
 addEventListener('load',()=>{try{const x=JSON.parse(localStorage.getItem('cal.lastView')||'null');if(x&&x.v!=='cal'&&Date.now()-x.t<7*864e5&&document.getElementById('v-'+x.v)&&!location.hash)showView(x.v)}catch(e){}});
 setInterval(()=>allPush(),10000);
@@ -4692,9 +4843,15 @@ function allSoon(){if(FB_DB)return fbSoon();if(!link)return;clearTimeout(allSoon
 // ---- синхронизация своих устройств (ПК ↔ телефон) через Firebase Realtime Database ----
 // каждая запись — отдельный элемент, зашифрованный ключом из QR-кода (сервер видит только шифр); лежит на сервере, пока другое устройство не заберёт.
 // отправляются только изменения; удалённое уходит как «удалено» и не возвращается. Новые изменения приходят сразу (постоянное соединение).
-const FB_DB='';
+const FB_DB='https://gamday-43311-default-rtdb.europe-west1.firebasedatabase.app';   // проект Firebase «Gamday» (создан 23.11.2026), правила — tools\firebase-rules.json
 let fbRoom='',fbES=null,fbBusy=false,fbAgain=false,fbNoIdx=false,fbErr='',fbQ=Promise.resolve(),fbPeerCb=null;
 let fbSent=load('cal.fbSent',{})||{},fbSeen=load('cal.fbSeen',{})||{};
+// логические часы: время записи = max(часы устройства, последнее увиденное +1) — убежавшие часы телефона не делают старую правку «новее»
+let fbClk=+load('cal.fbClk',0)||0,fbDirty=load('cal.fbDirty',{})||{};   // fbDirty: ключ → когда изменено здесь и ещё не отправлено
+const fbNow=()=>{fbClk=Math.max(Date.now(),fbClk+1);return fbClk};
+const fbSaveQ=()=>{save('cal.fbClk',fbClk);save('cal.fbDirty',fbDirty)};
+const FB_REM='n_%24rem-';   // расписание напоминаний ПК для фоновой проверки на телефоне (Link.java), по ключу на устройство
+const FB_KEEP=90*864e5;     // «надгробия» (удаления) живут на сервере 90 дней
 const fbH=s=>{let a=0xdeadbeef,b=0x41c6ce57;for(let i=0;i<s.length;i++){const c=s.charCodeAt(i);a=Math.imul(a^c,2654435761);b=Math.imul(b^c,1597334677)}
   a=Math.imul(a^(a>>>16),2246822507)^Math.imul(b^(b>>>13),3266489909);b=Math.imul(b^(b>>>16),2246822507)^Math.imul(a^(a>>>13),3266489909);return(b>>>0).toString(36)+(a>>>0).toString(36)+s.length.toString(36)};
 const fbK=s=>String(s).replace(/[.$#\[\]\/%]/g,c=>'%'+c.charCodeAt(0).toString(16).padStart(2,'0'));
@@ -4713,30 +4870,44 @@ function fbItems(){const o={},J=JSON.stringify;
   for(const k in c.day)o['y_'+k]=J(c.day[k]);
   {const{day,...r}=c;o.s_cyc=J(r)}
   o.s_me=J(me);if(fam)o.s_fam=J({topic:fam.topic,key:fam.key,name:fam.name});
+  if(!window.CrystalAndroid)try{o[FB_REM+devId]=J({alarms:alarmList(false)})}catch(e){}
   return o}
-async function fbEnc(json){return String(Date.now()).padStart(13,'0')+'.'+devId+'.'+b64u(await enc(json,unb64u(link.key)))}
+async function fbEnc(json){return String(fbNow()).padStart(13,'0')+'.'+devId+'.'+b64u(await enc(json,unb64u(link.key)))}
 async function fbDec(v){const m=/^(\d{13})\.([a-z0-9]{12})\.([A-Za-z0-9_-]+)$/.exec(v||'');if(!m)return null;return{t:+m[1],dev:m[2],json:await dec(unb64u(m[3]),unb64u(link.key))}}
 function fbSoon(ms){if(!FB_DB)return;try{if(!link)return}catch(e){return}clearTimeout(fbSoon.t);fbSoon.t=setTimeout(fbPush,ms==null?1500:ms)}
-async function fbPush(){if(!FB_DB||!link||!navigator.onLine)return;if(fbBusy){fbAgain=true;return}fbBusy=true;
-  try{if(!fbRoom)fbRoom=await fbRoomOf();const L=fbItems(),out=[],hs={};
-    for(const k in L){const h=fbH(L[k]);if(fbSent[k]!==h){out.push([k,L[k]]);hs[k]=h}}
-    for(const k in fbSent)if(!(k in L)&&fbSent[k]!=='del'){out.push([k,'null']);hs[k]='del'}
+async function fbPush(){if(!FB_DB||!link)return;if(fbBusy){fbAgain=true;return}fbBusy=true;
+  try{// сначала забрать чужое (один раз за запуск): иначе старая правка этого устройства, сделанная без интернета, затёрла бы более новую чужую
+    if(navigator.onLine&&!fbListen.got)await fbListen(true);
+    const L=fbItems(),out=[],hs={},now=fbNow();let dq=0;
+    for(const k in L){const h=fbH(L[k]);if(fbSent[k]!==h){out.push([k,L[k]]);hs[k]=h;if(!fbDirty[k]){fbDirty[k]=now;dq=1}}else if(fbDirty[k]){delete fbDirty[k];dq=1}}
+    for(const k in fbSent)if(!(k in L)&&fbSent[k]!=='del'){out.push([k,'null']);hs[k]='del';if(!fbDirty[k]){fbDirty[k]=now;dq=1}}
+    // надгробия старше 90 дней — убрать с сервера совсем
+    for(const k in fbSent)if(fbSent[k]==='del'&&!(k in L)){const t=+String(fbSeen[k]||'').slice(0,13);if(t>0&&t<now-FB_KEEP){out.push([k,null]);hs[k]=null}}
+    if(dq)fbSaveQ();
+    if(!navigator.onLine||!out.length)return;
+    if(!fbRoom)fbRoom=await fbRoomOf();
     let i=0;while(i<out.length){const body={},keys=[];let sz=0;
-      while(i<out.length&&(!keys.length||sz<2e6)){const[k,j]=out[i++],v=await fbEnc(j);body[k]=v;sz+=v.length;keys.push(k)}
+      while(i<out.length&&(!keys.length||sz<2e6)){const[k,j]=out[i++],v=j===null?null:await fbEnc(j);body[k]=v;sz+=v?v.length:8;keys.push(k)}
       const r=await fetch(fbUrl(),{method:'PATCH',body:JSON.stringify(body)});if(!r.ok)throw new Error('fb '+r.status);
-      for(const k of keys){fbSent[k]=hs[k];fbSeen[k]=body[k].slice(0,26)}save('cal.fbSent',fbSent);save('cal.fbSeen',fbSeen)}
-    if(out.length)syncMark('out');fbErr=''}
-  catch(e){fbErr=String(e.message||e);clearTimeout(fbSoon.t);fbSoon.t=setTimeout(fbPush,3e4)} // нет сети/сервера — повторю сам
+      for(const k of keys){if(hs[k]===null){delete fbSent[k];delete fbSeen[k]}else{fbSent[k]=hs[k];fbSeen[k]=body[k].slice(0,26)}delete fbDirty[k]}
+      save('cal.fbSent',fbSent);save('cal.fbSeen',fbSeen);fbSaveQ()}
+    syncMark('out');fbErr=''}
+  catch(e){fbErr=String(e.message||e);clearTimeout(fbSoon.t);fbSoon.t=setTimeout(fbPush,3e4);try{linkUi()}catch(x){}} // нет сети/сервера — повторю сам
   finally{fbBusy=false;if(fbAgain){fbAgain=false;fbSoon(400)}}}
 // пришло с другого устройства
 async function fbApply(ent){if(!link||!ent.length)return;let L=null,ch=0,ex=0,cy=0,peer=0,since=+load('cal.fbSince',0)||0;const done=[];
   for(const[k,v]of ent){if(typeof v!=='string'||fbSeen[k]===v.slice(0,26))continue;let r;try{r=await fbDec(v)}catch(e){r=null}if(!r)continue;
-    fbSeen[k]=v.slice(0,26);if(r.dev===devId)continue;peer=1;since=Math.max(since,r.t);
+    fbSeen[k]=v.slice(0,26);if(r.dev===devId)continue;peer=1;since=Math.max(since,r.t);fbClk=Math.max(fbClk,Math.min(r.t,Date.now()+864e5));
+    if(k.startsWith(FB_REM))continue;   // расписание напоминаний другого ПК — его читает только фоновая проверка телефона
     let d;try{d=JSON.parse(r.json)}catch(e){continue}
-    if(!L)L=fbItems();const cur=L[k];
-    // своё, ещё не отправленное, новее пришедшего (кроме профиля и семьи — там свои правила)
-    if(k!=='s_me'&&k!=='s_fam'&&(cur!==undefined?fbSent[k]!==fbH(cur):(fbSent[k]&&fbSent[k]!=='del')))continue;
-    const p=k.slice(0,2),id=fbUnK(k.slice(2));
+    if(!L)L=fbItems();const cur=L[k],p=k.slice(0,2),id=fbUnK(k.slice(2));
+    // здесь есть своя, ещё не отправленная правка: побеждает более поздняя (по логическим часам); не отмеченная временем — своя
+    if(k!=='s_me'&&k!=='s_fam'&&(cur!==undefined?fbSent[k]!==fbH(cur):(fbSent[k]&&fbSent[k]!=='del'))){
+      const theirs=fbDirty[k]&&r.t>fbDirty[k];
+      // заметка с текстом: проигравший вариант не пропадает — сохраняется копией «(конфликт)»
+      if(p==='m_'){const loser=theirs?(cur!==undefined?JSON.parse(cur):null):d;
+        if(loser&&typeof loser==='object'&&(cur===undefined||d===null||JSON.stringify(d)!==cur)){const c=cleanMemo({...loser,id:newId(),title:str((loser.title||'')+' ('+T('конфликт')+')',120)});if(c){memos.push(c);ch=1}}}
+      if(!theirs)continue;delete fbDirty[k];fbSaveQ()}
     if(p==='n_'){const i=notes.findIndex(n=>n.id===id);
       if(d===null){if(i>=0){notes.splice(i,1);delete IMGS[id];ch=1}}
       else{const n=cleanNote({...d.n,id});if(n){if(i>=0){n.fired=notes[i].fired;notes[i]=n}else notes.push(n);if(typeof d.img==='string'&&d.img.startsWith('data:image/'))IMGS[id]=d.img;else delete IMGS[id];ch=1}}}
@@ -4764,16 +4935,19 @@ const fbTake=ent=>{fbQ=fbQ.then(()=>fbApply(ent)).catch(()=>{})};
 function fbEntries(data,path){const e=[];if(path==='/'||path==null){if(data&&typeof data==='object')for(const k in data)e.push([k,data[k]])}else{const k=path.slice(1);if(!k.includes('/'))e.push([k,data])}return e}
 // забрать новое (с запасом 6 ч на разницу часов устройств) и держать постоянное соединение
 async function fbListen(fresh){if(!FB_DB||!link||!window.EventSource||!navigator.onLine)return;
-  if(fbES&&!fresh&&fbES.readyState!==2)return;if(fbListen.busy)return;fbListen.busy=1;
+  if(fbES&&!fresh&&fbES.readyState!==2)return;if(fbListen.busy)return fbListen.p;fbListen.busy=1;   // уже скачивает — ждать то же самое (fbPush должен дождаться)
+  return fbListen.p=(async()=>{
   try{if(!fbRoom)fbRoom=await fbRoomOf();try{fbES&&fbES.close()}catch(e){}fbES=null;
+    // новое — с запасом 6 ч на разницу часов; раз в сутки — всё целиком (страховка от пропусков)
+    const full=Date.now()-(+load('cal.fbFull',0)||0)>864e5;
     const since=String(Math.max(0,(+load('cal.fbSince',0)||0)-6*36e5)).padStart(13,'0'),q=()=>fbNoIdx?'':`?orderBy=%22%24value%22&startAt=%22${since}%22`;
-    let r=await fetch(fbUrl(q()));if(r.status===400&&!fbNoIdx){fbNoIdx=true;r=await fetch(fbUrl())}
-    if(r.ok){fbTake(fbEntries(await r.json(),'/'));await fbQ}
+    let r=await fetch(fbUrl(full?'':q()));if(r.status===400&&!fbNoIdx){fbNoIdx=true;r=await fetch(fbUrl())}
+    if(r.ok){fbTake(fbEntries(await r.json(),'/'));await fbQ;fbListen.got=1;fbErr='';if(full)save('cal.fbFull',Date.now())}else fbErr='fb '+r.status
     const es=fbES=new EventSource(fbUrl(q()));
     const on=ev=>{let m;try{m=JSON.parse(ev.data)}catch(e){return}if(m&&typeof m.path==='string')fbTake(fbEntries(m.data,m.path))};
     es.addEventListener('put',on);es.addEventListener('patch',on);
     es.addEventListener('cancel',()=>{try{es.close()}catch(e){}});
-  }catch(e){fbErr=String(e.message||e)}finally{fbListen.busy=0}}
+  }catch(e){fbErr=String(e.message||e)}finally{fbListen.busy=0}})()}
 function fbStart(){if(!FB_DB||!link)return;fbListen(true);fbSoon(0)}
 addEventListener('load',()=>setTimeout(fbStart,1500));
 setInterval(()=>{if(!link||!FB_DB)return;if(!fbES||fbES.readyState===2)fbListen(true);fbSoon(0)},6e4);
@@ -4789,7 +4963,7 @@ addEventListener('load',()=>setTimeout(linkListen,2000));setInterval(()=>{if(lin
 setInterval(()=>{if(!document.hidden)linkPull()},3e5);setInterval(()=>{if(document.hidden)linkPull()},9e5);
 document.addEventListener('visibilitychange',()=>{if(document.hidden)return;linkPull();if(link&&Date.now()-(allReq.t||0)>15*6e4){allReq.t=Date.now();allReq();allPush(true)}});
 addEventListener('load',()=>{linkUi();linkBridge();setTimeout(()=>{linkPull();linkPush()},1500)});
-$('#linkOff').onclick=()=>{link=null;try{fbES&&fbES.close()}catch(e){}fbES=null;fbRoom='';try{localStorage.removeItem('cal.link');localStorage.removeItem('cal.linkIds')}catch(e){}linkBridge();linkUi();toast(T('Устройства отвязаны'))};
+$('#linkOff').onclick=()=>{link=null;try{fbES&&fbES.close()}catch(e){}fbES=null;fbRoom='';fbDirty={};fbListen.got=0;fbSaveQ();try{localStorage.removeItem('cal.link');localStorage.removeItem('cal.linkIds')}catch(e){}linkBridge();linkUi();toast(T('Устройства отвязаны'))};
 // ---- телефон: «Подключиться к ПК» ----
 $('#pcBtn').onclick=()=>link?syncMenu():$('#cdlg').showModal();
 $('#cX').onclick=()=>$('#cdlg').close();
@@ -4837,13 +5011,61 @@ function syncMenu(){if(!link)return isPhone?$('#cdlg').showModal():p2pHost();
     {t:T('Отвязать устройства'),on:()=>$('#linkOff').click()},{t:T('Закрыть')}])}
 $('#devBtn').onclick=syncMenu;
 if(isPhone){$('#qrBtn').hidden=$('#devBtn').hidden=true;$('#pcBtn').hidden=false}
+// ======== Блокировка входа: PIN (4–6 цифр, хранится только хэш с солью) + отпечаток на Android ========
+// cal.lock = {h: sha256(s+pin), s: соль, n: длина, bio: 0|1, after: минут (-1 = только при запуске)}
+var lkCfg=(()=>{const o=load('cal.lock',null);return o&&/^[0-9a-f]{64}$/.test(o.h)&&/^[0-9a-f]{16,64}$/.test(o.s)?{h:o.h,s:o.s,n:[4,5,6].includes(+o.n)?+o.n:4,bio:o.bio?1:0,after:[-1,0,1,5,30].includes(+o.after)?+o.after:5}:null})();
+let lkIn='',lkMode='open',lkNew='',lkFails=0,lkUntil=0,lkHid=0;
+async function lkHash(salt,pin){const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(salt+':'+pin));return[...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join('')}
+const lkBioOk=()=>{try{return !!(window.CrystalAndroid&&CrystalAndroid.bioOk&&CrystalAndroid.bioOk())}catch(e){return false}};
+function lkDots(){const n=lkMode==='open'?lkCfg.n:6;$$('#lkDots i').forEach((d,i)=>{d.hidden=i>=n;d.classList.toggle('on',i<lkIn.length)})}
+function lkShow(mode){lkMode=mode;lkIn='';document.documentElement.classList.add('locked');
+  $('#lkMsg').textContent=mode==='open'?T('Введите PIN-код'):mode==='new'?T('Придумайте PIN-код: 4–6 цифр'):T('Повторите PIN-код');
+  $('#lkOk').hidden=mode==='open';$('#lkForgot').hidden=mode!=='open';$('#lkBio').hidden=!(mode==='open'&&lkCfg&&lkCfg.bio&&lkBioOk());
+  lkDots();
+  if(mode==='open'&&lkCfg&&lkCfg.bio&&lkBioOk())setTimeout(()=>{try{CrystalAndroid.bioAuth(T('Вход в Gemday'))}catch(e){}},300)}
+function lkUnlock(){document.documentElement.classList.remove('locked');lkIn='';lkFails=0}
+window.gemdayUnlock=ok=>{if(ok&&lkMode==='open')lkUnlock()};
+async function lkKey(k){if(Date.now()<lkUntil)return;
+  if(k==='bio'){try{CrystalAndroid.bioAuth(T('Вход в Gemday'))}catch(e){}return}
+  if(k==='del'){lkIn=lkIn.slice(0,-1);lkDots();return}
+  if(k==='ok'){if(lkMode!=='open'&&lkIn.length>=4)return lkDone();return}
+  if(!/^\d$/.test(k)||lkIn.length>=6)return;lkIn+=k;lkDots();
+  if(lkMode==='open'&&lkIn.length===lkCfg.n){const pin=lkIn;if(await lkHash(lkCfg.s,pin)===lkCfg.h)return lkUnlock();
+    lkIn='';lkFails++;$('#lkBox')?.classList.add('shake');$('#lkMsg').textContent=T('Неверный PIN');
+    if(lkFails>=5){lkUntil=Date.now()+30e3;$('#lkMsg').textContent=T('Слишком много попыток — подождите 30 секунд');setTimeout(()=>{if(lkMode==='open')$('#lkMsg').textContent=T('Введите PIN-код')},30e3)}
+    setTimeout(lkDots,250);return}
+  if(lkMode!=='open'&&lkIn.length===6)lkDone()}
+async function lkDone(){if(lkMode==='new'){lkNew=lkIn;lkShow('rep');$('#lkMsg').textContent=T('Повторите PIN-код')+' ('+lkNew.length+' '+T('цифры')+') '+T('и нажмите ✓');return}
+  if(lkIn!==lkNew){lkShow('new');$('#lkMsg').textContent=T('Не совпало — придумайте PIN ещё раз');return}
+  const salt=[...crypto.getRandomValues(new Uint8Array(16))].map(x=>x.toString(16).padStart(2,'0')).join('');
+  lkCfg={h:await lkHash(salt,lkNew),s:salt,n:lkNew.length,bio:lkBioOk()?1:0,after:lkCfg?lkCfg.after:5};save('cal.lock',lkCfg);lkNew='';lkUnlock();lkUi();toast(T('🔒 PIN-код включён'))}
+$('#lkPad').onclick=e=>{const b=e.target.closest('[data-k]');if(b)lkKey(b.dataset.k)};
+document.addEventListener('keydown',e=>{if(!document.documentElement.classList.contains('locked'))return;e.stopPropagation();
+  if(/^\d$/.test(e.key))lkKey(e.key);else if(e.key==='Backspace')lkKey('del');else if(e.key==='Enter')lkKey('ok');else if(e.key==='Escape'&&lkMode!=='open')lkUnlock();if(e.key!=='Tab')e.preventDefault()},true);
+$('#lkForgot').onclick=()=>yShow('🔒 '+T('Забыли PIN?'),T('PIN-код хранится только на этом устройстве, и восстановить его нельзя. Можно удалить все записи на этом устройстве и начать заново — потом вернуть их из файла-копии или с другого связанного устройства.'),[{t:T('Удалить всё и сбросить PIN'),on:()=>$('#wipeBtn').click()},{t:T('Отмена'),cta:1}]);
+function lkUi(){const on=!!lkCfg;$('#lkInfo').textContent=on?T('PIN-код включён: без него программу не открыть.')+(lkCfg.bio?' '+T('Можно входить отпечатком.'):''):T('Защитите записи, деньги и данные цикла: при открытии Gemday спросит PIN-код.');
+  $('#lkSet').textContent=on?'🔁 '+T('Сменить PIN'):'🔒 '+T('Включить PIN');$('#lkOff').hidden=!on;$('#lkOpts').hidden=!on;
+  if(on){$('#lkBioOn').checked=!!lkCfg.bio;$('#lkBioOn').closest('label').hidden=!lkBioOk();$('#lkAfter').value=String(lkCfg.after)}}
+$('#lkSet').onclick=()=>{lkShow('new');$('#lkForgot').hidden=true};
+$('#lkOff').onclick=()=>yShow(T('Выключить PIN-код?'),T('Программа будет открываться без кода.'),[{t:T('Выключить'),cta:1,on:()=>{lkCfg=null;try{localStorage.removeItem('cal.lock')}catch(e){}lkUi();toast(T('PIN-код выключен'))}},{t:T('Отмена')}]);
+$('#lkBioOn').onchange=()=>{lkCfg.bio=$('#lkBioOn').checked?1:0;save('cal.lock',lkCfg);lkUi()};
+$('#lkAfter').onchange=()=>{lkCfg.after=+$('#lkAfter').value;save('cal.lock',lkCfg)};
+document.addEventListener('visibilitychange',()=>{if(!lkCfg)return;if(document.hidden){lkHid=Date.now();if(lkCfg.after===0)lkShow('open')}else if(lkHid&&lkCfg.after>0&&Date.now()-lkHid>=lkCfg.after*6e4)lkShow('open')});
+if(lkCfg)lkShow('open');else document.documentElement.classList.remove('locked');
+setTimeout(lkUi,0);
 function yShow(t,p,btns){
   $('#yT').textContent=t;$('#yP').textContent=p;const B=$('#yB');B.innerHTML='';
   btns.forEach(o=>{const b=document.createElement(o.href?'a':'button');b.className=o.cta?'cta':'pill';b.textContent=o.t;if(o.href)b.href=o.href;b.onclick=()=>{$('#ydlg').close();if(o.on)o.on()};B.append(b)});
   if(!$('#ydlg').open)$('#ydlg').showModal()}
 function applySync(raw,fromPhone){
-  const up=(list,arr,clean)=>{const ix=new Map(list.map((x,i)=>[x.id,i]));cleanList(arr,clean).forEach(x=>{if(ix.has(x.id))list[ix.get(x.id)]=x;else{ix.set(x.id,list.length);list.push(x)}})};
+  // удаления с другого устройства: {id: когда удалили} — запись убираем, если её не меняли позже удаления
+  if(raw.gone&&typeof raw.gone==='object'&&!Array.isArray(raw.gone)){const lim=Date.now()-90*864e5;for(const k of Object.keys(raw.gone)){const t=+raw.gone[k];if(/^[\w.-]{1,40}$/.test(k)&&t>lim&&t<=Date.now()+864e5&&!(GONE[k]>=t))GONE[k]=t}}
+  const gone=x=>Object.prototype.hasOwnProperty.call(GONE,x.id)&&(x.upd||0)<=GONE[x.id];
+  notes=notes.filter(x=>!gone(x));memos=memos.filter(x=>!gone(x));
+  // та же запись на обоих устройствах — остаётся более новая (раньше QR/файл всегда затирал своё входящим, даже старым)
+  const up=(list,arr,clean)=>{const ix=new Map(list.map((x,i)=>[x.id,i]));cleanList(arr,clean).forEach(x=>{if(gone(x))return;if(ix.has(x.id)){const i=ix.get(x.id);if(noteNewer(x,list[i]))list[i]=x}else{ix.set(x.id,list.length);list.push(x)}})};
   up(notes,raw.notes,cleanNote);up(memos,raw.memos,cleanMemo);dedupeNotes();dedupeMemos();
+  try{localStorage.setItem('cal.gone',JSON.stringify(GONE))}catch(e){}
   if(raw.days&&typeof raw.days==='object')for(const k in raw.days)if(RX.date.test(k)&&DAYCATS[raw.days[k]])dayCats[k]=raw.days[k];
   save('cal.notes',notes);saveMemos();saveDays();
   if(raw.set&&typeof raw.set==='object'&&!Array.isArray(raw.set)){const ns=Object.assign({},settings);for(const k of Object.keys(raw.set))if(/^[a-zA-Z]\w{0,30}$/.test(k)&&k!=='__proto__'&&k!=='constructor'&&k!=='prototype')ns[k]=raw.set[k];save('cal.settings',ns)} // проверка полей — при перезапуске
@@ -4978,6 +5200,16 @@ function memoFromText(title,text){let L=String(text||'').replace(/\r/g,'').split
   if(cb.length>=2&&cb.length>=L.filter(x=>x.trim()).length*.6)return cleanMemo({id:newId(),title:str(title,120),text:'',items:cb.map(x=>({t:x.replace(CB,''),d:/\[[xX]\]|☑|☒|■|✅|✓|✔/.test(x)})),color:COLORS[1],pin:false,upd:Date.now()});
   return cleanMemo({id:newId(),title:str(title,120),text:str(text,20000),color:COLORS[1],pin:false,upd:Date.now()})}
 function memosImport(list){const add=list.filter(Boolean);if(!add.length)return toast(T('Не нашёл заметок в файлах'));memos.unshift(...add);saveMemos();renderMemos();toast(T`📥 Перенесено заметок: ${add.length}`)}
+// быстрые действия со значка Android: «+ Задача», «+ Время», «+ Расход»
+window.gemdayQuick=()=>{let q='';try{q=window.CrystalAndroid&&CrystalAndroid.getQuick?CrystalAndroid.getQuick():''}catch(e){}quickDo(q)};
+function quickDo(q){if(!/^(task|time|money)$/.test(q||''))return;
+  document.querySelectorAll('dialog[open]').forEach(d=>{try{d.close()}catch(e){}});sel=ymd(new Date());
+  if(q==='task'){showView('cal');openForm(null,'rem')}else if(q==='time'){showView('cal');openForm(null,'work')}
+  else if(q==='money'){showView('money');if(isPro())setTimeout(()=>{monT='out';monCatsFill();$('#monAmt').focus()},150)}}
+// ПК: Ctrl+Alt+G и меню значка у часов (помощник) — ?quick= при запуске, а в открытом окне спрашиваем помощника раз в 2 секунды
+{const u=new URL(location.href),q=u.searchParams.get('quick');if(q){u.searchParams.delete('quick');try{history.replaceState(null,'',u.href)}catch(e){}setTimeout(()=>quickDo(q),900)}}
+if(location.protocol==='file:'&&!window.CrystalAndroid&&PCK)setInterval(()=>{if(document.documentElement.classList.contains('locked'))return;fetch('http://127.0.0.1:47613/quick?k='+PCK).then(r=>r.ok?r.text():'').then(q=>{if(q){window.focus();quickDo(q)}}).catch(()=>{})},2000);
+setTimeout(()=>{try{gemdayQuick()}catch(e){}},700);
 window.gemdayCheckShare=()=>{try{if(!window.CrystalAndroid)return;
   // скриншоты через «Поделиться → Gemday»: сразу боту — он разберёт их в заметки (список, текст, несколько карточек)
   if(CrystalAndroid.getSharedImages){const ji=CrystalAndroid.getSharedImages();if(ji){const L=JSON.parse(ji).filter(u=>typeof u==='string'&&/^data:image\/[a-z+.-]+;base64,/.test(u)).slice(0,6);
@@ -5000,13 +5232,18 @@ $('#mImpFile').onchange=async e=>{const out=[];for(const f of [...e.target.files
 // ======== Gemday Pro: подписка (Google Play) + пробный день ========
 // cal.pro = {plan:'trial'|'month'|'year'|'life'|'dev', until:ms (0 — навсегда), trial:ms (когда брали пробный день)}
 let pro=(()=>{const x=load('cal.pro',{})||{};return{plan:['trial','month','year','life'].includes(x.plan)?x.plan:'',until:Number.isFinite(+x.until)?+x.until:0,trial:Number.isFinite(+x.trial)?+x.trial:0}})();
-const PRO_DEV=/[?&]pro=dev\b/.test(location.search)&&location.protocol==='file:';   // ярлык «Gemday Pro» на ПК разработчика — только в этом окне, не сохраняется
+const PRO_DEV=false;   // ярлык «Gemday Pro» на ПК разработчика — только в этом окне, не сохраняется
 if((load('cal.pro',{})||{}).plan==='dev')save('cal.pro',pro);
+// пробная неделя — один раз: отметка дублируется в отдельном ключе (его не трогает «Стереть всё»), срок не дольше 7 дней от начала
+const TRIAL_K='gd.tr';{let t=0;try{t=+localStorage.getItem(TRIAL_K)||0}catch(e){}
+  if(t>0&&(!pro.trial||t<pro.trial))pro.trial=t;
+  if(pro.plan==='trial')pro.until=pro.trial?Math.min(pro.until,pro.trial+7*864e5):0;
+  if(pro.trial&&!t)try{localStorage.setItem(TRIAL_K,String(pro.trial))}catch(e){}}
 const PRO_ICON='icon-pro.png';
 const isPro=()=>PRO_DEV||!!pro.plan&&(pro.until===0&&pro.plan!=='trial'||Date.now()<pro.until);
 const PLANS=[{id:'trial',n:T('Пробная неделя'),d:T('7 дней всех функций — бесплатно, один раз')},{id:'month',n:T('Месяц'),d:T('подписка, можно отменить в любой момент')},{id:'year',n:T('Год'),d:T('подписка — выгоднее месяца'),best:1},{id:'life',n:T('Навсегда'),d:T('одна покупка, без подписки')}];
 let proPrices={};
-function proSave(){save('cal.pro',pro);proPaint()}
+function proSave(){save('cal.pro',pro);if(pro.trial)try{localStorage.setItem(TRIAL_K,String(pro.trial))}catch(e){}proPaint()}
 function proPaint(){
   const on=isPro(),left=pro.until?Math.max(0,pro.until-Date.now()):0;
   $('#proState').textContent=!on?T('Бесплатная версия'):pro.plan==='life'||PRO_DEV?T('💎 Pro навсегда'):pro.plan==='trial'?(left>864e5?T`💎 Пробная неделя: осталось ${Math.ceil(left/864e5)} дн.`:T`💎 Пробная неделя: осталось ${Math.ceil(left/36e5)} ч`):T`💎 Pro до ${fmtD(new Date(pro.until))}`;
@@ -5392,10 +5629,16 @@ function monRender(){
     +(famOn?`<div class="fampp">${mem.slice(0,5).map(m=>{const P=L.filter(x=>x.dev===m.dev),o=P.filter(x=>x.t==='out').reduce((s,x)=>s+x.a,0),i=P.filter(x=>x.t==='in').reduce((s,x)=>s+x.a,0);return `<span class="fpp"><i>${m.n}</i><b>${esc(m.me?T('Вы'):m.label)}</b><em style="color:var(--red)">−${fm(o)}${cur}</em>${i?`<em style="color:var(--green)">+${fm(i)}${cur}</em>`:''}</span>`}).join('')}</div>`:'')
     +(()=>{const pl=allGoals().filter(x=>x.k==='plan'&&!x.done&&x.d>=a&&x.d<=b&&(famOn||x.mine)),ps=pl.reduce((s,x)=>s+x.a,0);return ps?T`<div class="mplan">📅 Ещё запланировано: <b style="color:var(--red)">−${fm(ps)}${cur}</b> → останется <b>${inc-out-ps<0?'−':''}${fm(Math.abs(inc-out-ps))}${cur}</b></div>`:''})();
   const by={};L.filter(x=>x.t==='out').forEach(x=>by[x.c]=(by[x.c]||0)+x.a);const cats=Object.entries(by).sort((x,y)=>y[1]-x[1]),mx=cats.length?cats[0][1]:1;
-  $('#monCats').innerHTML=cats.length?cats.map(([c,v])=>`<div class="r"><span>${mcl(c)}</span><div class="bar"><i style="width:${Math.max(3,v/mx*100)}%;--c:${MCC[c]||'#94a3b8'}"></i></div><b>${fm(v)}${cur}</b></div>`).join(''):`<small style="color:var(--mut)">${T('Расходов за этот период пока нет')}</small>`;
+  // лимиты: заданы на месяц; для недели и года пересчитываются
+  const lk=monP==='w'?7/30.44:monP==='y'?12:1,limOf=c=>mlim[c]?Math.round(mlim[c]*lk):0;
+  Object.keys(mlim).forEach(c=>{if(!by[c])cats.push([c,0])});
+  $('#monCats').innerHTML=cats.length?cats.map(([c,v])=>{const lm=limOf(c),p=lm?v/lm:0,cl=p>=1?'over':p>=.8?'near':'';
+    return `<div class="r${lm?' lim '+cl:''}"><span>${mcl(c)}</span><div class="bar"><i style="width:${Math.max(3,lm?Math.min(100,p*100):v/mx*100)}%;--c:${p>=1?'var(--red)':MCC[c]||'#94a3b8'}"></i></div><b>${fm(v)}${lm?` <small>/ ${fm(lm)}</small>`:''}${cur}</b></div>`}).join(''):`<small style="color:var(--mut)">${T('Расходов за этот период пока нет')}</small>`;
+  {const tl=mlim._all?Math.round(mlim._all*lk):0,el=$('#monLimSum');if(!tl){el.innerHTML='';}else{const p=out/tl,left=tl-out,now=ymd(new Date()),dl=now>=a&&now<=b?Math.max(1,Math.round((parseYmd(b)-parseYmd(now))/864e5)+1):0;
+    el.innerHTML=`<div class="mlimt${p>=1?' over':p>=.8?' near':''}"><div class="bar"><i style="width:${Math.min(100,p*100)}%"></i></div><span>${T('Общий лимит')}: <b>${fm(out)} / ${fm(tl)}${cur}</b> · ${left>=0?T('осталось')+' '+fm(left)+cur+(dl?` · ${T('можно в день')} ${fm(Math.floor(left/dl))}${cur}`:''):T('превышен на')+' '+fm(-left)+cur}</span></div>`}}
   $('#monList').innerHTML=L.length?L.slice(0,300).map(x=>{const d=parseYmd(x.d),tm=x.ts?(t=>pad(t.getHours())+':'+pad(t.getMinutes()))(new Date(x.ts)):'',me=x.dev===devId;
     const who=famOn?`<b class="mwho">👤 ${esc(nm(x.dev))}</b> ${x.t==='in'?(me?T('получили'):T('получил(а)')):(me?T('потратили'):T('потратил(а)'))} · `:'';
-    return `<div class="mrow${famOn?' fam':''}"><small>${d.getDate()} ${MONTHS_G[d.getMonth()].slice(0,3)}${tm?`<em class="mtm">${tm}</em>`:''}</small><span>${who}${mcl(x.c)}${x.n?` <small>· ${esc(x.n)}</small>`:''}</span><span class="${x.t}">${x.t==='in'?'+':'−'}${fm(x.a)}${cur}</span>${x.mine?`<button data-mdel="${x.id}" title="${esc(T('Удалить'))}">✕</button>`:'<i></i>'}</div>`}).join(''):`<small style="color:var(--mut)">${T('Записей пока нет — добавьте вверху или напишите боту «потратил 300 на продукты»')}</small>`;
+    return `<div class="mrow${famOn?' fam':''}${x.mine?' med':''}"${x.mine?` data-medit="${x.id}" title="${esc(T('Нажмите, чтобы изменить'))}"`:''}><small>${d.getDate()} ${MONTHS_G[d.getMonth()].slice(0,3)}${tm?`<em class="mtm">${tm}</em>`:''}</small><span>${who}${mcl(x.c)}${x.n?` <small>· ${esc(x.n)}</small>`:''}</span><span class="${x.t}">${x.t==='in'?'+':'−'}${fm(x.a)}${cur}</span>${x.mine?`<button data-mdel="${x.id}" title="${esc(T('Удалить'))}">✕</button>`:'<i></i>'}</div>`}).join(''):`<small style="color:var(--mut)">${T('Записей пока нет — добавьте вверху или напишите боту «потратил 300 на продукты»')}</small>`;
 }
 function monCatsFill(){$('#monCat').innerHTML=MCAT[monT].map(c=>`<option value="${c}">${mcl(c)}</option>`).join('');$$('#monType button').forEach(b=>b.classList.toggle('on',b.dataset.mt===monT))}
 monCatsFill();$('#monDate').value=ymd(new Date());
@@ -5422,14 +5665,39 @@ document.addEventListener('click',e=>{const el=$('#monPick');if(el&&!el.hidden&&
 $('#monPer').onclick=e=>{const b=e.target.closest('[data-mp]');if(b){monP=b.dataset.mp;monRender()}};
 $('#monPrev').onclick=()=>{monP==='w'?monRef.setDate(monRef.getDate()-7):monP==='m'?monRef.setMonth(monRef.getMonth()-1):monRef.setFullYear(monRef.getFullYear()-1);monRender()};
 $('#monNext').onclick=()=>{monP==='w'?monRef.setDate(monRef.getDate()+7):monP==='m'?monRef.setMonth(monRef.getMonth()+1):monRef.setFullYear(monRef.getFullYear()+1);monRender()};
-function moneyAdd(list){const now=Date.now(),add=cleanList(list.map(x=>({ts:now,...x})),cleanMoney);mlog.push(...add);saveMoney();if($('#v-money').classList.contains('on'))monRender();famPush();return add}
+function moneyAdd(list){const now=Date.now(),add=cleanList(list.map(x=>({ts:now,...x})),cleanMoney);mlog.push(...add);saveMoney();if($('#v-money').classList.contains('on'))monRender();famPush();setTimeout(()=>limWarn(add),2600);return add}
+// ---- лимиты расходов на месяц: cal.mlim = {категория: сумма, _all: общий} ----
+var mlim=(()=>{const o=load('cal.mlim',{})||{},r={};for(const k of Object.keys(o)){const v=Math.round(+o[k]);if((k==='_all'||MCAT.out.includes(k))&&v>0&&v<1e9)r[k]=v}return r})();
+function monthOut(c,ym){return mlog.filter(x=>x.t==='out'&&x.d.slice(0,7)===ym&&(!c||x.c===c)).reduce((s,x)=>s+x.a,0)}
+function limWarn(add){const seen=new Set(),msg=[];for(const x of add){if(x.t!=='out')continue;const ym=x.d.slice(0,7);
+  for(const c of [x.c,'']){const lm=c?mlim[c]:mlim._all,k=c+ym;if(!lm||seen.has(k))continue;seen.add(k);const s=monthOut(c,ym),p=s/lm,was=(s-add.filter(y=>y.t==='out'&&y.d.slice(0,7)===ym&&(!c||y.c===c)).reduce((t,y)=>t+y.a,0))/lm;
+    if(p>=1&&was<1)msg.push('🚨 '+(c?mcl(c):T('Все расходы'))+': '+T('лимит на месяц превышен'));else if(p>=.8&&was<.8)msg.push('⚠️ '+(c?mcl(c):T('Все расходы'))+': '+T('потрачено')+' '+Math.round(p*100)+'% '+T('лимита'))}}
+  if(msg.length)toast(msg.join(' · '))}
+function limOpen(){const cur=' '+settings.cur,ym=ymd(new Date()).slice(0,7);
+  $('#limRows').innerHTML=`<label class="limr all"><span>💼 ${T('Все расходы за месяц')}</span><input type="number" min="0" step="1" inputmode="numeric" data-lim="_all" value="${mlim._all||''}" placeholder="—"><small>${Math.round(monthOut('',ym))}${esc(cur)}</small></label>`
+    +MCAT.out.map(c=>`<label class="limr"><span>${mcl(c)}</span><input type="number" min="0" step="1" inputmode="numeric" data-lim="${c}" value="${mlim[c]||''}" placeholder="—"><small>${Math.round(monthOut(c,ym))}${esc(cur)}</small></label>`).join('');
+  $('#limdlg').showModal()}
+$('#monLimBtn').onclick=limOpen;$('#limCancel').onclick=()=>$('#limdlg').close();
+$('#limSave').onclick=()=>{const r={};$$('#limRows [data-lim]').forEach(i=>{const v=Math.round(+i.value);if(v>0&&v<1e9)r[i.dataset.lim]=v});mlim=r;save('cal.mlim',mlim);$('#limdlg').close();monRender();toast(T('🎯 Лимиты сохранены'))};
 // ======== Цели (копилки) и запланированные расходы — общие с семьёй ========
 // cal.goals = [{id, k:'goal'|'plan', n:название, c:категория, a:сумма, d:'ymd'|'', done:0|1, u:время изменения, del:0|1}]
 // взнос в цель — обычная запись расхода «Копилка и цели» с полем g (так видно, кто сколько внёс, и он уходит семье сам)
 var GCAT=['Дом','Машина','Отпуск','Ремонт','Техника','Учёба','Свадьба','Ребёнок','Подушка безопасности','Подарок','Другое'],GICO={'Дом':'🏡','Машина':'🚗','Отпуск':'🏖️','Ремонт':'🛠️','Техника':'💻','Учёба':'🎓','Свадьба':'💍','Ребёнок':'🍼','Подушка безопасности':'🛟','Подарок':'🎁','Другое':'🎯'}; /*i18n:keep*/
 function cleanGoal(x){if(!x||typeof x!=='object')return null;const k=x.k==='plan'?'plan':'goal',a=Math.round(+x.a*100)/100;if(!(a>0&&a<1e10))return null;
   const c=k==='goal'?(GCAT.includes(x.c)?x.c:T('Другое')):(MCAT.out.includes(x.c)?x.c:T('Другое'));
-  return{id:RX.id.test(x.id)?x.id:newId(),k,n:str(x.n,60)||T(c),c,a,d:RX.date.test(x.d)?x.d:'',done:x.done?1:0,u:+x.u>0?+x.u:Date.now(),del:x.del?1:0}}
+  const g={id:RX.id.test(x.id)?x.id:newId(),k,n:str(x.n,60)||T(c),c,a,d:RX.date.test(x.d)?x.d:'',done:x.done?1:0,u:+x.u>0?+x.u:Date.now(),del:x.del?1:0};
+  if(k==='plan'&&['w','m','y'].includes(x.r)){g.r=x.r;if(x.au)g.au=1;const dm=Math.round(+x.dm);if(dm>=1&&dm<=31)g.dm=dm;if(RX.date.test(x.nt))g.nt=x.nt}return g}
+// следующая дата повторяющегося платежа: месяц — то же число (31-е → последний день короткого месяца), год — та же дата
+function planNext(g){const d=parseYmd(g.d),dm=g.dm||d.getDate();if(g.r==='w')return ymd(new Date(d.getFullYear(),d.getMonth(),d.getDate()+7));
+  const y=d.getFullYear()+(g.r==='y'?1:0),m=d.getMonth()+(g.r==='m'?1:0),last=new Date(y,m+1,0).getDate();return ymd(new Date(y,m,Math.min(dm,last)))}
+setTimeout(()=>{try{planTick()}catch(e){}},3000);
+const PLAN_R={w:'Каждую неделю',m:'Каждый месяц',y:'Каждый год'};
+// платежи с «записывать само»: в день оплаты расход вносится сам и дата сдвигается на следующий раз; за день — напоминание
+function planTick(){if(!isPro())return;const today=ymd(new Date()),tm=ymd(new Date(Date.now()+864e5));let ch=false,add=[];
+  for(const g of mgoals){if(g.k!=='plan'||g.del||g.done||!g.r||!g.d)continue;
+    let k=0;while(g.au&&g.d<=today&&k++<60){add.push({d:g.d,a:g.a,t:'out',c:g.c,n:g.n});g.d=planNext(g);g.u=Date.now();ch=true}
+    if(g.d===tm&&g.nt!==tm){g.nt=tm;g.u=Date.now();ch=true;try{fire('💳 '+T('Завтра оплата')+': '+g.n,g.a.toLocaleString(LOC)+' '+settings.cur+(g.au?' · '+T('запишется само'):''))}catch(e){}}}
+  if(add.length){moneyAdd(add);toast(T('🔁 Записаны регулярные платежи')+': '+add.length)}if(ch){saveGoals();if($('#v-money').classList.contains('on'))monRender()}}
 var mgoals=cleanList(load('cal.goals',[]),cleanGoal);
 function saveGoals(){save('cal.goals',mgoals);famPush();try{allPush()}catch(e){}}
 function allGoals(){const mem=fam?famMembers():[],ok5=famShownSet();
@@ -5446,21 +5714,21 @@ function goalPaint(){const el=$('#goalBox');if(!el)return;const G=allGoals(),cur
     return `<div class="gcard${left<=0?' done':''}"><div class="gtop"><span class="gico">${GICO[x.c]||'🎯'}</span><div><b>${esc(x.n)}</b><small>${esc(T(x.c))}${fam&&!x.mine?' · 👤 '+esc(nm(x.dev)):''}</small></div>${x.mine?`<button class="gx" type="button" data-gdel="${x.id}" title="${esc(T('Удалить'))}">✕</button>`:''}</div>
       <div class="gbar"><i style="width:${p}%"></i></div><div class="gnum"><b>${fm(s)}${cur}</b> ${T('из')} ${fm(x.a)}${cur} · ${Math.floor(p)}%${left<=0?' 🎉':''}</div>${need?`<small class="gneed">${need}</small>`:''}${who?`<div class="gwho">${who}</div>`:''}
       <div class="gadd"><input type="number" min="0" step="any" inputmode="decimal" placeholder="${esc(T('Сумма'))}" data-gamt="${x.id}"><button class="pill" type="button" data-gput="${x.id}">＋ ${T('Внести')}</button></div></div>`}).join('');
-  const ph=plans.map(x=>{const late=x.d&&x.d<today;return `<div class="mrow prow${late?' late':''}"><small>${x.d?dd(x.d):'—'}</small><span>${mcl(x.c)} · ${esc(x.n)}${fam&&!x.mine?` <small class="mwho">👤 ${esc(nm(x.dev))}</small>`:''}${late?` <small style="color:var(--red)">${T('пора оплатить')}</small>`:''}</span><span class="out">−${fm(x.a)}${cur}</span>${x.mine?`<span class="pbt"><button type="button" data-ppay="${x.id}" title="${esc(T('Оплачено — записать расход'))}">✓</button><button type="button" data-gdel="${x.id}" title="${esc(T('Удалить'))}">✕</button></span>`:'<i></i>'}</div>`}).join('');
-  const psum=plans.reduce((s2,x)=>s2+x.a,0);
+  const ph=plans.map(x=>{const late=x.d&&x.d<today;return `<div class="mrow prow${late?' late':''}"><small>${x.d?dd(x.d):'—'}</small><span>${mcl(x.c)} · ${esc(x.n)}${x.r?` <small class="prep">🔁 ${esc(T(PLAN_R[x.r]))}${x.au?' · '+T('само'):''}</small>`:''}${fam&&!x.mine?` <small class="mwho">👤 ${esc(nm(x.dev))}</small>`:''}${late?` <small style="color:var(--red)">${T('пора оплатить')}</small>`:''}</span><span class="out">−${fm(x.a)}${cur}</span>${x.mine?`<span class="pbt"><button type="button" data-ppay="${x.id}" title="${esc(T('Оплачено — записать расход'))}">✓</button><button type="button" data-gdel="${x.id}" title="${esc(T('Удалить'))}">✕</button></span>`:'<i></i>'}</div>`}).join('');
+  const psum=plans.reduce((s2,x)=>s2+x.a,0),subm=plans.filter(x=>x.r&&x.mine).reduce((s2,x)=>s2+(x.r==='w'?x.a*52/12:x.r==='y'?x.a/12:x.a),0);
   el.innerHTML=`<div class="famh"><b>🎯 ${T('Цели и планы')}</b><small>${fam?T('Общие с семьёй: копить может каждый — видно, кто сколько внёс.'):T('Копите на крупное (дом, машина, отпуск) и планируйте будущие расходы.')}</small></div>
     <div class="gform"><span class="mtype" id="gK"><button type="button" data-gk="goal" class="${gK==='goal'?'on':''}">🎯 ${T('Цель')}</button><button type="button" data-gk="plan" class="${gK==='plan'?'on':''}">📅 ${T('План расхода')}</button></span>
       <input id="gN" maxlength="60" placeholder="${esc(gK==='goal'?T('На что копим (например: дом)'):T('Что оплатить (например: страховка)'))}"><input id="gA" type="number" min="0" step="any" inputmode="decimal" placeholder="${esc(gK==='goal'?T('Нужно собрать'):T('Сумма'))}">
       <select id="gC" aria-label="${esc(T('Категория'))}">${(gK==='goal'?GCAT.map(c=>`<option value="${c}">${GICO[c]} ${T(c)}</option>`):MCAT.out.map(c=>`<option value="${c}">${mcl(c)}</option>`)).join('')}</select>
-      <input id="gD" type="date" title="${esc(gK==='goal'?T('К какой дате (необязательно)'):T('Когда оплатить'))}"><button class="cta" id="gAdd" type="button">${T('Добавить')}</button></div>
+      <input id="gD" type="date" title="${esc(gK==='goal'?T('К какой дате (необязательно)'):T('Когда оплатить'))}">${gK==='plan'?`<select id="gR" aria-label="${esc(T('Повтор'))}"><option value="">${T('Один раз')}</option>${Object.entries(PLAN_R).map(([k,v])=>`<option value="${k}">🔁 ${T(v)}</option>`).join('')}</select><label class="gau" title="${esc(T('В день оплаты расход запишется сам'))}"><input type="checkbox" id="gAu"> ${T('записывать само')}</label>`:''}<button class="cta" id="gAdd" type="button">${T('Добавить')}</button></div>
     ${goals.length?`<div class="ggrid">${gh}</div>`:''}
-    ${plans.length?`<div class="psub"><b>📅 ${T('Запланированные расходы')}</b><span>−${fm(psum)}${cur}</span></div><div class="mlist">${ph}</div>`:''}`}
+    ${plans.length?`<div class="psub"><b>📅 ${T('Запланированные расходы')}</b><span>−${fm(psum)}${cur}</span></div>${subm?`<small class="psubm">🔁 ${T('Регулярные платежи и подписки')}: <b>~${fm(subm)}${cur}</b> ${T('в месяц')}</small>`:''}<div class="mlist">${ph}</div>`:''}`}
 $('#goalBox').onclick=e=>{const k=e.target.closest('[data-gk]');if(k){gK=k.dataset.gk;goalPaint();return}
-  if(e.target.closest('#gAdd')){const a=+$('#gA').value;if(!(a>0))return toast(T('Укажите сумму'));const g=cleanGoal({k:gK,n:$('#gN').value.trim(),c:$('#gC').value,a,d:$('#gD').value,u:Date.now()});
-    if(g.k==='plan'&&!g.d)g.d=ymd(new Date());mgoals.push(g);saveGoals();monRender();toast(g.k==='goal'?T('🎯 Цель добавлена'):T('📅 Расход запланирован'));return}
+  if(e.target.closest('#gAdd')){const a=+$('#gA').value;if(!(a>0))return toast(T('Укажите сумму'));const r=$('#gR')?$('#gR').value:'',g=cleanGoal({k:gK,n:$('#gN').value.trim(),c:$('#gC').value,a,d:$('#gD').value,u:Date.now(),r,au:r&&$('#gAu').checked,dm:$('#gD').value?+$('#gD').value.slice(8):0});
+    if(g.k==='plan'&&!g.d)g.d=ymd(new Date());mgoals.push(g);saveGoals();planTick();monRender();toast(g.k==='goal'?T('🎯 Цель добавлена'):T('📅 Расход запланирован'));return}
   const put=e.target.closest('[data-gput]');if(put){const id=put.dataset.gput,inp=$(`[data-gamt="${id}"]`),a=+(inp&&inp.value);if(!(a>0))return toast(T('Укажите сумму'));
     const g=allGoals().find(x=>x.id===id);if(!g)return;moneyAdd([{d:ymd(new Date()),a,t:'out',c:T('Копилка и цели'),n:g.n,g:id}]);monRender();toast(T`🎯 Внесено ${a.toLocaleString(LOC)} ${settings.cur}`);return}
-  const pay=e.target.closest('[data-ppay]');if(pay){const g=mgoals.find(x=>x.id===pay.dataset.ppay);if(!g)return;moneyAdd([{d:ymd(new Date()),a:g.a,t:'out',c:g.c,n:g.n}]);g.done=1;g.u=Date.now();saveGoals();monRender();toast(T('✓ Оплачено — расход записан'));return}
+  const pay=e.target.closest('[data-ppay]');if(pay){const g=mgoals.find(x=>x.id===pay.dataset.ppay);if(!g)return;moneyAdd([{d:ymd(new Date()),a:g.a,t:'out',c:g.c,n:g.n}]);if(g.r)g.d=planNext(g);else g.done=1;g.u=Date.now();saveGoals();monRender();toast(T('✓ Оплачено — расход записан'));return}
   const del=e.target.closest('[data-gdel]');if(del){const g=mgoals.find(x=>x.id===del.dataset.gdel);if(!g)return;
     yShow(T('Удалить?'),g.n,[{t:T('Удалить'),cta:1,on:()=>{g.del=1;g.u=Date.now();saveGoals();monRender()}},{t:T('Отмена')}])}};
 $('#goalBox').onkeydown=e=>{if(e.key!=='Enter')return;const i=e.target.closest('[data-gamt]');if(i){const b=$(`[data-gput="${i.dataset.gamt}"]`);if(b)b.click()}else if(e.target.closest('.gform'))$('#gAdd').click()};
@@ -5579,22 +5847,52 @@ let monWho=fam?'fam':'me';
 const famSave=()=>{save('cal.fam',fam);save('cal.famLog',famLog)};
 async function famPush(force){if(!fam||!navigator.onLine)return;const fc=famCalOut(),sig=JSON.stringify(mlog)+'|'+JSON.stringify(mgoals)+'|'+fam.name+'|'+JSON.stringify(fc)+'|'+JSON.stringify(meOut());if(!force&&sig===famPush.sig)return;
   if(!force&&Date.now()-(famPush.t||0)<60000){clearTimeout(famPush.h);famPush.h=setTimeout(()=>famPush(),61000);return} // не чаще раза в минуту
-  famPush.t=Date.now();try{await relayPut(fam.topic,await enc(await zipStr(JSON.stringify({v:1,dev:devId,who:fam.name||me.name||'',j:fam.j,t:Date.now(),list:mlog,goals:mgoals,cal:fc.cal,memos:fc.memos,me:meOut(),part:settings.famCyc?(()=>{try{return partData()}catch(e){return null}})():null,cy:settings.famCyc?cycOut():null})),unb64u(fam.key)),'fam');famPush.sig=sig}catch(e){}}
+  famPush.t=Date.now();try{const pj=JSON.stringify({v:1,dev:devId,who:fam.name||me.name||'',j:fam.j,t:FB_DB?fbNow():Date.now(),list:mlog,goals:mgoals,cal:fc.cal,memos:fc.memos,me:meOut(),part:settings.famCyc?(()=>{try{return partData()}catch(e){return null}})():null,cy:settings.famCyc?cycOut():null});
+    if(FB_DB)await famFbPut(pj);else await relayPut(fam.topic,await enc(await zipStr(pj),unb64u(fam.key)),'fam');famPush.sig=sig}catch(e){}}
+// ---- семья/пара на Firebase: своя «комната» = SHA-256 ключа семьи (сервер ключа не знает); у каждого участника свой зашифрованный снимок
+//      n_<dev> = {n: частей}, m_<dev>_<i> = части сжатого снимка по ≤250 КБ. Данные хранятся, пока участник не выйдет (ntfy держал только 12 ч)
+let famRoom='',famRoomK='';
+async function famRoomOf(){const key=fam.key;if(famRoom&&famRoomK===key)return famRoom;const h=new Uint8Array(await crypto.subtle.digest('SHA-256',new TextEncoder().encode('gemday-fam|'+key)));famRoomK=key;return famRoom=Array.from(h,b=>b.toString(16).padStart(2,'0')).join('')}
+const famUrl=(room,q)=>`${FB_DB}/gd/${room}.json${q||''}`;
+async function famFbPut(pj){const room=await famRoomOf(),raw=unb64u(fam.key),z=await zipStr(pj),CH=25e4,n=Math.max(1,Math.ceil(z.length/CH)),t=String(fbNow()).padStart(13,'0')+'.'+devId+'.',body={};
+  for(let i=0;i<n;i++)body[`m_${devId}_${i}`]=t+b64u(await enc(z.slice(i*CH,(i+1)*CH),raw));
+  for(let i=n;i<(+load('cal.famN',0)||0);i++)body[`m_${devId}_${i}`]=null;   // лишние старые части
+  body['n_'+devId]=t+b64u(await enc(JSON.stringify({n}),raw));
+  const r=await fetch(famUrl(room),{method:'PATCH',body:JSON.stringify(body)});if(!r.ok)throw new Error('fam '+r.status);save('cal.famN',n)}
+// всё содержимое комнаты семьи → снимки участников
+async function famFbPull(){const room=await famRoomOf(),raw=unb64u(fam.key),r=await fetch(famUrl(room));if(!r.ok)throw new Error('fam '+r.status);const all=await r.json()||{};let ch=false;
+  for(const k in all){const m=/^n_([a-z0-9]{12})$/.exec(k);if(!m||m[1]===devId)continue;const dev=m[1],v=String(all[k]||''),t=v.slice(0,26);if(!/^\d{13}\.[a-z0-9]{12}\./.test(v)||t.slice(14)!==dev)continue;
+    try{const meta=JSON.parse(await dec(unb64u(v.slice(27)),raw)),n=Math.min(40,+meta.n||0);let z='';
+      for(let i=0;i<n;i++){const pv=String(all[`m_${dev}_${i}`]||'');if(pv.slice(0,26)!==t){z=null;break}z+=await dec(unb64u(pv.slice(27)),raw)}
+      if(z===null||!n)continue;
+      if(famTakeP(JSON.parse(await zipStr(z,true))))ch=true}catch(e){}}
+  return ch}
+// удалить свои записи из комнаты семьи (выход из семьи / «Удалить мои данные»)
+async function famFbDrop(){if(!FB_DB||!fam)return;const room=await famRoomOf(),body={['n_'+devId]:null};for(let i=0;i<Math.max(1,+load('cal.famN',0)||0);i++)body[`m_${devId}_${i}`]=null;
+  await fetch(famUrl(room),{method:'PATCH',body:JSON.stringify(body)});save('cal.famN',0)}
 // пока программа открыта — слушаем семью: новый участник и его записи появляются сразу, а не через минуту
-let famES=null;function famListen(){try{if(famES){famES.close();famES=null}if(!fam||!window.EventSource)return;famListen.st=famListen.st||{};famListen.st.re=famListen;famES=relaySSE(fam.topic,()=>{clearTimeout(famListen.t);famListen.t=setTimeout(famPull,1500)},famListen.st)}catch(e){}}
-function famReq(){try{if(fam&&navigator.onLine)fetch(`${RELAY}${fam.topic}?tags=famreq`,{method:'PUT',body:'r.'+devId}).catch(()=>{})}catch(e){}}
+let famES=null;function famListen(){try{if(famES){famES.close();famES=null}if(!fam||!window.EventSource)return;
+  if(FB_DB){famRoomOf().then(room=>{if(!fam)return;const es=famES=new EventSource(famUrl(room));
+      const on=ev=>{let m;try{m=JSON.parse(ev.data)}catch(e){return}if(m&&typeof m.path==='string'&&!m.path.includes(devId)){clearTimeout(famListen.t);famListen.t=setTimeout(famPull,1500)}};
+      es.addEventListener('put',on);es.addEventListener('patch',on);es.addEventListener('cancel',()=>{try{es.close()}catch(e){}})}).catch(()=>{});return}
+  famListen.st=famListen.st||{};famListen.st.re=famListen;famES=relaySSE(fam.topic,()=>{clearTimeout(famListen.t);famListen.t=setTimeout(famPull,1500)},famListen.st)}catch(e){}}
+function famReq(){try{if(fam&&navigator.onLine&&!FB_DB)fetch(`${RELAY}${fam.topic}?tags=famreq`,{method:'PUT',body:'r.'+devId}).catch(()=>{})}catch(e){}}
+// снимок участника → famLog (общий для Firebase и запасного ntfy); true — что-то изменилось
+function famTakeP(p){if(!p||typeof p!=='object'||p.dev===devId||!/^[a-z0-9]{12}$/.test(p.dev||'')||(fam.hid||[]).includes(p.dev))return false;const cur=famLog[p.dev];if(cur&&cur.t>=+p.t)return false;
+  famLog[p.dev]={who:str(p.who,40)===T('Я')?'':str(p.who,40),j:+p.j>0?+p.j:(cur&&cur.j)||+p.t||Date.now(),t:+p.t||Date.now(),list:cleanList(Array.isArray(p.list)?p.list:[],cleanMoney).slice(0,5000),goals:cleanList(Array.isArray(p.goals)?p.goals:[],cleanGoal).slice(0,300),cal:cleanList(p.cal,cleanNote).slice(0,3000),memos:cleanList(p.memos,cleanMemo).slice(0,500),me:cleanMe(p.me,true),part:partClean(p.part),cy:p.cy&&typeof p.cy==='object'?cycClean(p.cy):null};
+  // что нового у семьи — коротко внизу экрана, с именем
+  if(cur&&cur.t){const was=new Set([...(cur.cal||[]),...(cur.memos||[])].map(x=>x.id)),nw=[...famLog[p.dev].cal,...famLog[p.dev].memos].filter(x=>!was.has(x.id));
+    if(nw.length){const x=nw[0],nm=x.name||x.title||(x.text||(x.items&&x.items[0]&&x.items[0].t)||'').split('\n')[0];famNews.push(`👪 ${famLabel(p.dev).replace(/^\d+ · /,'')}: «${String(nm).slice(0,50)}»${nw.length>1?' +'+(nw.length-1):''}`)}}
+  return true}
 async function famPull(){if(!fam||!navigator.onLine||famPull.busy)return;famPull.busy=1;
-  try{const r=await fetch(`${RELAY}${fam.topic}/json?poll=1&since=${fam.last||'12h'}`);if(!r.ok)return;const raw=unb64u(fam.key),files=[];let last=fam.last,ch=false;
+  try{let ch=false;if(FB_DB)ch=await famFbPull();else{
+    const r=await fetch(`${RELAY}${fam.topic}/json?poll=1&since=${fam.last||'12h'}`);if(!r.ok)return;const raw=unb64u(fam.key),files=[];let last=fam.last;
     for(const line of (await r.text()).split('\n')){if(!line.trim())continue;let m;try{m=JSON.parse(line)}catch(e){continue}if(m.event!=='message'||typeof m.id!=='string')continue;last=m.id;
       if(Array.isArray(m.tags)&&m.tags.includes('famreq')){if(m.message!=='r.'+devId){famPush.sig=null;setTimeout(()=>famPush(true),1500)}continue}
       if(Array.isArray(m.tags)&&m.tags.includes('fam')){const a=/\/file\/([A-Za-z0-9]+)\.bin$/.exec(m.attachment&&m.attachment.url||'');if(a)files.push(a[1])}}
-    for(const id of files.reverse()){let p;try{p=JSON.parse(await zipStr(await relayGet(id,raw),true))}catch(e){continue}
-      if(!p||typeof p!=='object'||p.dev===devId||!/^[a-z0-9]{12}$/.test(p.dev||'')||(fam.hid||[]).includes(p.dev))continue;const cur=famLog[p.dev];if(cur&&cur.t>=+p.t)continue;
-      famLog[p.dev]={who:str(p.who,40)===T('Я')?'':str(p.who,40),j:+p.j>0?+p.j:(cur&&cur.j)||+p.t||Date.now(),t:+p.t||Date.now(),list:cleanList(Array.isArray(p.list)?p.list:[],cleanMoney).slice(0,5000),goals:cleanList(Array.isArray(p.goals)?p.goals:[],cleanGoal).slice(0,300),cal:cleanList(p.cal,cleanNote).slice(0,3000),memos:cleanList(p.memos,cleanMemo).slice(0,500),me:cleanMe(p.me,true),part:partClean(p.part),cy:p.cy&&typeof p.cy==='object'?cycClean(p.cy):null};ch=true;
-      // что нового у семьи — коротко внизу экрана, с именем
-      if(cur&&cur.t){const was=new Set([...(cur.cal||[]),...(cur.memos||[])].map(x=>x.id)),nw=[...famLog[p.dev].cal,...famLog[p.dev].memos].filter(x=>!was.has(x.id));
-        if(nw.length){const x=nw[0],nm=x.name||x.title||(x.text||(x.items&&x.items[0]&&x.items[0].t)||'').split('\n')[0];famNews.push(`👪 ${famLabel(p.dev).replace(/^\d+ · /,'')}: «${String(nm).slice(0,50)}»${nw.length>1?' +'+(nw.length-1):''}`)}}}
-    fam.last=last;famSave();if(ch){famRev++;if($('#v-money').classList.contains('on'))monRender();else famPaint();if($('#v-pins').classList.contains('on'))pinsRender();try{render();if($('#v-notes')&&$('#v-notes').classList.contains('on'))renderMemos()}catch(e){}
+    for(const id of files.reverse()){let p;try{p=JSON.parse(await zipStr(await relayGet(id,raw),true))}catch(e){continue}if(famTakeP(p))ch=true}
+    fam.last=last}
+    famSave();if(ch){famRev++;if($('#v-money').classList.contains('on'))monRender();else famPaint();if($('#v-pins').classList.contains('on'))pinsRender();try{render();if($('#v-notes')&&$('#v-notes').classList.contains('on'))renderMemos()}catch(e){}
       if(famNews.length){toast(famNews.slice(0,2).join(' · '));famNews.length=0}}}catch(e){}finally{famPull.busy=0}}
 const famNews=[];
 function famName(){const v=($('#famName')&&$('#famName').value||'').trim().slice(0,40);return v||(fam&&fam.name)||(typeof me==='object'&&me.name)||''}
@@ -5609,7 +5907,7 @@ function famPaint(){famFeed();const el=$('#famBox');if(!el)return;
   $('#famShare').onchange=e=>{settings.famNoShare=!e.target.checked;save('cal.settings',settings);famPush.sig=null;famPush(true);toast(e.target.checked?T('✓ Семья видит ваш календарь и заметки'):T('Календарь и заметки больше не передаются семье'))};
   $('#famMeOk').onclick=()=>{fam.name=str($('#famMe').value.trim(),40);me.name=fam.name;save('cal.me',me);famSave();famPush.sig=null;famPush(true);monRender();toast(T('✓ Имя сохранено — семья увидит его'))};
   if($('#famInv'))$('#famInv').onclick=famInvite;if($('#famJoin2'))$('#famJoin2').onclick=()=>{try{localStorage.setItem('cal.famPendingName',famName())}catch(e){}scanOpen(isPhone?'environment':'user')};if($('#famPaste2'))$('#famPaste2').onclick=famPasteAsk;$('#famSync').onclick=()=>{toast(T('🔄 Обновляю семейный бюджет…'));famReq();famPush(true);setTimeout(famPull,4000);setTimeout(famPull,12000)};
-  $('#famLeave').onclick=()=>yShow(T('Выйти из семьи?'),T('Чужие записи пропадут с этого устройства, ваши останутся. Вернуться можно по QR-коду.'),[{t:T('Выйти'),cta:1,on:()=>{fam=null;famLog={};monWho='me';famListen();try{localStorage.removeItem('cal.fam');localStorage.removeItem('cal.famLog')}catch(e){}monRender()}},{t:T('Отмена')}])}
+  $('#famLeave').onclick=()=>yShow(T('Выйти из семьи?'),T('Чужие записи пропадут с этого устройства, ваши останутся. Вернуться можно по QR-коду.'),[{t:T('Выйти'),cta:1,on:()=>{famFbDrop().catch(()=>{});fam=null;famLog={};monWho='me';famListen();try{localStorage.removeItem('cal.fam');localStorage.removeItem('cal.famLog')}catch(e){}monRender()}},{t:T('Отмена')}])}
 function famCreate(){fam={topic:'crys-fam-'+rnd(20),key:b64u(crypto.getRandomValues(new Uint8Array(32))),name:famName(),j:Date.now(),last:''};famLog={};famSave();famListen();famPush(true);monWho='fam';monRender();famInvite()}
 function famInvite(){if(!fam)return;const u=`${SYNC_URL}#fam=${fam.topic}.${fam.key}`;try{const q=qrcode(0,'M');q.addData(u,'Byte');q.make();const n=q.getModuleCount(),m=4,px=Math.max(4,Math.floor(560/(n+m*2))),cv=$('#famCv'),g=cv.getContext('2d');cv.width=cv.height=(n+m*2)*px;g.fillStyle='#fff';g.fillRect(0,0,cv.width,cv.height);g.fillStyle='#000';for(let r=0;r<n;r++)for(let k=0;k<n;k++)if(q.isDark(r,k))g.fillRect((k+m)*px,(r+m)*px,px,px)}catch(e){}$('#famLink').value=u;$('#famdlg').showModal()}
 // вступить — только после подтверждения (сам код/ссылка ничего не делает)
@@ -5667,7 +5965,20 @@ $('#spSave').onclick=()=>{const d=$('#spDate').value||ymd(new Date()),n=$('#spNo
   toast(T`🧾 Записано ${L.length} ${plural(L.length,T('расход'),T('расхода'),T('расходов'))} на ${(Math.round(sum*100)/100).toLocaleString(LOC)} ${settings.cur}`,()=>{const ids=new Set(add.map(x=>x.id));mlog=mlog.filter(x=>!ids.has(x.id));saveMoney();monRender();famPush()})};
 $('#monAdd').onclick=()=>{const a=+String($('#monAmt').value).replace(',','.');if(!(a>=1))return toast(T('Укажите сумму — не меньше 1'));moneyAdd([{d:$('#monDate').value||ymd(new Date()),a,t:monT,c:$('#monCat').value,n:$('#monNote').value}]);$('#monAmt').value='';$('#monNote').value='';toast(monT==='in'?T('💰 Доход записан'):T('💸 Расход записан'))};
 $('#monAmt').onkeydown=e=>{if(e.key==='Enter')$('#monAdd').click()};
-$('#monList').onclick=e=>{const b=e.target.closest('[data-mdel]');if(!b)return;const i=mlog.findIndex(x=>x.id===b.dataset.mdel);if(i<0)return;const[x]=mlog.splice(i,1);mdel[x.id]=Date.now();saveMdel();saveMoney();monRender();famPush();toast(T('🗑 Запись удалена'),()=>{mlog.push(x);delete mdel[x.id];saveMdel();saveMoney();monRender();famPush()})};
+// правка записи: старая удаляется (как при ✕ — так правка доходит до других устройств и семьи), новая добавляется с тем же временем
+let meId=null;
+function meCats(c){const t=$('#meT').value;$('#meC').innerHTML=MCAT[t].map(k=>`<option value="${k}">${mcl(k)}</option>`).join('');$('#meC').value=MCAT[t].includes(c)?c:MCAT[t][MCAT[t].length-1]}
+function meOpen(id){const x=mlog.find(y=>y.id===id);if(!x)return;meId=id;$('#meT').value=x.t;meCats(x.c);$('#meA').value=x.a;$('#meD').value=x.d;$('#meN').value=x.n||'';$('#medlg').showModal();setTimeout(()=>$('#meA').focus(),60)}
+$('#meT').onchange=()=>meCats($('#meC').value);$('#meCancel').onclick=()=>$('#medlg').close();
+$('#meA').onkeydown=$('#meN').onkeydown=e=>{if(e.key==='Enter'){e.preventDefault();$('#medSave').click()}};
+$('#meDel').onclick=()=>{$('#medlg').close();const b=document.querySelector(`#monList [data-mdel="${meId}"]`);if(b)b.click()};
+$('#medSave').onclick=()=>{const i=mlog.findIndex(y=>y.id===meId);if(i<0)return $('#medlg').close();
+  const a=+String($('#meA').value).replace(',','.');if(!(a>=1))return toast(T('Укажите сумму — не меньше 1'));
+  const old=mlog[i],nw=cleanMoney({...old,id:newId(),t:$('#meT').value,a,c:$('#meC').value,d:$('#meD').value||old.d,n:$('#meN').value});if(!nw)return;
+  mlog.splice(i,1,nw);mdel[old.id]=Date.now();saveMdel();saveMoney();$('#medlg').close();monRender();famPush();
+  toast(T('✏️ Запись изменена'),()=>{const j=mlog.findIndex(y=>y.id===nw.id);if(j>=0)mlog.splice(j,1,old);delete mdel[old.id];mdel[nw.id]=Date.now();saveMdel();saveMoney();monRender();famPush()})};
+$('#monList').onclick=e=>{const ed=e.target.closest('[data-medit]');if(ed&&!e.target.closest('[data-mdel]'))return meOpen(ed.dataset.medit);
+  const b=e.target.closest('[data-mdel]');if(!b)return;const i=mlog.findIndex(x=>x.id===b.dataset.mdel);if(i<0)return;const[x]=mlog.splice(i,1);mdel[x.id]=Date.now();saveMdel();saveMoney();monRender();famPush();toast(T('🗑 Запись удалена'),()=>{mlog.push(x);delete mdel[x.id];saveMdel();saveMoney();monRender();famPush()})};
 
 // ======== Бот: текст, голос, фото → напоминание / заметка / деньги ========
 const botLog=[];
@@ -5680,7 +5991,7 @@ const WDIDX={'пн':1,'понедельник':1,'вт':2,'вторник':2,'с
 // голосовой ввод пишет числа словами: «в девять утра», «триста пятьдесят», «двадцатого ноября» → цифры; «в 14 30» → «в 14:30»
 const VN={ноль:0,один:1,одна:1,одно:1,одну:1,два:2,две:2,три:3,четыре:4,пять:5,шесть:6,семь:7,восемь:8,девять:9,десять:10,одиннадцать:11,двенадцать:12,тринадцать:13,четырнадцать:14,пятнадцать:15,шестнадцать:16,семнадцать:17,восемнадцать:18,девятнадцать:19,двадцать:20,тридцать:30,сорок:40,пятьдесят:50,шестьдесят:60,семьдесят:70,восемьдесят:80,девяносто:90,сто:100,двести:200,триста:300,четыреста:400,пятьсот:500,шестьсот:600,семьсот:700,восемьсот:800,девятьсот:900}; /*i18n:keep*/
 const VO={первого:1,второго:2,третьего:3,четвертого:4,пятого:5,шестого:6,седьмого:7,восьмого:8,девятого:9,десятого:10,одиннадцатого:11,двенадцатого:12,тринадцатого:13,четырнадцатого:14,пятнадцатого:15,шестнадцатого:16,семнадцатого:17,восемнадцатого:18,девятнадцатого:19,двадцатого:20,тридцатого:30}; /*i18n:keep*/
-function voiceNorm(s){const W=String(s||'').split(/(\s+)/),out=[];let seq=null;
+function voiceNorm(s){const W=String(s||'').replace(/(?<![\p{L}])полтор[аы]\s+тысяч[\p{L}]*/giu,'1500').split(/(\s+)/),out=[];let seq=null; /*i18n:keep*/
   const flush=()=>{if(seq){out.push(seq.z&&!seq.cur&&!seq.tot?'0':String(seq.tot+seq.cur));if(seq.sp)out.push(seq.sp);seq=null}};
   for(let i=0;i<W.length;i++){const w=W[i];if(/^\s+$/.test(w)){if(seq)seq.sp=w;else out.push(w);continue}
     const lw=w.toLowerCase().replace(/ё/g,T('е')),m=lw.match(/^([\p{L}]+)([,.!?]*)$/u),k=m?m[1]:'',p=m?m[2]:'';
@@ -5691,12 +6002,18 @@ function voiceNorm(s){const W=String(s||'').split(/(\s+)/),out=[];let seq=null;
       if(k===T('ноль'))seq.z=1;
       seq.cur+=v;if(k in VO||p){const pp=p;flush();if(pp)out[out.length-1]+=pp}continue}
     if(seq&&/^тысяч[аиу]?$/.test(k)){seq.tot+=(seq.cur||1)*1000;seq.cur=0;seq.sp='';if(p){flush();out[out.length-1]+=p}continue}
+    // «5 тысяч», «2,5 тысячи» (цифрами) → 5000, 2500
+    if(!seq&&/^тысяч[аиу]?$/.test(k)&&out.length>=2&&/^\s+$/.test(out[out.length-1])&&/^\d+(?:[.,]\d+)?$/.test(out[out.length-2])){out.pop();out[out.length-1]=String(Math.round(+out[out.length-1].replace(',','.')*1000))+p;continue}
     if(!seq&&/^тысяч[аиу]?$/.test(k)){seq={tot:1000,cur:0,sp:''};if(p){flush();out[out.length-1]+=p}continue}
     flush();out.push(w)}
   flush();
   return out.join('').replace(/(?<![\p{L}])полтора\s+час\S*/giu,T('90 минут')).replace(/(?<![\p{L}])пол\s?часа/giu,T('30 минут'))
     .replace(/(?<![\d:])(\d{1,2})\s+0\s+0(?![\d])/g,'$1 00').replace(/(?<![\d:])(\d{1,2})\s+0\s+([1-9])(?![\d])/g,'$1 0$2')
-    .replace(/(?<![\p{L}\d])(в|на|к|до|с)\s+([01]?\d|2[0-3])\s+([0-5]\d)(?![\d:])/giu,'$1 $2:$3')}
+    .replace(/(?<![\p{L}\d])(в|на|к|до|с)\s+([01]?\d|2[0-3])\s+([0-5]\d)(?![\d:])/giu,'$1 $2:$3')
+    // «в полдень», «в полночь», «в половине девятого» (8:30), «без пятнадцати девять» (8:45)
+    .replace(/(?<![\p{L}])(в|о)\s+полдень(?![\p{L}])/giu,'$1 12:00').replace(/(?<![\p{L}])(в|о)\s+полночь(?![\p{L}])/giu,'$1 00:00') /*i18n:keep*/
+    .replace(/(?<![\p{L}])(?:в\s+)?половине\s+(1[0-2]|[1-9])(?![\d:.,])/giu,(x,h)=>T('в ')+((+h+11)%12||12)+':30')
+    .replace(/(?<![\p{L}])без\s+(двадцати пяти|пяти|десяти|четверти|пятнадцати|двадцати)\s+(1[0-2]|[1-9])(?![\d:.,])/giu,(x,a,h)=>((+h+11)%12||12)+':'+(60-{'двадцати пяти':25,'пяти':5,'десяти':10,'четверти':15,'пятнадцати':15,'двадцати':20}[a.toLowerCase()]))} /*i18n:keep*/
 function botParse(raw){
   // заметка / список: «запиши в заметки …», «заметка …», «список покупок: хлеб, молоко и яйца»
   {const mo=raw.trim().match(/^(?:(?:запиши|запомни|добавь|сохрани|создай|сделай)\s+)?(?:(?:в|во)\s+)?(заметк[уиа]?|заметки|список(?:\s+покупок)?)\s*[:,—-]?\s*(.+)$/iu); /*i18n:keep*/
@@ -5705,26 +6022,73 @@ function botParse(raw){
       return{kind:'memo',items:[{title:'',text:body}]}}}
   let t=' '+raw.trim().replace(/\s+/g,' ')+' ',low=t.toLowerCase();
   // деньги
-  const mm=low.match(/(?<![\p{L}])(?:(потратил[аи]?|потрачено|купил[аи]?|заплатил[аи]?|оплатил[аи]?|расход|витратив|витратила|spent|paid|bought)|(заработал[аи]?|получил[аи]?|зарплата|доход|пришл[оа]|заробив|earned|received))(?![\p{L}])((?:\s+[\p{L}]+){0,4}?)\s*(\d[\d\s]*(?:[.,]\d{1,2})?)(?![\d.,:])(?!\s*(?:[:.]\d|мин|час|ч(?![\p{L}])|д(?:н|ен)))/u); /*i18n:keep*/
-  if(mm){const out=!!mm[1],a=+String(mm[4]).trim().replace(/\s/g,'').replace(',','.');
-    const note=raw.slice(0).replace(/\s+/g,' ').replace(new RegExp('(?<![\\p{L}])'+(mm[1]||mm[2])+'(?![\\p{L}])','iu'),' ').replace(mm[4].trim(),' ').replace(/(?<![\p{L}])(kč|kc|кч|czk|€|\$|eur|usd|грн|₴|руб(?:л[\p{L}]*)?|₽|zł|крон[\p{L}]*|евро|долл[\p{L}]*)(?![\p{L}])/giu,' ').replace(/(?<![\p{L}])(на|за|от|з|в|for|on)(?![\p{L}])/giu,' ').replace(/\s+/g,' ').replace(/^[\s,.:—-]+|[\s,.:—-]+$/g,'').trim(); /*i18n:keep*/
-    if(a>0)return{kind:'money',items:[{d:ymd(new Date()),a,t:out?'out':'in',c:guessCat(out?'out':'in',low),n:note.slice(0,120)}]}}
+  const CURW=/(?<![\p{L}])(kč|kc|кч|czk|€|\$|eur|usd|грн|₴|руб(?:л[\p{L}]*)?|₽|zł|крон[\p{L}]*|евро|долл[\p{L}]*)(?![\p{L}])/iu; /*i18n:keep*/
+  const mm=low.match(/(?<![\p{L}])(?:(потратил[аи]?|потрачено|купил[аи]?|заплатил[аи]?|оплатил[аи]?|расход|витратив|витратила|spent|paid|bought)|(заработал[аи]?|получил[аи]?|зарплата|доход|пришл[оа]|заробив|earned|received))(?![\p{L}])((?:\s+[\p{L}]+){0,4}?)\s*(\d{1,3}(?:[.,]\d{3})+(?!\d)|\d[\d\s]*(?:[.,]\d{1,2})?)(?![\d.,:])(?!\s*(?:[:.]\d|мин|час|ч(?![\p{L}])|д(?:н|ен)))/u); /*i18n:keep*/
+  if(mm){const out=!!mm[1],aPos=mm.index+mm[0].length-mm[4].length;
+    // «купил 2 кг яблок за 120» — сумма та, что после «за/по»
+    const za=low.slice(aPos+mm[4].length).match(/(?<![\p{L}])(?:за|по)\s+(\d{1,3}(?:[.,]\d{3})+(?!\d)|\d[\d\s]*(?:[.,]\d{1,2})?)(?![\d.,:])(?!\s*(?:мин|час|ч(?![\p{L}])|д(?:н|ен)|недел|месяц|год|раз|штук|шт|кг|г(?![\p{L}])))/u); /*i18n:keep*/
+    const aStr=(za?za[1]:mm[4]).trim(),a=/^\d{1,3}(?:[.,]\d{3})+$/.test(aStr)?+aStr.replace(/[.,]/g,''):+aStr.replace(/\s/g,'').replace(',','.');
+    // «купил 3 яблока» — без валюты и без «за» это не трата
+    const notMoney=/^купил/.test(mm[1]||'')&&!za&&!mm[3].trim()&&!CURW.test(low)&&/^\s*[\p{L}]/u.test(low.slice(aPos+mm[4].length)); /*i18n:keep*/
+    if(a>0&&!notMoney){
+      // дата траты: «вчера», «позавчера», «14.11»
+      let md=new Date(),dtok='';const low2=low.slice(0,aPos)+' '.repeat(mm[4].length)+low.slice(aPos+mm[4].length);
+      const q=low2.match(/(?<![\p{L}])(позавчера|позавчора|вчера|вчора|учора|сегодня|сьогодні)(?![\p{L}])/u); /*i18n:keep*/
+      if(q){dtok=q[1];if(/^поза/.test(q[1]))md.setDate(md.getDate()-2);else if(/чор|чера/.test(q[1]))md.setDate(md.getDate()-1)}
+      else{const q2=low2.match(/(?<![\d.,])(\d{1,2})\.(\d{1,2})(?:\.(\d{2,4}))?(?![\d.,])/);
+        if(q2&&(!za||!za[1].includes(q2[0]))){const Y=q2[3]?(+q2[3]<100?2000+ +q2[3]:+q2[3]):md.getFullYear(),M=+q2[2]-1;let dt=new Date(Y,M,+q2[1]);
+          if(dt.getMonth()===M){if(!q2[3]&&dt>md)dt=new Date(Y-1,M,+q2[1]);if(dt.getMonth()===M){md=dt;dtok=q2[0]}}}}
+      let note=raw.replace(/\s+/g,' ').replace(new RegExp('(?<![\\p{L}])'+(mm[1]||mm[2])+'(?![\\p{L}])','iu'),' ').replace(mm[4].trim(),' ');
+      if(za)note=note.replace(za[1].trim(),' ');if(dtok)note=note.replace(new RegExp('(?<![\\p{L}\\d])'+dtok.replace(/\./g,'\\.')+'(?![\\p{L}\\d])','iu'),' ');
+      note=note.replace(new RegExp(CURW.source,'giu'),' ').replace(/(?<![\p{L}])(на|за|по|от|з|в|for|on)(?![\p{L}])/giu,' ').replace(/\s+/g,' ').replace(/^[\s,.:—-]+|[\s,.:—-]+$/g,'').trim(); /*i18n:keep*/
+      return{kind:'money',items:[{d:ymd(md),a,t:out?'out':'in',c:guessCat(out?'out':'in',low),n:note.slice(0,120)}]}}}
   // напоминание
-  const now=new Date();let d=null,time='',m;
-  if(m=low.match(/через\s+(\d+|полчаса|час|пару|минуту)\s*(минут[\p{L}]*|мин|час[\p{L}]*|ч|дн[\p{L}]*|день|недел[\p{L}]*)?/u)){
-    let n=m[1]===T('полчаса')?30:m[1]===T('час')?1:m[1]===T('пару')?2:m[1]===T('минуту')?1:+m[1],u=m[1]===T('полчаса')?T('мин'):(m[2]||(m[1]===T('час')?T('час'):T('мин')));
-    const x=new Date(now);if(/^мин/.test(u))x.setMinutes(x.getMinutes()+n);else if(/^ч/.test(u))x.setMinutes(x.getMinutes()+n*60);else if(/^д/.test(u))x.setDate(x.getDate()+n);else if(/^нед/.test(u))x.setDate(x.getDate()+n*7);
-    d=x;if(!/^д|^нед/.test(u))time=hm(x);t=t.replace(new RegExp(m[0].replace(/[.*+?^${}()|[\]\\]/g,'\\$&'),'i'),' ')}
-  if(m=low.match(/(?<![\p{L}])(послезавтра|завтра|сегодня|післязавтра|сьогодні)(?![\p{L}])/u)){d=new Date(now);if(/после|після/.test(m[1]))d.setDate(d.getDate()+2);else if(/завтра/.test(m[1]))d.setDate(d.getDate()+1);t=t.replace(new RegExp(m[1],'i'),' ')}
-  if(m=low.match(/(\d{1,2})\s+(январ|феврал|март|апрел|ма[йя]|июн|июл|август|сентябр|октябр|ноябр|декабр)[\p{L}]*/u)){const mi=[T('январ'),T('феврал'),T('март'),T('апрел'),T('ма'),T('июн'),T('июл'),T('август'),T('сентябр'),T('октябр'),T('ноябр'),T('декабр')].findIndex(x=>m[2].startsWith(x));d=new Date(now.getFullYear(),mi,+m[1]);if(ymd(d)<ymd(now))d.setFullYear(d.getFullYear()+1);t=t.replace(new RegExp(m[0],'i'),' ')}
-  else if((m=low.match(/(?<![\d:.])(\d{1,2})\.(\d{1,2})(?:\.(\d{2,4}))?(?![\d:])/))&&+m[2]>=1&&+m[2]<=12&&+m[1]>=1&&+m[1]<=31&&(m[3]||!/(?:^|\s)(в|во|о)\s*$/.test(low.slice(0,m.index)))){d=new Date(m[3]?(+m[3]<100?2000+ +m[3]:+m[3]):now.getFullYear(),+m[2]-1,+m[1]);if(!m[3]&&ymd(d)<ymd(now))d.setFullYear(d.getFullYear()+1);t=t.replace(m[0],' ');low=low.replace(m[0],' ')}
+  const now=new Date();let d=null,time='',m,rep='',wkly=false;
+  const cut=(i,j)=>{t=t.slice(0,i)+' '+t.slice(j);low=low.slice(0,i)+' '+low.slice(j)};
+  // дата, которой нет: 29 февраля — ближайший високосный год; «31 апреля» — не угадывать, переспросить
+  const mkDate=(Y,M,D,leap)=>{let dt=new Date(Y,M,D);if(dt.getMonth()===M)return dt;if(leap&&M===1&&D===29){let y=Y;while(new Date(y,1,29).getMonth()!==1)y++;return new Date(y,1,29)}return null};
+  const bad=(D,M)=>({kind:'bad',items:[],text:T`Такой даты нет: ${D}.${pad(M+1)}. Напишите дату ещё раз 🙂`});
+  // «через 2 часа 30 минут», «через 1,5 часа», «через неделю», «через 2 години»; неизвестная единица — «не понял», а не минуты
+  const UNIT='(минут[\\p{L}]*|мин|хвилин[\\p{L}]*|хв|час[\\p{L}]*|ч|годин[\\p{L}]*|дн[\\p{L}]*|день|дні|недел[\\p{L}]*|тиж[\\p{L}]*|месяц[\\p{L}]*|місяц[\\p{L}]*|года|год|лет|рок[\\p{L}]*|рік)(?![\\p{L}])'; /*i18n:keep*/
+  if(m=low.match(/(?<![\p{L}])через\s+(\d+(?:[.,]\d+)?|полчаса|пару|час|годину|минуту|хвилину|неделю|тиждень|день|месяц|місяць|год|рік)(?![\p{L}\d])/u)){ /*i18n:keep*/
+    const x=new Date(now),w0=m[1];let pos=m.index+m[0].length,hasT=false;
+    const addU=(n,u)=>{if(/^(мин|хв)/.test(u)){x.setTime(x.getTime()+Math.round(n*60)*1e3);hasT=true}else if(/^(ч|годин)/.test(u)){x.setTime(x.getTime()+Math.round(n*60)*6e4);hasT=true} /*i18n:keep*/
+      else if(/^д/.test(u))x.setDate(x.getDate()+Math.round(n));else if(/^(нед|тиж)/.test(u))x.setDate(x.getDate()+Math.round(n*7)); /*i18n:keep*/
+      else if(/^(мес|міс)/.test(u)){const dd=x.getDate();x.setDate(1);x.setMonth(x.getMonth()+Math.round(n));x.setDate(Math.min(dd,dimOf(x.getFullYear(),x.getMonth())))} /*i18n:keep*/
+      else{const dd=x.getDate(),mo=x.getMonth();x.setDate(1);x.setFullYear(x.getFullYear()+Math.round(n));x.setDate(Math.min(dd,dimOf(x.getFullYear(),mo)))}};
+    const um=low.slice(pos).match(new RegExp('^\\s*'+UNIT,'u'));
+    if(/^\d/.test(w0)){if(um){addU(+w0.replace(',','.'),um[1]);pos+=um[0].length}else if(/^\s*[\p{L}]/u.test(low.slice(pos)))return null;else addU(+w0,'мин')} /*i18n:keep*/
+    else if(w0==='пару'){if(um){addU(2,um[1]);pos+=um[0].length}else addU(2,'мин')} /*i18n:keep*/
+    else if(w0==='полчаса')addU(30,'мин'); /*i18n:keep*/
+    else addU(1,/^(час|годин)/.test(w0)?'ч':/^(мин|хв)/.test(w0)?'мин':/^(нед|тиж)/.test(w0)?'нед':/^д/.test(w0)?'д':/^(мес|міс)/.test(w0)?'мес':'год'); /*i18n:keep*/
+    for(let k=0;k<3;k++){const q=low.slice(pos).match(new RegExp('^\\s*(?:и\\s+|і\\s+|,\\s*)?(\\d+(?:[.,]\\d+)?)\\s*'+UNIT,'u'));if(!q)break;addU(+q[1].replace(',','.'),q[2]);pos+=q[0].length} /*i18n:keep*/
+    d=x;if(hasT)time=hm(x);cut(m.index,pos)}
+  // «каждый понедельник», «каждую среду», «по пятницам»
+  if(m=low.match(/(?<![\p{L}])(?:кажд(?:ый|ую|ое)\s+(понедельник|вторник|среду|четверг|пятницу|субботу|воскресенье)|по\s+(понедельник|вторник|сред|четверг|пятниц|суббот|воскресень)(?:ам|ям))(?![\p{L}])/u)){ /*i18n:keep*/
+    const wd=m[1]||m[2],k=Object.keys(WDIDX).find(x=>wd.startsWith(x)&&x.length>2),w=WDIDX[k];
+    if(!d){d=new Date(now);while(d.getDay()!==w)d.setDate(d.getDate()+1);wkly=true}rep='w';cut(m.index,m.index+m[0].length)}
+  if(m=low.match(/(?<![\p{L}])(послезавтра|завтра|сегодня|післязавтра|сьогодні)(?![\p{L}])/u)){d=new Date(now);if(/после|після/.test(m[1]))d.setDate(d.getDate()+2);else if(/завтра/.test(m[1]))d.setDate(d.getDate()+1);cut(m.index,m.index+m[0].length)}
+  if(m=low.match(/(\d{1,2})\s+(январ|феврал|март|апрел|ма[йя]|июн|июл|август|сентябр|октябр|ноябр|декабр)[\p{L}]*/u)){const mi=[T('январ'),T('феврал'),T('март'),T('апрел'),T('ма'),T('июн'),T('июл'),T('август'),T('сентябр'),T('октябр'),T('ноябр'),T('декабр')].findIndex(x=>m[2].startsWith(x));
+    d=mkDate(now.getFullYear(),mi,+m[1],true);if(!d)return bad(+m[1],mi);if(ymd(d)<ymd(now))d=mkDate(now.getFullYear()+1,mi,+m[1],true);t=t.replace(new RegExp(m[0],'i'),' ')}
+  else if((m=low.match(/(?<![\d:.])(\d{1,2})\.(\d{1,2})(?:\.(\d{2,4}))?(?![\d:])/))&&+m[2]>=1&&+m[2]<=12&&+m[1]>=1&&+m[1]<=31&&(m[3]||!/(?:^|\s)(в|во|о)\s*$/.test(low.slice(0,m.index)))){
+    d=mkDate(m[3]?(+m[3]<100?2000+ +m[3]:+m[3]):now.getFullYear(),+m[2]-1,+m[1],!m[3]);if(!d)return bad(+m[1],+m[2]-1);if(!m[3]&&ymd(d)<ymd(now))d=mkDate(now.getFullYear()+1,+m[2]-1,+m[1],true);t=t.replace(m[0],' ');low=low.replace(m[0],' ')}
+  // «15 числа», «каждое 15 число»: ближайшее такое число (в коротком месяце — последний день)
+  else if(m=low.match(/(?<![\d.,:])(\d{1,2})(?:-?(?:го|е|ое))?\s+числ[\p{L}]*(?:\s+каждого\s+месяца)?(?![\p{L}])/u)){const D=+m[1]; /*i18n:keep*/
+    if(D>=1&&D<=31){const pick=(y,mo)=>new Date(y,mo,Math.min(D,dimOf(y,mo)));d=pick(now.getFullYear(),now.getMonth());if(ymd(d)<ymd(now))d=pick(now.getFullYear(),now.getMonth()+1);
+      if(/каждого\s+месяца/.test(m[0]))rep='m';cut(m.index,m.index+m[0].length);
+      const e=low.match(/(?<![\p{L}])кажд(?:ое|ого)(?![\p{L}])/u);if(e){rep='m';cut(e.index,e.index+e[0].length)}}} /*i18n:keep*/
   else if(m=low.match(/(?<![\p{L}])во?\s+(понедельник|вторник|среду|четверг|пятницу|субботу|воскресенье)(?![\p{L}])/u)){const k=Object.keys(WDIDX).find(x=>m[1].startsWith(x)&&x.length>2);const w=WDIDX[k];d=new Date(now);do d.setDate(d.getDate()+1);while(d.getDay()!==w);t=t.replace(new RegExp(m[0],'i'),' ')}
-  if(m=low.match(/(?:(?<![\p{L}])(?:в|во|о|на|at)\s*)?(\d{1,2})[:.](\d{2})(?!\d)(\s*(?:утра|вечера|дня|ночи)(?![\p{L}]))?/u)){let h=+m[1];if(/вечера|дня/.test(m[3]||'')&&h<12)h+=12;if(/ночи/.test(m[3]||'')&&h===12)h=0;if(h<24&&+m[2]<60){time=pad(h)+':'+m[2];t=t.replace(m[0],' ')}}
-  else if(m=low.match(/(?<![\p{L}])в\s+(\d{1,2})(?![\d:.])\s*(утра|вечера|дня|ночи|час[\p{L}]*)?/u)){let h=+m[1];if(/вечера|дня/.test(m[2]||'')&&h<12)h+=12;if(h<24){time=pad(h)+':00';t=t.replace(m[0],' ')}}
-  let rep='';if(m=low.match(/(?<![\p{L}])(каждый день|каждое утро|каждый вечер|ежедневно|щодня|every day|daily|каждую неделю|еженедельно|щотижня|weekly|каждый месяц|ежемесячно|щомісяця|monthly|каждый год|ежегодно|щороку|yearly)(?![\p{L}])/u)){ /*i18n:keep*/
+  // время; «вечера/дня» +12, «12 ночи» = 00, «11 ночи» = 23, pm/am
+  const part=(h,p)=>{p=p||'';if(/вечера|вечора|дня|pm|p\.m\./.test(p)&&h<12)h+=12;else if(/ночи|ночі/.test(p)){if(h===12)h=0;else if(h>=7&&h<12)h+=12}else if(/утра|ранку|am|a\.m\./.test(p)&&h===12)h=0;return h}; /*i18n:keep*/
+  if(m=low.match(/(?:(?<![\p{L}])(?:в|во|о|об|на|at)\s*)?(\d{1,2})[:.](\d{2})(?!\d)(\s*(?:утра|вечера|дня|ночи|ранку|вечора|ночі|pm|am|p\.m\.|a\.m\.)(?![\p{L}]))?/u)){const h=part(+m[1],m[3]);if(h<24&&+m[2]<60){time=pad(h)+':'+m[2];t=t.replace(m[0],' ')}} /*i18n:keep*/
+  else if(m=low.match(/(?<![\p{L}])(?:в|во|о|об)\s+(\d{1,2})(?![\d:.])(?:\s*(?:час[\p{L}]*|годин[\p{L}]*))?(?:\s*(\d{1,2})\s*(?:минут[\p{L}]*|мин|хвилин[\p{L}]*|хв))?(?:\s*(утра|вечера|дня|ночи|ранку|вечора|ночі))?(?![\p{L}])/u)){ /*i18n:keep*/
+    const h=part(+m[1],m[3]),mi=+(m[2]||0);if(h<24&&mi<60){time=pad(h)+':'+pad(mi);t=t.replace(m[0],' ')}}
+  if(!rep&&(m=low.match(/(?<![\p{L}])(каждый день|каждое утро|каждый вечер|ежедневно|щодня|every day|daily|каждую неделю|еженедельно|щотижня|weekly|каждый месяц|каждого месяца|ежемесячно|щомісяця|monthly|каждый год|ежегодно|щороку|yearly)(?![\p{L}])/u))){ /*i18n:keep*/
     rep=/недел|тиж|week/.test(m[1])?'w':/месяц|місяц|month/.test(m[1])?'m':/год|року|year/.test(m[1])?'y':'d';t=t.replace(new RegExp(m[1],'i'),' ')} /*i18n:keep*/
+  else if(rep&&(m=low.match(/(?<![\p{L}])(каждый месяц|ежемесячно|щомісяця)(?![\p{L}])/u)))t=t.replace(new RegExp(m[1],'i'),' '); /*i18n:keep*/
   if(!d&&!time&&!rep)return null;if(!d&&!time)d=new Date(now);
   if(!d){d=new Date(now);const[h,mi]=time.split(':').map(Number);if(h*60+mi<=now.getHours()*60+now.getMinutes())d.setDate(d.getDate()+1)}
+  if(wkly&&ymd(d)===ymd(now)&&time&&time<=hm(now))d.setDate(d.getDate()+7);
   let name=t.replace(/(?<![\p{L}])(напомни(ть)?( мне)?|нагадай|remind me|поставь|запиши|запишите|добавь|создай|заметку|заметка|напоминание|надо|нужно)(?![\p{L}])/giu,' ').replace(/(?<![\p{L}])(на|в)(?=\s+(на|в|к)(?![\p{L}]))/giu,' ').replace(/^\s*(на|в|во)\s+(?=[\p{L}])/iu,' ').replace(/\s+/g,' ').replace(/^[\s,.:—-]+|[\s,.:—-]+$/g,'');
   return{kind:'rem',items:[{date:ymd(d),time,rep,name:name||T('Напоминание')}]}
 }
@@ -5789,9 +6153,28 @@ const MABR=[/^(янв|січ|jan|led|sty|ene|gen|janv|ian|oca)/,/^(фев|лют
 function ocrDates(flat){
   const now=new Date(),today=ymd(now),out=[];
   const near=i=>/(выход|выйдет|серии|серия|эпизод|премьер|старт|release|episode|premiere|next|next ep|vychází|díl|folge|odcinek)/i.test(flat.slice(Math.max(0,i-90),i))?2:0;
-  const add=(Y,M,Dd,tm,i)=>{if(M<0||M>11||Dd<1||Dd>31)return;let dt=new Date(Y||now.getFullYear(),M,Dd);if(!Y&&ymd(dt)<today)dt.setFullYear(dt.getFullYear()+1);const k2=ymd(dt);if(k2<today)return;out.push({date:k2,time:tm||'',w:near(i)+(tm?1:0)})};
-  for(const m of flat.matchAll(/(\d{1,2})\s*([\p{L}]{3,9})\.?\s*,?\s*(\d{4})?\s*(?:г\.?)?\s*,?\s*(?:в|at|um|o|à)?\s*(\d{1,2}:\d{2})?/gu)){const mi=MABR.findIndex(r=>r.test(m[2].toLowerCase()));if(mi>=0)add(m[3]?+m[3]:0,mi,+m[1],m[4]&&m[4].padStart(5,'0'),m.index)}
-  for(const m of flat.matchAll(/(\d{1,2})\.(\d{1,2})\.(\d{2,4})\s*,?\s*(\d{1,2}:\d{2})?/g))add(+m[3]<100?2000+ +m[3]:+m[3],+m[2]-1,+m[1],m[4]&&m[4].padStart(5,'0'),m.index);
+  // время «6:30 PM» → 18:30
+  const tm12=(tm,ap)=>{if(!tm)return'';let[h,mi]=tm.split(':').map(Number);if(/p/i.test(ap||'')&&h<12)h+=12;else if(/a/i.test(ap||'')&&h===12)h=0;return h<24&&mi<60?pad(h)+':'+pad(mi):''};
+  const add=(Y,M,Dd,tm,i)=>{if(M<0||M>11||Dd<1||Dd>31)return;let dt=new Date(Y||now.getFullYear(),M,Dd);
+    // 29 февраля — ближайший високосный год; «31 апреля» — такой даты нет
+    if(dt.getMonth()!==M){if(M!==1||Dd!==29)return;let y=Y||now.getFullYear();while(new Date(y,1,29).getMonth()!==1)y++;dt=new Date(y,1,29)}
+    // дата без года уже прошла: недавняя («серия вышла 10 ноября») — не берём; давняя — это следующий год
+    if(!Y&&ymd(dt)<today){if((now-dt)/864e5<=90||/(вышл|вышел|было|был[аи]?|released|aired|vyšl|vyšel)[^\d]{0,25}$/iu.test(flat.slice(Math.max(0,i-40),i)))return; /*i18n:keep*/
+      dt=new Date(dt.getFullYear()+1,M,Dd);if(dt.getMonth()!==M){let y=dt.getFullYear();while(new Date(y,1,29).getMonth()!==1)y++;dt=new Date(y,1,29)}}
+    const k2=ymd(dt);if(k2<today)return;out.push({date:k2,time:tm||'',w:near(i)+(tm?1:0)})};
+  const AT='(?:в|v|at|um|o|о|à|alle|a las|ve|kl\\.?)?'; /*i18n:keep*/
+  // «25 ноября в 20:00», «25 листопада о 20:00», «25. listopadu v 20:00», «25. November um 20:00»
+  for(const m of flat.matchAll(new RegExp('(?<![\\d.])(\\d{1,2})\\.?\\s*([\\p{L}]{3,9})\\.?\\s*,?\\s*(\\d{4})?\\s*(?:г\\.?)?\\s*,?\\s*'+AT+'\\s*(\\d{1,2}:\\d{2})?\\s*(pm|am|p\\.m\\.|a\\.m\\.)?(?![\\p{L}])','giu'))){ /*i18n:keep*/
+    const w=m[2].toLowerCase();if(/^(сери|сезон|seri|seas|epi|díl|folg)/.test(w))continue;const mi=MABR.findIndex(r=>r.test(w));if(mi>=0)add(m[3]?+m[3]:0,mi,+m[1],tm12(m[4],m[5]),m.index)} /*i18n:keep*/
+  // «Nov 25, 6:30 PM», «December 3 at 19:00» (месяц перед числом — только английские названия)
+  for(const m of flat.matchAll(/(?<![\p{L}])(jan(?:uary)?|feb(?:ruary)?|mar(?:ch)?|apr(?:il)?|may|june?|july?|aug(?:ust)?|sep(?:t(?:ember)?)?|oct(?:ober)?|nov(?:ember)?|dec(?:ember)?)\.?\s+(\d{1,2})(?:st|nd|rd|th)?(?!\d)\s*,?\s*(\d{4})?\s*,?\s*(?:at)?\s*(\d{1,2}:\d{2})?\s*(pm|am|p\.m\.|a\.m\.)?/giu)){
+    const mi=MABR.findIndex(r=>r.test(m[1].toLowerCase()));if(mi>=0)add(m[3]?+m[3]:0,mi,+m[2],tm12(m[4],m[5]),m.index)}
+  // 01.12.2026 в 21:00, 28/11/2026 18:00
+  for(const m of flat.matchAll(new RegExp('(?<![\\d.])(\\d{1,2})([./])(\\d{1,2})\\2(\\d{2,4})(?!\\d)\\s*,?\\s*'+AT+'\\s*(\\d{1,2}:\\d{2})?\\s*(pm|am)?','giu')))add(+m[4]<100?2000+ +m[4]:+m[4],+m[3]-1,+m[1],tm12(m[5],m[6]),m.index);
+  // 25.11. 18:00 (без года — только вместе со временем)
+  for(const m of flat.matchAll(new RegExp('(?<![\\d.])(\\d{1,2})\\.(\\d{1,2})\\.?(?![\\d])\\s*,?\\s*'+AT+'\\s*(\\d{1,2}:\\d{2})(?!\\d)','giu')))add(0,+m[2]-1,+m[1],tm12(m[3]),m.index);
+  // 2026-12-03 19:00
+  for(const m of flat.matchAll(/(?<!\d)(20\d{2})-(\d{1,2})-(\d{1,2})(?!\d)(?:[ T,]+(\d{1,2}:\d{2}))?/g))add(+m[1],+m[2]-1,+m[3],tm12(m[4]),m.index);
   for(let i=out.length-1;i>=0;i--)if(!out[i].w&&!out[i].time)out.splice(i,1);
   out.sort((a,b)=>b.w-a.w||a.date.localeCompare(b.date)||(b.time?1:0)-(a.time?1:0));
   // «осталось 4д 0ч 37м» — запасной вариант
@@ -5801,7 +6184,7 @@ function ocrDates(flat){
   if(!cd){const q=f2.match(/(?<![\p{L}])(?:через|осталось|in)\s+([1-9]\d{0,2})\s*(?:дн[\p{L}]*|день|дня|days?)(?![\p{L}])/iu);if(q)cd=[q[0],q[1],0,0]}
   // таймер «05:10:43:57»: OCR путает цифры с буквами (O→0, l/I→1, S→5, B→8, З→3, б→6) и теряет двоеточия
   const f3=flat.replace(/(?<![\p{L}\d])[\dOoОоlI|SsЗзбB]{1,2}(?:\s*[:;.,]\s*[\dOoОоlI|SsЗзбB]{1,2}){3}(?![\p{L}\d])/gu,x=>/\d/.test(x)?x.replace(/[OoОо]/g,'0').replace(/[lI|]/g,'1').replace(/[Ss]/g,'5').replace(/B/g,'8').replace(/[Зз]/g,'3').replace(/б/g,'6'):x);
-  if(!cd){const q=f3.match(/(?<![\d:.])(\d{1,2})\s*[:;.]\s*(\d{1,2})\s*[:;.]\s*(\d{2})\s*[:;.]\s*(\d{2})(?![\d:.])/);if(q&&+q[1]<=60&&+q[2]<24&&+q[3]<60&&+q[4]<60)cd=[q[0],q[1],q[2],q[3]]}
+  if(!cd){const q=f3.match(/(?<![\d:.])(\d{1,2})\s*[:;.]\s*(\d{1,2})\s*[:;]\s*(\d{2})\s*[:;]\s*(\d{2})(?![\d:.])/);if(q&&+q[1]<=60&&+q[2]<24&&+q[3]<60&&+q[4]<60)cd=[q[0],q[1],q[2],q[3]]}
   if(!cd){const q=f3.match(/(?:осталось|до выхода[^\d]{0,30})\s*(\d{1,2})\s+(\d{2})\s+(\d{2})\s+(\d{2})(?![\d:.])/iu);if(q&&+q[1]<=60&&+q[2]<24&&+q[3]<60&&+q[4]<60)cd=[q[0],q[1],q[2],q[3]]} /*i18n:keep*/
   if(!cd&&/(осталось|до выхода|до старта|countdown|дн[\p{L}]*\s+час|день\s+час|час[\p{L}]*\s+минут)/iu.test(flat)){ /*i18n:keep*/
     let q;
@@ -5888,20 +6271,23 @@ function posterCrop(c,o){
 const CURRX=T('(?:[kк][čcс]|czk|крон\\p{L}*|₽|руб\\p{L}*|р\\.|€|eur|\\$|usd|грн|₴|uah|zł|zl|pln|ft|huf|lei|ron|tl|₺)');
 function ocrMoney(o){
   const rows=(o.rows||[]).slice().sort((a,b)=>a.y-b.y),out=[],today=new Date();let day=ymd(today);
-  const AMT=new RegExp('([+\\-−–—])?\\s?(\\d{1,3}(?:[ \\u00a0.,]\\d{3})*|\\d+)(?:[.,](\\d{1,2}))?\\s?'+CURRX,'iu');
+  const AMT=new RegExp('([+\\-−–—])?\\s?(\\d{1,3}(?:[ \\u00a0.,]\\d{3})*|\\d+)(?:[.,](\\d{1,2})|,[-–])?\\s?'+CURRX,'iu'); /*i18n:keep*/
+  const AMTL=new RegExp('([+\\-−–—])?\\s?(?<![\\p{L}])'+CURRX+'\\s?([+\\-−–—])?\\s?(\\d{1,3}(?:[ \\u00a0,]\\d{3})*|\\d+)(?:[.,](\\d{1,2}))?(?![\\d])','iu'); /*i18n:keep*/
   for(const r of rows){const t=r.t.replace(/\s+/g,' ').trim(),low=t.toLowerCase();
     // заголовок дня в выписке: «5 ноября», «вчера», «сегодня», 05.11.2026
-    const dm=low.match(/^(сегодня|вчера|today|yesterday)\b/)||low.match(/^(\d{1,2})\s+([\p{L}]{3,9})\.?(?:\s+(\d{4}))?$/u)||low.match(/^(\d{1,2})\.(\d{1,2})\.(\d{2,4})$/);
+    const dm=low.match(/^(сегодня|вчера|today|yesterday)(?![\p{L}])/u)||low.match(/^(\d{1,2})\s+([\p{L}]{3,9})\.?(?:\s+(\d{4}))?$/u)||low.match(/^(\d{1,2})\.(\d{1,2})\.(\d{2,4})$/);
     if(dm){if(/сегодня|today/.test(dm[0]))day=ymd(today);else if(/вчера|yesterday/.test(dm[0])){const y=new Date(today);y.setDate(y.getDate()-1);day=ymd(y)}
       else if(dm[2]&&isNaN(+dm[2])){const mi=MABR.findIndex(x=>x.test(dm[2]));if(mi>=0){const d=new Date(dm[3]?+dm[3]:today.getFullYear(),mi,+dm[1]);if(!dm[3]&&d>today)d.setFullYear(d.getFullYear()-1);day=ymd(d)}}
       else if(dm[3]){day=ymd(new Date(+dm[3]<100?2000+ +dm[3]:+dm[3],+dm[2]-1,+dm[1]))}continue}
     if(/баланс|остаток|доступно|итого|всего|balance|total|celkem|zůstatek|кешбэк за|лимит/i.test(low))continue;
-    const m=t.match(AMT);if(!m)continue;
+    let m=t.match(AMT);if(!m){const q=t.match(AMTL);if(q)m=Object.assign([q[0],q[1]||q[2],q[3],q[4]],{index:q.index})}if(!m)continue;
     const a=+(m[2].replace(/[ \u00a0.,]/g,'')+(m[3]?'.'+m[3]:''));if(!(a>0&&a<1e8))continue;
     let name=t.replace(m[0],' ').replace(/\d{1,2}:\d{2}/g,' ').replace(/\*{2,}\d+/g,' ').replace(/\s+/g,' ').replace(/^[\s,.:·—-]+|[\s,.:·—-]+$/g,'').slice(0,60);if((name.match(/[\p{L}]/gu)||[]).length<3)name='';
     const inc=m[1]==='+'||!m[1]&&/зарплат|поступлен|пополнен|перевод от|возврат|кешбэк|cashback|доход|получен|salary|výplata|income|refund/i.test(low);
     out.push({d:day,a,t:inc?'in':'out',c:guessCat(inc?'in':'out',low),n:name})}
-  return out}
+  // та же выписка второй раз: уже записанное (день, сумма, расход/доход) — галочка снята
+  const have={};mlog.forEach(x=>{const k=x.d+'|'+x.a+'|'+x.t;have[k]=(have[k]||0)+1});
+  return out.map(x=>{const k=x.d+'|'+x.a+'|'+x.t;if(have[k]){have[k]--;return{...x,dup:1}}return x})}
 // записи вида «16.10-261+800» (дата, «−» расход, «+» доход; число без знака — расход) — список трат из заметки/скриншота
 // строка с датой — новый день; строка без даты из одних чисел со знаками («+6000-600») — продолжение того же дня.
 // Итог — ОДНА запись расходов и одна доходов на день (в комментарии — из чего сложилось). Один день, попавший на два скриншота, не удваивается.
@@ -5922,13 +6308,14 @@ function parseMoneyLog(lines){const now=new Date(),today=ymd(now),days=new Map()
   // прежние автоматические записи за эти дни (категория «Другое», без комментария или «500+289») — можно заменить точными
   const ds=new Set(out.map(x=>x.d));res.old=mlog.filter(x=>ds.has(x.d)&&x.c===T('Другое')&&/^[\d.,+ ]*$/.test(x.n||''));res.log=1;return res}
 // ---- чек из магазина: только купленные товары, каждый — в свою категорию (продукты, зависимости, хобби…) ----
-const RC_STOP=/celkem|součet|soucet|mezisouč|k úhrad|k uhrad|zaplacen|\bdph\b|základ|zaklad|sazba|platb|kartou|\bkarta\b|hotově|hotove|vráceno|vraceno|vrátit|zaokrouhl|\beet\b|\bbkp\b|\bfik\b|ičo|\bič\b|dič|pokladn|účtenk|uctenk|prodejn|děkujeme|dekujeme|итог|всего|ндс|сдача|наличн|безнал|\bкарт|оплат|кассир|смена|\bчек\b|\bинн\b|\bфн\b|\bфд\b|\bфп\b|total|subtotal|\bvat\b|\btax\b|change|\bcash\b|\bcard\b|visa|master|maestro|terminal|\bauth|transak|summe|mwst/i; /*i18n:keep*/
+const RC_STOP=/celkem|součet|soucet|mezisouč|k úhrad|k uhrad|zaplacen|\bdph\b|základ|zaklad|sazba|platb|kartou|\bkarta\b|hotově|hotove|vráceno|vraceno|vrátit|zaokrouhl|\beet\b|\bbkp\b|\bfik\b|ičo|(?<![\p{L}])ič(?![\p{L}])|dič|pokladn|účtenk|uctenk|prodejn|děkujeme|dekujeme|итог|всего|ндс|сдача|наличн|безнал|(?<![\p{L}])карт|оплат|кассир|смена|(?<![\p{L}])(?:чек|инн|фн|фд|фп)(?![\p{L}])|total|subtotal|\bvat\b|\btax\b|change|\bcash\b|\bcard\b|visa|master|maestro|terminal|\bauth|transak|summe|mwst/iu; /*i18n:keep*/
 const RC_DISC=/sleva|slev[ay]|скидк|rabat|discount/i,ITEMC=new Set(['Зависимости','Сладости и снеки','Детские товары','Животные','Бытовая химия','Дом и ремонт','Хобби','Техника','Здоровье','Одежда','Спорт','Образование','Красота','Подарки','Продукты','Кафе и рестораны','Транспорт']); /*i18n:keep*/
 function itemCat(n,shopCat){const c=guessCat('out',n);return ITEMC.has(c)?c:ITEMC.has(shopCat)?shopCat:T('Продукты')}
 function receiptItems(o){
   const rows=(o.rows||[]).slice().sort((a,b)=>a.y-b.y).map(r=>String(r.t||'').replace(/\s+/g,' ').trim()).filter(Boolean),txt=rows.join('\n');
-  if(!/celkem|k úhrad|k uhrad|\bdph\b|účtenk|uctenk|итог|кассир|\bндс\b|кассов|фискал|subtotal|\btotal\b|mwst|summe|zaplacen|platba kartou|daňový doklad|danovy doklad/i.test(txt))return null; /*i18n:keep*/
-  const PR=/(-?\d{1,5}[.,]\d{2})\s*(?:[a-dž]|kč|kc|czk|₽|руб\.?|р\.?|€|eur|\*|=)?\s*$/i,L3=x=>(x.match(/[\p{L}]/gu)||[]).length;
+  if(!/celkem|k úhrad|k uhrad|\bdph\b|účtenk|uctenk|итог|кассир|(?<![\p{L}])ндс(?![\p{L}])|кассов|фискал|subtotal|\btotal\b|mwst|summe|zaplacen|platba kartou|daňový doklad|danovy doklad/i.test(txt))return null; /*i18n:keep*/
+  let PR=/(-?\d{1,5}[.,]\d{2})\s*(?:[a-dž]|kč|kc|czk|₽|руб\.?|р\.?|€|eur|\*|=)?\s*$/i;const L3=x=>(x.match(/[\p{L}]/gu)||[]).length;
+  if(!rows.some(l=>PR.test(l)))PR=/(?<![\d.,:\/])(-?\d{1,5})\s*(?:kč|kc|czk|₽|руб\.?|р\.?|€|eur|=)?\s*$/i;
   const items=[];let pend='',total=0;
   for(const l of rows){const m=l.match(PR),lw=l.toLowerCase();
     if(m&&/celkem|k úhrad|k uhrad|итог|всего|total|summe|zaplacen/i.test(lw)){total=Math.max(total,Math.abs(+m[1].replace(',','.')));pend='';continue}
@@ -5976,11 +6363,10 @@ function botMoneyCard(list){
   w.append(go);d.append(w);$('#botChat').scrollTop=1e9}
 function findUrl(t){t=String(t||'').replace(/\s+/g,' ');
   const LK={'а':'a','в':'b','е':'e','к':'k','м':'m','н':'h','о':'o','р':'p','с':'c','т':'t','у':'y','х':'x','і':'i','ј':'j','ѕ':'s','А':'a','В':'b','Е':'e','К':'k','М':'m','Н':'h','О':'o','Р':'p','С':'c','Т':'t','Х':'x','|':'l'}; /*i18n:keep*/
-  t=t.replace(/\s*([./])\s*(?=[\wа-яА-Я])/g,'$1').split(' ').map(w=>/[./]/.test(w)&&/[a-z]/i.test(w)&&/\.[a-zа-я]{2,}/i.test(w)?w.replace(/[а-яА-Яіјѕ|]/g,c=>LK[c]||c):w).join(' ');
-  let m=t.match(/https?:\/\/[^\s<>"'`]+/i)||t.match(/(?:^|[^a-z0-9.\/-])((?:www\.)?[a-z0-9][a-z0-9-]{0,40}(?:\.[a-z0-9-]{2,30})*\.[a-z]{2,10}\/[^\s<>"'`]{2,})/i);
+  t=t.replace(/\s*([./])\s*(?=[\wа-яА-Я])/g,'$1').split(' ').map(w=>/[./]/.test(w)&&/[a-z]/i.test(w)&&/\.[a-zа-я]{2,}/i.test(w)?w.split('/').map(p=>/[a-z]/i.test(p)?p.replace(/[а-яА-Яіјѕ|]/g,c=>LK[c]||c):p).join('/'):w).join(' '); // кириллица в пути («/путь/») остаётся, двойники букв меняются только в имени сайта и в «смешанных» частях
+  let m=t.match(/https?:\/\/[^\s<>"'`]+/i)||t.match(/(?:^|[^a-z0-9.\/-])((?:www\.)?[a-z0-9][a-z0-9-]{0,40}(?:\.[a-z0-9-]{1,30})*\.[a-z]{2,10}\/[^\s<>"'`]{2,})/i);
   if(!m)return'';let u=(m[1]||m[0]).replace(/[),.;:!?»"']+$/,'').replace(/^((?:https?:\/\/)?)([^\/]+)/i,(x,a,h)=>a+h.replace(/I/g,'l').toLowerCase());
   {const q=t.slice(m.index+m[0].length).match(/^ (\d{1,8})(?=\s|$)/);if(q&&/\d$/.test(u))u+=q[1]}
-  u=u.replace(/^(https?:\/\/)?[a-z0-9]\.(?=[a-z0-9-]{2,}\.[a-z]{2,10}\/)/i,'$1');
   u=u.replace(/-(html?|php)$/i,'.$1').replace(/[~`|]+(?=[-_/.])|(?<=[-_/])[~`|]+/g,'');if(!/^https?:/i.test(u))u='https://'+u;return u.length<=400?u:''}
 // карточка в чате: проверить, что бот нашёл, и выбрать, что сделать
 let botLast=null;
@@ -6183,13 +6569,6 @@ function mergeSeq(A,B){const nz=s=>String(s).toLowerCase().replace(/ё/g,T('е')
   for(let k=Math.min(A.length,B.length);k>=1;k--){let ok=true;for(let i=0;i<k&&ok;i++)ok=sim(A[A.length-k+i],B[i]);
     if(ok){const mid=[];for(let i=0;i<k;i++){const a=A[A.length-k+i],b=B[i];mid.push(nz(b).length>=nz(a).length?b:a)}return A.slice(0,A.length-k).concat(mid,B.slice(k))}}
   return A.concat(B)}
-function noteTextOld(rows,o){
-  return rows.filter(r=>/[\p{L}\d]{2,}/u.test(r.t)).map(r=>r.t.trim()).join('\n')
-    .replace(/(\d)\s*(?:К[СсбЕе6]|K[cCeE]|Кč)(?=[\s.,;!?)]|$)/gu,'$1 Kč') // чешские кроны (старый путь)
-    .replace(/([\p{Script=Cyrillic}])ьй(?![\p{L}])/gu,T('$1ый')) // «ы» прочитано как «ь»
-    .replace(/(?<=[\p{Script=Cyrillic}]{2})!(?=[\s,.]|$)/gu,m=>/[іїєґІЇЄҐ]/.test(o.text+rows.map(r=>r.t).join(' '))?'і':m) // украинская «і» в конце слова прочитана как «!»
-    .replace(/\n{3,}/g,'\n\n').trim()}
-async function ocrNoteText(c){const r=await noteText(c,await ocrRead(c));return r.text}
 function shotText(o){const R=(o.rows&&o.rows.length?o.rows.map(r=>({t:r.t,y0:r.y})):o.lines).slice().sort((a,b)=>a.y0-b.y0);return R.filter(l=>l.y0>o.H*.045&&/[\p{L}\d]{2,}/u.test(l.t)).map(l=>l.t.trim()).join('\n').replace(/\n{3,}/g,'\n\n').trim()}
 function botTextNote(txt){
   // несколько карточек со скриншота — несколько заметок
