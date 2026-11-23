@@ -240,6 +240,8 @@ input,textarea,select{font:inherit;color-scheme:dark}
 .brand i::after{content:"";position:absolute;inset:0;background:linear-gradient(120deg,transparent 30%,rgba(255,255,255,.45) 50%,transparent 70%);transform:translateX(-120%);animation:gemShine 6s ease-in-out infinite}
 @keyframes gemShine{0%,60%{transform:translateX(-120%)}80%,100%{transform:translateX(120%)}}
 @media (prefers-reduced-motion:reduce){.brand .wm b,.brand .wm b em,.brand i::after{animation:none}}
+/* .still: окно не в фокусе или минуту без действий — украшения замирают (каждая стоила пересчёта стилей на каждом кадре, ~20% ядра, пока окно видно) */
+.still .brand .wm b,.still .brand .wm b em,.still .brand i::after,.still .day.today,.still #todayBtn.away{animation:none}
 .brand button{border:1px solid var(--line);background:var(--soft);width:34px;height:34px;border-radius:var(--rs);font-size:16px}
 .brand button:hover{border-color:var(--acc)}
 .clock{padding:16px;text-align:center}
@@ -2102,7 +2104,7 @@ function i18nDom(root){
 i18nDom(document.body);document.title=T(document.title);
 // i18n-skip-end
 document.documentElement.style.setProperty('--pk-empty',JSON.stringify(T('Пока ни одного дня')));
-const APP_VER='3.70',APP_DATE='23.11.2026';
+const APP_VER='3.71',APP_DATE='24.11.2026';
 const COLORS=['#7c5cff','#22d3ee','#34d399','#ffb547','#ff5d73','#f472b6','#60a5fa','#b78bff','#fb923c','#2dd4bf','#facc15','#a3e635','#e879f9','#94a3b8','#f8fafc','#ef4444','#f97316','#eab308','#84cc16','#10b981','#06b6d4','#3b82f6','#6366f1','#8b5cf6','#d946ef','#ec4899','#f43f5e','#a16207','#78716c','#c084fc'];
 const TYPE_COLOR={work:'#ffb547',note:'#22d3ee',rem:'#7c5cff',date:'#ff5d73'};
 const REP={d:T('каждый день'),w:T('каждую неделю'),m:T('каждый месяц'),y:T('каждый год')};
@@ -4597,6 +4599,12 @@ const fx=(()=>{
   return{reset,unlite};
 })();
 setInterval(loop,50);
+// украшения живут, пока с окном работают: минута без действий или окно не в фокусе → класс still (CSS выше)
+{const h=document.documentElement;let t=0,at=0;
+  const rest=()=>{clearTimeout(t);h.classList.add('still')},
+    wake=()=>{const n=Date.now();if(n-at<1000&&!h.classList.contains('still'))return;at=n;h.classList.remove('still');clearTimeout(t);t=setTimeout(rest,6e4)};
+  ['pointerdown','pointermove','keydown','wheel','touchstart','focus'].forEach(e=>addEventListener(e,wake,{passive:true,capture:true}));
+  addEventListener('blur',rest);if(document.hasFocus())wake();else rest()}
 $('#appVer').textContent=`Gemday v${APP_VER} · ${APP_DATE}`;
 twLoad();
 // без Pro — предложение Gemday Pro (7 дней бесплатно / месяц / год / навсегда); с Pro — благодарность
