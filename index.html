@@ -970,7 +970,7 @@ tr.tot td{border-top:2px solid var(--line);font-weight:700}
 .dhrs button b{color:var(--hc,var(--acc));font-weight:700;margin-left:2px}.dhrs button:hover{border-color:var(--hc,var(--acc));transform:translateY(-1px)}
 .dhrs .dhrsE{--hc:var(--mut);margin-left:auto}
 input::placeholder,textarea::placeholder{color:var(--mut);opacity:.55}
-.qday{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;width:100%;margin-bottom:8px}
+.qday{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;width:100%;margin-bottom:8px}
 .qd{display:flex;flex-direction:column;align-items:center;gap:2px;padding:10px 6px;border-radius:var(--rs);border:1px solid color-mix(in srgb,var(--qc) 35%,var(--line));background:color-mix(in srgb,var(--qc) 8%,var(--soft));color:var(--text);cursor:pointer;transition:.12s}
 .qd i{font-style:normal;font-size:20px;line-height:1}.qd b{font-size:14px}.qd small{font-size:11.5px;color:var(--mut);font-family:var(--mono)}
 .qd:hover{border-color:var(--qc);transform:translateY(-1px)}
@@ -1331,7 +1331,7 @@ button:not(:disabled):focus-visible{outline:2px solid var(--acc);outline-offset:
 .msum{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.msum div{background:var(--soft);border-radius:14px;padding:12px}.msum b{display:block;font-size:22px}.msum span{font-size:12px;color:var(--mut)}
 .madd2{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
 .madd2 input,.madd2 select{background:var(--soft);border:1px solid var(--line);color:var(--text);border-radius:12px;padding:9px 10px;font:inherit;font-size:14px}
-.madd2 .amt{width:110px}
+.madd2 .amt{width:110px}.madd2 #monCur{flex:0 0 auto;width:auto;min-width:64px}
 .pvph,.pvbig{position:relative;isolation:isolate}.pvph::before,.pvbig::before{content:"";position:absolute;inset:-20px;z-index:-1;background:var(--pi) center/cover;filter:blur(18px) brightness(.6)}.pvph img,.pvbig img{object-fit:contain!important}.pvph{height:170px!important}.pvbig{height:auto!important;max-height:60vh;display:flex;justify-content:center}.pvbig img{max-height:60vh;width:auto!important;max-width:100%}.lkcode{display:inline-block;margin-top:6px;letter-spacing:.12em}.lkbad{display:block;margin-top:8px;padding:9px 11px;border-radius:var(--rs);background:color-mix(in srgb,var(--warm) 14%,transparent);border:1px solid color-mix(in srgb,var(--warm) 45%,var(--line));color:var(--text);line-height:1.45}
 .dsnow{flex:1 1 100%;color:var(--mut);font-size:13px;line-height:1.4}
 .themes .tks{position:absolute;inset:0;z-index:-2;pointer-events:none}.themes button{content-visibility:auto;contain-intrinsic-size:auto 140px}#v-set .card,#v-rep .ccard{content-visibility:auto;contain-intrinsic-size:auto 300px}
@@ -1355,7 +1355,7 @@ button:not(:disabled):focus-visible{outline:2px solid var(--acc);outline-offset:
 .mtype button.on[data-mt=out]{background:color-mix(in srgb,var(--red) 25%,transparent);color:var(--text);font-weight:700}
 .mcat{display:grid;gap:8px}.mcat .r{display:grid;grid-template-columns:150px 1fr 110px;gap:10px;align-items:center;font-size:13px}
 .mcat .bar{height:10px;border-radius:6px;background:var(--soft2);overflow:hidden}.mcat .bar i{display:block;height:100%;background:var(--c,var(--red));border-radius:6px}
-.mlist{display:grid;gap:6px}.mrow{display:grid;grid-template-columns:70px 1fr auto 30px;gap:10px;align-items:center;background:var(--soft);border-radius:12px;padding:8px 10px;font-size:14px}
+.mlist{display:grid;gap:6px}.mrow>span{min-width:0;overflow-wrap:break-word}.mrow>.in,.mrow>.out,#monCats .r b{white-space:nowrap}.mrow{display:grid;grid-template-columns:70px minmax(0,1fr) auto 30px;gap:10px;align-items:center;background:var(--soft);border-radius:12px;padding:8px 10px;font-size:14px}
 .mtm{display:block;font-style:normal;font-size:11px;color:var(--mut);opacity:.8;margin-top:1px}
 .fpp{display:inline-flex;align-items:center;gap:6px;padding:4px 10px 4px 4px;border-radius:999px;background:var(--soft);border:1px solid var(--line)}.fpp i{width:20px;height:20px;border-radius:50%;display:grid;place-items:center;background:var(--acc);color:#fff;font-style:normal;font-size:11px;font-weight:800}
 .mplan{grid-column:1/-1;font-size:13px;color:var(--mut)}.msum .mplan b{display:inline;font-size:13px}
@@ -1371,7 +1371,7 @@ button:not(:disabled):focus-visible{outline:2px solid var(--acc);outline-offset:
 .mrow.prow{grid-template-columns:70px 1fr auto 64px}.prow .pbt{display:flex;gap:2px}.prow.late{box-shadow:inset 0 0 0 1px #ef444466}
 .mrow.rci{grid-template-columns:22px 1fr minmax(0,170px) auto}.rci select{min-width:0;width:100%;padding:5px;border-radius:8px;background:var(--input);color:var(--text);border:1px solid var(--line);font-size:12px}
 .rcsum{display:flex;flex-wrap:wrap;gap:4px 12px;font-size:12.5px;color:var(--mut);padding:4px 2px}.rcsum b{color:var(--red)}
-@media(max-width:600px){.mrow.rci{grid-template-columns:22px 1fr auto}.rci select{grid-column:2/-1;grid-row:2}.mrow.prow{grid-template-columns:56px 1fr auto}.prow .pbt{grid-column:1/-1;justify-content:flex-end}}
+@media(max-width:600px){.mrow{grid-template-columns:46px minmax(0,1fr) auto 24px;gap:6px;padding:8px 8px;font-size:13.5px}.mrow .mtm{display:block}.mrow.rci{grid-template-columns:22px 1fr auto}.rci select{grid-column:2/-1;grid-row:2}.mrow.prow{grid-template-columns:56px 1fr auto}.prow .pbt{grid-column:1/-1;justify-content:flex-end}}
 .srres{display:grid;gap:6px;margin-top:10px;max-height:min(60vh,520px);overflow:auto}.srrow{display:grid;grid-template-columns:6px 1fr auto;gap:10px;align-items:center;text-align:left;background:var(--soft);border:0;border-radius:12px;padding:8px 10px;color:var(--text);cursor:pointer;font:inherit}.srrow:hover{background:var(--soft2)}.srrow i{align-self:stretch;border-radius:3px;background:var(--c)}.srrow span{min-width:0}.srrow small{display:block;color:var(--mut);font-size:12.5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.srrow em{font-style:normal;color:var(--mut);font-size:12.5px;white-space:nowrap}
 @media(max-width:600px){.srrow{grid-template-columns:6px 1fr}.srrow em{grid-column:2}}
 .limrows{display:grid;gap:4px;max-height:min(58vh,520px);overflow:auto}.limr{display:grid;grid-template-columns:1fr 110px 70px;gap:8px;align-items:center;font-size:14px;padding:4px 6px;border-radius:10px}.limr.all{background:var(--soft);font-weight:700}.limr input{width:100%;padding:6px 8px;border-radius:8px;background:var(--input);color:var(--text);border:1px solid var(--line)}.limr small{color:var(--mut);text-align:right;font-size:12px}
@@ -1502,7 +1502,7 @@ html.locked #lockScr{display:grid}html.locked body>*:not(#lockScr):not(script):n
           <div class="tile" id="rNbT"><small>⚖️ Нейтральное до / после работы</small><b id="rNb">0</b></div>
           <div class="tile" id="rVacT"><small>🏖 Отпуск</small><b id="rVac">0</b><em class="tsub" id="rVacS"></em></div>
           <div class="tile" id="rOffT"><small>🌴 Выходные и праздники</small><b id="rOff">0</b></div>
-          <div class="tile" id="rSickT"><small>🤒 Больничный</small><b id="rSick">0</b></div>
+          <div class="tile" id="rSickT"><small>🤒 Больничный</small><b id="rSick">0</b><small id="rSickS"></small></div>
         </div>
         <div class="r2c">
           <div class="chart"><h3>📅 Работа по дням недели</h3><div class="wdb" id="rWd"></div></div>
@@ -1692,7 +1692,7 @@ html.locked #lockScr{display:grid}html.locked body>*:not(#lockScr):not(script):n
             <div class="msum" id="monSum"></div></div>
           <div class="ccard famc" id="monFam" hidden></div>
           <div class="ccard famc" id="goalBox"></div>
-          <div class="ccard"><div class="madd2"><span class="mtype" id="monType"><button data-mt="out" class="on">− Расход</button><button data-mt="in">+ Доход</button></span><input class="amt" id="monAmt" type="number" min="1" step="any" inputmode="decimal" placeholder="Сумма"><select id="monCat" title="Категория" aria-label="Категория"></select><input class="nt" id="monNote" maxlength="120" placeholder="Комментарий (необязательно)"><input type="date" id="monDate" title="Дата" aria-label="Дата"><button class="cta" id="monAdd">Добавить</button><button class="pill" id="monSplit" type="button" title="Один чек — несколько категорий">🧾 Чек по категориям</button></div></div>
+          <div class="ccard"><div class="madd2"><span class="mtype" id="monType"><button data-mt="out" class="on">− Расход</button><button data-mt="in">+ Доход</button></span><input class="amt" id="monAmt" type="number" min="1" step="any" inputmode="decimal" placeholder="Сумма"><select id="monCur" title="Валюта" aria-label="Валюта"><option>Kč</option><option>€</option><option>$</option><option>₴</option><option>₽</option><option>zł</option><option>£</option><option>Ft</option><option>lei</option><option>₺</option><option>CHF</option></select><select id="monCat" title="Категория" aria-label="Категория"></select><input class="nt" id="monNote" maxlength="120" placeholder="Комментарий (необязательно)"><input type="date" id="monDate" title="Дата" aria-label="Дата"><button class="cta" id="monAdd">Добавить</button><button class="pill" id="monSplit" type="button" title="Один чек — несколько категорий">🧾 Чек по категориям</button></div></div>
           <div class="ccard"><div class="rh" style="margin:0 0 10px"><h3 style="margin:0">Куда ушли деньги</h3><button class="pill" id="monLimBtn" type="button" title="Сколько можно тратить в месяц по каждой категории">🎯 Лимиты</button></div><div id="monLimSum"></div><div class="mcat" id="monCats"></div></div>
           <div class="ccard"><h3 style="margin:0 0 10px">Записи</h3><div class="mlist" id="monList"></div></div>
         </div>
@@ -1774,7 +1774,7 @@ html.locked #lockScr{display:grid}html.locked body>*:not(#lockScr):not(script):n
           <div id="rotBox" class="rotbox" hidden></div>
           <div class="sw"><span id="lbVac">🏖 Оплата отпуска в час (день отпуска = норма часов)</span><span style="display:flex;gap:6px"><input type="number" id="vacIn" aria-labelledby="lbVac" class="numin" min="0" step="any" placeholder="0"></span></div>
           <div class="sw sjobs"><span id="lbJobs">💼 Мои работы (названия видны в записях времени)</span><span class="jobin"><input id="job0" maxlength="40" aria-labelledby="lbJobs"><input id="job1" maxlength="40" aria-labelledby="lbJobs"><input id="job2" maxlength="40" aria-labelledby="lbJobs"><input id="job3" maxlength="40" aria-labelledby="lbJobs"></span></div>
-        <div class="sw"><span id="lbRate">Ставка в час (для заработка в отчёте)</span><span style="display:flex;gap:6px"><input type="number" id="rateIn" aria-labelledby="lbRate" class="numin" min="0" step="1" placeholder="0"><select id="curIn" aria-labelledby="lbRate"><option>Kč</option><option>€</option><option>$</option><option>₴</option><option>₽</option><option>zł</option></select></span></div>
+        <div class="sw"><span id="lbRate">Ставка в час (для заработка в отчёте)</span><span style="display:flex;gap:6px"><input type="number" id="rateIn" aria-labelledby="lbRate" class="numin" min="0" step="1" placeholder="0"><select id="curIn" aria-labelledby="lbRate"><option>Kč</option><option>€</option><option>$</option><option>₴</option><option>₽</option><option>zł</option><option>£</option><option>Ft</option><option>lei</option><option>₺</option><option>CHF</option></select></span></div>
         </div>
         <div class="scard">
           <h3>🎉 Праздники</h3>
@@ -1895,7 +1895,7 @@ html.locked #lockScr{display:grid}html.locked body>*:not(#lockScr):not(script):n
       <button type="button" class="pill" id="fErase" style="margin-top:8px;color:var(--red)" hidden></button>
       </div>
       <div class="fdc" id="fDc"></div>
-      <div class="fvac" id="fVac"><span>🏖 Оплата отпуска</span><input type="number" id="fVacPay" min="0" step="any" inputmode="decimal"><span id="fVacT"></span><small>День отпуска (будни) = норма часов из Настроек. Цена общая для всех дней отпуска.</small></div>
+      <div class="fvac" id="fVac"><span>🏖 Оплата отпуска</span><input type="number" id="fVacPay" min="0" step="any" inputmode="decimal"><span id="fVacT"></span><small>День отпуска (будни) = норма часов из Настроек. Цена общая для всех дней отпуска и оплачиваемого больничного.</small></div>
     </div>
     <div data-for="work">
       <div class="cats" id="fCats">
@@ -2102,7 +2102,7 @@ function i18nDom(root){
 i18nDom(document.body);document.title=T(document.title);
 // i18n-skip-end
 document.documentElement.style.setProperty('--pk-empty',JSON.stringify(T('Пока ни одного дня')));
-const APP_VER='3.69',APP_DATE='23.11.2026';
+const APP_VER='3.70',APP_DATE='23.11.2026';
 const COLORS=['#7c5cff','#22d3ee','#34d399','#ffb547','#ff5d73','#f472b6','#60a5fa','#b78bff','#fb923c','#2dd4bf','#facc15','#a3e635','#e879f9','#94a3b8','#f8fafc','#ef4444','#f97316','#eab308','#84cc16','#10b981','#06b6d4','#3b82f6','#6366f1','#8b5cf6','#d946ef','#ec4899','#f43f5e','#a16207','#78716c','#c084fc'];
 const TYPE_COLOR={work:'#ffb547',note:'#22d3ee',rem:'#7c5cff',date:'#ff5d73'};
 const REP={d:T('каждый день'),w:T('каждую неделю'),m:T('каждый месяц'),y:T('каждый год')};
@@ -2251,7 +2251,7 @@ notes=notes.filter((n,i,a)=>n.type!=='work'||a.findIndex(x=>x.type==='work'&&x.d
 let settings=(()=>{
   const x=load('cal.settings',{})||{},o={sound:x.sound!==false,fx:x.fx!==false,glass:Math.max(0,Math.min(90,Math.round(+x.glass||0))),v:x.v};
   o.norm=num(x.norm,.5,24,8);o.sleep=num(x.sleep,0,16,8);o.rate=num(x.rate,0,1e6,0);
-  o.cur=['Kč','€','$','₴','₽','zł'].includes(x.cur)?x.cur:'Kč';
+  o.cur=['Kč','€','$','₴','₽','zł','£','Ft','lei','₺','CHF'].includes(x.cur)?x.cur:'Kč';
   o.theme=typeof x.theme==='string'&&/^\w+$/.test(x.theme)?x.theme:'hud';
   o.workCat=CATS[x.workCat]?x.workCat:'work';{const J=Array.isArray(x.jobs)?x.jobs:[];o.jobs=[0,1,2,3].map(i=>str(J[i],40)||[T('Основная работа'),T('Подработка'),T('Работа 3'),T('Работа 4')][i])}o.fxMode=typeof x.fxMode==='string'&&/^\w+$/.test(x.fxMode)?x.fxMode:'auto';o.vacPay=num(x.vacPay,0,1e6,0);{const r=x.rot&&typeof x.rot==='object'?x.rot:{},tm=v=>/^([01]\d|2[0-3]):[0-5]\d$/.test(v)?v:'',W=(Array.isArray(r.w)?r.w:[]).slice(0,4).map(wk=>Array.from({length:7},(_,i)=>{const d=Array.isArray(wk)?wk[i]:null;return d&&tm(d.s)&&tm(d.e)?{s:d.s,e:d.e}:null}));o.rot={on:!!r.on&&W.length>0,st:/^\d{4}-\d\d-\d\d$/.test(r.st)?r.st:'',w:W}}{const w=Array.isArray(x.workDays)?[...new Set(x.workDays.map(Number).filter(v=>Number.isInteger(v)&&v>=0&&v<=6))]:[];o.workDays=w.length?w.sort():[1,2,3,4,5]}o.melody=typeof x.melody==='string'&&/^\w+$/.test(x.melody)?x.melody:'classic';o.vol=num(x.vol,0,1,.7);o.noBanner=!!x.noBanner;o.hol=typeof x.hol==='string'&&/^[a-z]{2}$|^none$/.test(x.hol)?x.hol:'cz';o.holOrth=x.holOrth!==false;o.lang=LANG;
   o.workStart=typeof x.workStart==='string'&&!isNaN(Date.parse(x.workStart))?x.workStart:null;
@@ -2268,13 +2268,13 @@ let settings=(()=>{
 })();
 if(settings.v!==2){settings.v=2;settings.theme='hud'}
 // тип дня: рабочий, выходной, отпуск…
-const DAYCATS={work:{n:T('Рабочий'),i:'💼',c:'#ffb547'},off:{n:T('Выходной'),i:'🌴',c:'#60a5fa'},vac:{n:T('Отпуск'),i:'🏖',c:'#34d399'},sick:{n:T('Больничный'),i:'🤒',c:'#fb923c'},
+const DAYCATS={work:{n:T('Рабочий'),i:'💼',c:'#ffb547'},off:{n:T('Выходной'),i:'🌴',c:'#60a5fa'},vac:{n:T('Отпуск'),i:'🏖',c:'#34d399'},sick:{n:T('Больничный'),i:'🤒',c:'#fb923c'},sickp:{n:T('Больничный оплачиваемый'),i:'🤒',c:'#f97316'},
   study:{n:T('Учёба'),i:'📚',c:'#e879f9'},workstudy:{n:T('Работа + учёба'),i:'💼📚',c:'#c084fc'},trip:{n:T('Командировка'),i:'✈️',c:'#2dd4bf'},holiday:{n:T('Праздник'),i:'🎉',c:'#ff5d73'},home:{n:T('Дела по дому'),i:'🏠',c:'#94a3b8'}};
 let dayCol=(()=>{const x=load('cal.dcol',{}),o={};if(x&&typeof x==='object')for(const k in x)if(RX.date.test(k)&&/^#[0-9a-f]{6}$/i.test(x[k]))o[k]=x[k];return o})();
 const saveDayCol=()=>save('cal.dcol',dayCol);
 let dayCats=(()=>{const x=load('cal.days',{}),o={};if(x&&typeof x==='object')for(const k in x){const v=x[k]==='wstudy'?'workstudy':x[k];if(RX.date.test(k)&&DAYCATS[v])o[k]=v}return o})();
 // разово: убрать запланированную работу с дней, уже отмеченных выходным / отпуском
-try{if(!localStorage.getItem('cal.mig1')){const t0=new Date(Date.now()-new Date().getTimezoneOffset()*6e4).toISOString().slice(0,10),bad=n=>n.type==='work'&&catOf(n)==='work'&&n.date>=t0&&['off','vac','sick','holiday'].includes(dayCats[n.date]);if(notes.some(bad)){notes=notes.filter(n=>!bad(n));save('cal.notes',notes)}localStorage.setItem('cal.mig1','1')}}catch(e){}
+try{if(!localStorage.getItem('cal.mig1')){const t0=new Date(Date.now()-new Date().getTimezoneOffset()*6e4).toISOString().slice(0,10),bad=n=>n.type==='work'&&catOf(n)==='work'&&n.date>=t0&&['off','vac','sick','sickp','holiday'].includes(dayCats[n.date]);if(notes.some(bad)){notes=notes.filter(n=>!bad(n));save('cal.notes',notes)}localStorage.setItem('cal.mig1','1')}}catch(e){}
 const saveDays=()=>save('cal.days',dayCats);
 // ---- праздники: государственные (выходные, третий параметр 1) и памятные дни ----
 // mov — сдвиг в днях от Пасхи; west — католическая Пасха, иначе православная
@@ -2931,7 +2931,7 @@ function renderList(){
   $('#dSub').textContent=WDL[d.getDay()]+' · '+(ns.length?ns.length+' '+plural(ns.length,T('запись'),T('записи'),T('записей')):T('нет записей'))+(wm?T(' · отработано ')+fmtDur(wm):'');
   {const h=holOn(sel);$('#dHol').hidden=!h.length;$('#dHol').textContent=h.length?'🎉 '+h.map(x=>x.n).join(', '):''} // праздник — справа отдельной плашкой
   renderSum();renderSmart();
-  const vp=vacPayOf(sel),vc=dayCats[sel]==='vac'?T`<div class="vacCard"><b>🏖 Оплачиваемый отпуск</b>${vp?T`<span>${fmtDur(settings.norm*60)} × ${settings.vacPay} ${esc(settings.cur)}/ч = <b>${money(vp)}</b></span>`:holOn(sel).length?T('<span>Праздник — не оплачивается</span>'):!isWdK(ymd(d))?T`<span>${WDL[d.getDay()]} — у вас не рабочий день, отпуск не оплачивается</span><button class="pill" data-mkwd="${d.getDay()}" style="margin-top:6px;align-self:flex-start">✓ ${WDL[d.getDay()]} у меня рабочий день</button>`:T('<span>Укажите оплату отпуска в час — в окне записи или в Настройках</span>')}</div>`:'';
+  const vp=vacPayOf(sel),vc=dayCats[sel]==='vac'||dayCats[sel]==='sickp'?(dayCats[sel]==='sickp'?T('<div class="vacCard"><b>🤒 Оплачиваемый больничный</b>'):T('<div class="vacCard"><b>🏖 Оплачиваемый отпуск</b>'))+T`${vp?T`<span>${fmtDur(settings.norm*60)} × ${settings.vacPay} ${esc(settings.cur)}/ч = <b>${money(vp)}</b></span>`:holOn(sel).length?T('<span>Праздник — не оплачивается</span>'):!isWdK(ymd(d))?T`<span>${WDL[d.getDay()]} — у вас не рабочий день, отпуск не оплачивается</span><button class="pill" data-mkwd="${d.getDay()}" style="margin-top:6px;align-self:flex-start">✓ ${WDL[d.getDay()]} у меня рабочий день</button>`:T('<span>Укажите оплату отпуска в час — в окне записи или в Настройках</span>')}</div>`:'';
   // время дня (сон, работа, нейтральное, свободное) — одной компактной карточкой
   const wk=ns.filter(n=>n.type==='work').sort((x,y)=>toMin(x.start)-toMin(y.start)),rest=ns.filter(n=>n.type!=='work');
   const dayBox=wk.length?`<div class="note wgrp"><div class="top"><span class="tt">${T('🕒 Распорядок дня')}</span><span class="tm">${fmtDur(wk.reduce((t,n)=>t+workMin(n),0))}</span></div>${wk.map(n=>{const c=CATS[catOf(n)],col=n.color&&catOf(n)==='work'?n.color:c.color,pay=catOf(n)==='work'&&payOf(n)?money(payOf(n)):'';
@@ -2989,7 +2989,7 @@ const newId=i=>Date.now().toString(36)+Math.random().toString(36).slice(2,6)+(i|
 function workId(day,cat){const has=new Set(notes.map(n=>n.id));for(let s=1;s<60;s++){const id=`w-${day}-${cat}-${s}`;if(!has.has(id))return id}return newId()}
 function addWork(day,start,end,cat,text,i){if(notes.some(n=>n.type==='work'&&n.date===day&&n.start===start&&n.end===end&&catOf(n)===cat))return false;notes.push({id:RX.date.test(day)&&CATS[cat]?workId(day,cat):newId(i),type:'work',cat,date:day,start,end,text:text||'',name:'',time:'',rem:-1,rep:'',color:CATS[cat].color,done:false,doneDays:[],fired:[]});return true}
 const hasWork=k=>notes.some(n=>n.type==='work'&&n.date===k&&catOf(n)==='work');
-const isOff=k=>['off','vac','sick','holiday'].includes(dayCats[k])||holOn(k).some(x=>x.off)||notes.some(n=>n.type==='note'&&n.date===k&&(n.text.startsWith(T('🌴 Выходной'))||n.text.startsWith(T('🌴 Выходной'))));
+const isOff=k=>['off','vac','sick','sickp','holiday'].includes(dayCats[k])||holOn(k).some(x=>x.off)||notes.some(n=>n.type==='note'&&n.date===k&&(n.text.startsWith(T('🌴 Выходной'))||n.text.startsWith(T('🌴 Выходной'))));
 function prevWorkDay(k){const ds=[...new Set(notes.filter(n=>n.type==='work'&&n.date<k).map(n=>n.date))].sort();return ds[ds.length-1]}
 function weekOf(k){const d=parseYmd(k);d.setDate(d.getDate()-(d.getDay()+6)%7);return[0,1,2,3,4].map(i=>{const x=new Date(d);x.setDate(d.getDate()+i);return ymd(x)})}
 const week7=k=>{const d=parseYmd(k);d.setDate(d.getDate()-(d.getDay()+6)%7);return[0,1,2,3,4,5,6].map(i=>{const x=new Date(d);x.setDate(d.getDate()+i);return ymd(x)})};
@@ -3022,7 +3022,7 @@ function clearDays(ks){
 function dayAction(m){
   if(m==='qmulti'){startMulti();multi.add(sel);lastPick=sel;updPick();render();return}
   if(m==='qwork'){if(hasWork(sel)){toast(T('Работа уже записана — «Время», чтобы изменить'));return}if(OFFCATS.includes(dayCats[sel])){delete dayCats[sel];saveDays()}m='full'}
-  if(m==='qoff'||m==='qvac'||m==='qstudy'){const c=m==='qoff'?'off':m==='qstudy'?'study':'vac';setDayCat([sel],dayCats[sel]===c?null:c);return}
+  if(m==='qoff'||m==='qvac'||m==='qstudy'||m==='qsick'||m==='qsickp'){const c=m==='qoff'?'off':m==='qstudy'?'study':m==='qsick'?'sick':m==='qsickp'?'sickp':'vac';setDayCat([sel],dayCats[sel]===c?null:c);return}
   if(m==='clear'){clearDays([sel]);return}
   if(m==='erase'){eraseTime([sel]);return}
   if(m==='off'){setDayCat([sel],'off');return}
@@ -3034,8 +3034,8 @@ function dayAction(m){
   const add=notes.slice(before);persist();
   toast(msg,add.length?()=>{notes=notes.filter(n=>!add.includes(n));persist();toast(T('Отменено'))}:undefined);
 }
-const OFFCATS=['off','vac','sick','holiday','study'];
-const vacPayOf=k=>dayCats[k]==='vac'&&settings.vacPay>0&&isWdK(k)&&!holOn(k).length?settings.norm*settings.vacPay:0;
+const OFFCATS=['off','vac','sick','sickp','holiday','study'];
+const vacPayOf=k=>(dayCats[k]==='vac'||dayCats[k]==='sickp')&&settings.vacPay>0&&isWdK(k)&&!holOn(k).length?settings.norm*settings.vacPay:0;
 function setDayCat(ks,c){
   const prev=ks.map(k=>[k,dayCats[k]]),D=c&&DAYCATS[c],kset=new Set(ks);
   const rm=OFFCATS.includes(c)?notes.filter(n=>n.type==='work'&&catOf(n)==='work'&&kset.has(n.date)):[];
@@ -3046,7 +3046,7 @@ function setDayCat(ks,c){
 function renderSmart(){
   const[a,b]=shift(sel),w=workOn(sel);
   const dc=dayCats[sel],qb=(m,on,ic,nm,sub,c)=>`<button class="qd${on?' on':''}" data-sm="${m}" style="--qc:${c}"><i>${ic}</i><b>${nm}</b>${sub?`<small>${sub}</small>`:''}</button>`;
-  $('#dmain').innerHTML='<div class="qday">'+qb('qwork',!!w,'💼',T('Рабочий'),w?'✓ '+fmtDurShort(w):`${a}–${b}`,'#ffb547')+qb('qoff',dc==='off','🌴',T('Выходной'),'',DAYCATS.off.c)+qb('qvac',dc==='vac','🏖',T('Отпуск'),vacPayOf(sel)?money(vacPayOf(sel)):'',DAYCATS.vac.c)+qb('qstudy',dc==='study','📚',T('Учёба'),'',DAYCATS.study.c)+'</div>'+T('<button class="qmulti" data-sm="qmulti"><i class="et" style="--ec:var(--acc)">📅</i>Отметить сразу несколько дней</button>')
+  $('#dmain').innerHTML='<div class="qday">'+qb('qwork',!!w,'💼',T('Рабочий'),w?'✓ '+fmtDurShort(w):`${a}–${b}`,'#ffb547')+qb('qoff',dc==='off','🌴',T('Выходной'),'',DAYCATS.off.c)+qb('qvac',dc==='vac','🏖',T('Отпуск'),vacPayOf(sel)?money(vacPayOf(sel)):'',DAYCATS.vac.c)+qb('qstudy',dc==='study','📚',T('Учёба'),'',DAYCATS.study.c)+qb('qsick',dc==='sick','🤒',T('Больничный'),T('без оплаты'),DAYCATS.sick.c)+qb('qsickp',dc==='sickp','🤒',T('Больничный'),dc==='sickp'&&vacPayOf(sel)?money(vacPayOf(sel)):T('оплачиваемый'),DAYCATS.sickp.c)+'</div>'+T('<button class="qmulti" data-sm="qmulti"><i class="et" style="--ec:var(--acc)">📅</i>Отметить сразу несколько дней</button>')
     +T('<button class="qmulti" data-sm="dset"><i class="et" style="--ec:var(--acc2)">⚙️</i>Настроить день: тип, цвет, время</button>')
     +(timeOn(sel)?T('<button class="x" data-sm="erase" title="Стереть всё время дня (клавиша Delete)"><i class="et" style="--ec:var(--red)">🧹</i>Стереть время</button>'):'')
     +(dayHas(sel)?T('<button class="x" data-sm="clear" title="Убрать всё с этого дня: время, комментарии, задачи, тип дня"><i class="et" style="--ec:var(--red)">🧽</i>Очистить день</button>'):'');
@@ -3466,8 +3466,8 @@ function updRange(){
   renderMc();
   const ks=[...fSel].sort(),n=ks.length;
   $('#fRangeInfo').textContent=!n?T('⚠ Отметьте хотя бы один день в календарике'):n===1?T`Только на ${dayLabel(ks[0])} · нажмите на другие дни, чтобы добавить`:T`✓ Выбрано ${n} ${plural(n,T('день'),T('дня'),T('дней'))}: `+(n<=8?ks.map(k=>parseYmd(k).getDate()).join(', ')+' '+MONTHS_G[parseYmd(ks[n-1]).getMonth()]:`${dayLabel(ks[0])} — ${dayLabel(ks[n-1])}`);
-  {const D=['off','vac','sick','holiday'];$('#fDc').innerHTML=T`<span>Отметить ${n>1?T('выбранные дни'):T('день')}:</span>`+D.map(c=>`<button type="button" data-fdc="${c}" style="--dc:${DAYCATS[c].c}" class="${n&&ks.every(k=>dayCats[k]===c)?'on':''}">${DAYCATS[c].i} ${DAYCATS[c].n}</button>`).join('')+(ks.some(k=>dayCats[k])?T('<button type="button" data-fdc="">✕ Снять</button>'):'')}
-  {const vd=ks.filter(k=>dayCats[k]==='vac'),pd=vd.filter(k=>isWdK(k)&&!holOn(k).length).length;$('#fVac').classList.toggle('on',vd.length>0);if(document.activeElement!==$('#fVacPay'))$('#fVacPay').value=settings.vacPay||'';$('#fVacT').textContent=T`${settings.cur}/ч × ${fmtDurShort(settings.norm*60)}`+(settings.vacPay>0&&pd?T` = ${money(settings.norm*settings.vacPay)} в день`+(pd>1?` · ${pd} ${plural(pd,T('день'),T('дня'),T('дней'))}: ${money(pd*settings.norm*settings.vacPay)}`:''):'')}
+  {const D=['off','vac','sick','sickp','holiday'];$('#fDc').innerHTML=T`<span>Отметить ${n>1?T('выбранные дни'):T('день')}:</span>`+D.map(c=>`<button type="button" data-fdc="${c}" style="--dc:${DAYCATS[c].c}" class="${n&&ks.every(k=>dayCats[k]===c)?'on':''}">${DAYCATS[c].i} ${DAYCATS[c].n}</button>`).join('')+(ks.some(k=>dayCats[k])?T('<button type="button" data-fdc="">✕ Снять</button>'):'')}
+  {const vd=ks.filter(k=>dayCats[k]==='vac'||dayCats[k]==='sickp'),pd=vd.filter(k=>isWdK(k)&&!holOn(k).length).length;$('#fVac').classList.toggle('on',vd.length>0);if(document.activeElement!==$('#fVacPay'))$('#fVacPay').value=settings.vacPay||'';$('#fVacT').textContent=T`${settings.cur}/ч × ${fmtDurShort(settings.norm*60)}`+(settings.vacPay>0&&pd?T` = ${money(settings.norm*settings.vacPay)} в день`+(pd>1?` · ${pd} ${plural(pd,T('день'),T('дня'),T('дней'))}: ${money(pd*settings.norm*settings.vacPay)}`:''):'')}
   // стереть то, что уже есть в отмеченных днях
   const has=ks.filter(k=>notes.some(x=>x.type===ftype&&x.date===k)).length;
   $('#fErase').hidden=!has;
@@ -3667,17 +3667,17 @@ function reportData(off=poff){
   const per={};fact.filter(n=>catOf(n)==='work').forEach(n=>per[n.date]=(per[n.date]||0)+workMin(n));
   const days=Object.keys(per).length;
   const over=Object.values(per).reduce((t,m)=>t+Math.max(0,m-settings.norm*60),0);
-  let vacDays=0,vacEarn=0;for(const k in dayCats)if(k>=S&&k<=E&&k<=T){const v=vacPayOf(k);if(v){vacDays++;vacEarn+=v}}vacEarn=Math.round(vacEarn);
-  const earn=Math.round(fact.filter(n=>catOf(n)==='work').reduce((t,n)=>t+payOf(n),0))+vacEarn,planEarn=Math.round(planW.reduce((t,n)=>t+payOf(n),0));
+  let vacDays=0,vacEarn=0,sickDays=0,sickEarn=0;for(const k in dayCats)if(k>=S&&k<=E&&k<=T){const v=vacPayOf(k);if(v){if(dayCats[k]==='sickp'){sickDays++;sickEarn+=v}else{vacDays++;vacEarn+=v}}}vacEarn=Math.round(vacEarn);sickEarn=Math.round(sickEarn);
+  const earn=Math.round(fact.filter(n=>catOf(n)==='work').reduce((t,n)=>t+payOf(n),0))+vacEarn+sickEarn,planEarn=Math.round(planW.reduce((t,n)=>t+payOf(n),0));
   const dk=n=>(n.pin?-1e7:0)+(n.rep==='y'?dateInfo(n).left:1e6+Math.abs(since(n.date).days));
   const dates=notes.filter(n=>n.type==='date'||(n.type==='rem'&&n.rep==='y')).sort((a,b)=>dk(a)-dk(b));
   // обед, нейтральное до/после работы, типы дней — за прошедшие дни периода
   const brk=fact.filter(isBreak).reduce((t,n)=>t+workMin(n),0),brkDays=new Set(fact.filter(isBreak).map(n=>n.date)).size;
   let nbM=0,naM=0;recDays.forEach(k=>{const x=neutralSplit(k);nbM+=x.nb.reduce((t,n)=>t+workMin(n),0);naM+=x.na.reduce((t,n)=>t+workMin(n),0)});
-  let offN=0,vacN=0,sickN=0;const last=E<T?E:T;
+  let offN=0,vacN=0,sickN=0,sickPN=0;const last=E<T?E:T;
   for(let d=parseYmd(S);ymd(d)<=last;d.setDate(d.getDate()+1)){const k=ymd(d),c=dayCats[k];
-    if(c==='vac')vacN++;else if(c==='sick')sickN++;else if(c==='off'||c==='holiday'||(!c&&!per[k]&&dayKind(k,d.getDay())))offN++}
-  return{s,e,S,E,T,times,fact,per,tot,total:tot.work,days,over,earn,planEarn,vacDays,vacEarn,dates,recDays,planMin,planDays,brk,brkDays,nbM,naM,offN,vacN,sickN};
+    if(c==='vac')vacN++;else if(c==='sick')sickN++;else if(c==='sickp'){sickN++;sickPN++}else if(c==='off'||c==='holiday'||(!c&&!per[k]&&dayKind(k,d.getDay())))offN++}
+  return{s,e,S,E,T,times,fact,per,tot,total:tot.work,days,over,earn,planEarn,vacDays,vacEarn,dates,recDays,planMin,planDays,brk,brkDays,nbM,naM,offN,vacN,sickN,sickPN,sickDays,sickEarn};
 }
 // минуты по реальному времени: перекрывающиеся записи одного вида не считаются дважды
 function unionMin(list){const iv=list.map(n=>{const s=toMin(n.start),m=workMin(n);return s==null||!m?null:[s,s+m]}).filter(Boolean).sort((a,b)=>a[0]-b[0]);let t=0,cs=0,ce=-1;for(const[s,e]of iv){if(s>ce){if(ce>cs)t+=ce-cs;cs=s;ce=e}else if(e>ce)ce=e}if(ce>cs)t+=ce-cs;return t}
@@ -3728,7 +3728,7 @@ function renderReport(){
   $('#rNbT').hidden=!(r.nbM||r.naM);$('#rNb').textContent=`${fmtDur(r.nbM)} / ${fmtDur(r.naM)}`;
   $('#rVacT').hidden=!r.vacN;$('#rVac').textContent=`${r.vacN} ${plural(r.vacN,T('день'),T('дня'),T('дней'))}`;$('#rVacS').textContent=r.vacEarn?T('оплата ')+money(r.vacEarn):'';
   $('#rOffT').hidden=!r.offN;$('#rOff').textContent=`${r.offN} ${plural(r.offN,T('день'),T('дня'),T('дней'))}`;
-  $('#rSickT').hidden=!r.sickN;$('#rSick').textContent=`${r.sickN} ${plural(r.sickN,T('день'),T('дня'),T('дней'))}`;
+  $('#rSickT').hidden=!r.sickN;$('#rSick').textContent=`${r.sickN} ${plural(r.sickN,T('день'),T('дня'),T('дней'))}`;$('#rSickS').textContent=r.sickPN?T`оплачиваемый: ${r.sickPN}`+(r.sickEarn?' · '+money(r.sickEarn):''):'';
   // сравнение с прошлым периодом
   const pr=period==='all'?null:reportData(poff-1),dl=$('#rDelta');
   if(pr&&(pr.tot.work||r.tot.work)){const df=r.tot.work-pr.tot.work;dl.textContent=pr.tot.work?T`${df>=0?'▲':'▼'} ${Math.abs(Math.round(df/pr.tot.work*100))}% к прошлому`:T('▲ в прошлом периоде не было');dl.className='delta '+(df>=0?'up':'down')}
@@ -3754,7 +3754,7 @@ function renderReport(){
     T`<div class="wsum"><div><small>Будни</small><b>${fmtDur(A.w)}</b><em>${A.c} ${plural(A.c,T('день'),T('дня'),T('дней'))}${A.c?T(' · в среднем ')+fmtDurShort(A.w/A.c):''}${A.p?' · '+money(A.p):''}</em></div>`+
     T`<div><small>Выходные дни недели</small><b>${fmtDur(B.w)}</b><em>${B.c?B.c+' '+plural(B.c,T('день'),T('дня'),T('дней'))+T(' с работой')+(B.p?' · '+money(B.p):''):T('без работы 👍')}</em></div></div>`;
   $('#rTblN').textContent=r.times.length;
-  $('#rEarnT').hidden=!(r.earn||r.planEarn);$('#rEarn').textContent=money(r.earn);$('#rEarnT').title=[r.vacEarn?T`в т.ч. оплачиваемый отпуск: ${r.vacDays} ${plural(r.vacDays,T('день'),T('дня'),T('дней'))} — ${money(r.vacEarn)}`:'',r.planEarn?T('Ещё запланировано: ')+money(r.planEarn):''].filter(Boolean).join('\n');
+  $('#rEarnT').hidden=!(r.earn||r.planEarn);$('#rEarn').textContent=money(r.earn);$('#rEarnT').title=[r.vacEarn?T`в т.ч. оплачиваемый отпуск: ${r.vacDays} ${plural(r.vacDays,T('день'),T('дня'),T('дней'))} — ${money(r.vacEarn)}`:'',r.sickEarn?T`в т.ч. оплачиваемый больничный: ${r.sickDays} ${plural(r.sickDays,T('день'),T('дня'),T('дней'))} — ${money(r.sickEarn)}`:'',r.planEarn?T('Ещё запланировано: ')+money(r.planEarn):''].filter(Boolean).join('\n');
   // доли времени
   const all=r.tot.work+r.tot.neutral+r.tot.free+r.tot.sleep;
   $('#share').innerHTML=all?Object.keys(CATS).filter(k=>r.tot[k]).map(k=>`<i style="width:${r.tot[k]/all*100}%;background:${CATS[k].color}" title="${CATS[k].name}"></i>`).join(''):'';
@@ -3804,11 +3804,11 @@ function reportText(){
   L.push(T`💼 Работа: ${fmtDur(r.tot.work)}`,T`⚖️ Нейтральное: ${fmtDur(r.tot.neutral)}`,T`🌴 Свободное: ${fmtDur(r.tot.free)}`,T`😴 Сон: ${fmtDur(r.tot.sleep)}`,T`📅 Рабочих дней: ${r.days}`);
   if(r.brk)L.push(T`🍽 Обед + перекур: ${fmtDur(r.brk)} (${r.brkDays} ${plural(r.brkDays,T('день'),T('дня'),T('дней'))})`);
   if(r.nbM||r.naM)L.push(T`⚖️ Нейтральное до работы: ${fmtDur(r.nbM)} · после работы: ${fmtDur(r.naM)}`);
-  if(r.offN||r.vacN||r.sickN)L.push([r.offN?T`🌴 Выходных и праздников: ${r.offN}`:'',r.vacN?T`🏖 Отпуск: ${r.vacN}`:'',r.sickN?T`🤒 Больничный: ${r.sickN}`:''].filter(Boolean).join(' · '));
+  if(r.offN||r.vacN||r.sickN)L.push([r.offN?T`🌴 Выходных и праздников: ${r.offN}`:'',r.vacN?T`🏖 Отпуск: ${r.vacN}`:'',r.sickN?T`🤒 Больничный: ${r.sickN}`+(r.sickPN?T` (оплачиваемый: ${r.sickPN})`:''):''].filter(Boolean).join(' · '));
   const bd=Object.keys(r.per).reduce((b,k)=>!b||r.per[k]>r.per[b]?k:b,null);if(bd)L.push(T`🏆 Лучший день: ${dayLabel(bd)} — ${fmtDur(r.per[bd])}`);
   {const n={};for(const k in dayCats)if(k>=r.S&&k<=r.E)n[dayCats[k]]=(n[dayCats[k]]||0)+1;const t=Object.keys(DAYCATS).filter(c=>n[c]).map(c=>`${DAYCATS[c].i} ${DAYCATS[c].n} ${n[c]}`).join(', ');if(t)L.push(T`🏷 Типы дней: ${t}`)}
   if(r.planMin)L.push(T`📅 Запланировано наперёд: ${fmtDur(r.planMin)} (${r.planDays} ${plural(r.planDays,T('день'),T('дня'),T('дней'))})`);
-  if(r.earn)L.push(T`💰 Заработано: ${money(r.earn)}`+(r.planEarn?T` (+ запланировано ${money(r.planEarn)})`:''));if(r.vacEarn)L.push(T`🏖 Оплачиваемый отпуск: ${r.vacDays} ${plural(r.vacDays,T('день'),T('дня'),T('дней'))} — ${money(r.vacEarn)}`);
+  if(r.earn)L.push(T`💰 Заработано: ${money(r.earn)}`+(r.planEarn?T` (+ запланировано ${money(r.planEarn)})`:''));if(r.vacEarn)L.push(T`🏖 Оплачиваемый отпуск: ${r.vacDays} ${plural(r.vacDays,T('день'),T('дня'),T('дней'))} — ${money(r.vacEarn)}`);if(r.sickEarn)L.push(T`🤒 Оплачиваемый больничный: ${r.sickDays} ${plural(r.sickDays,T('день'),T('дня'),T('дней'))} — ${money(r.sickEarn)}`);
   if(r.times.length){L.push('');r.times.forEach(n=>{const d=parseYmd(n.date),c=CATS[catOf(n)];L.push(`• ${n.date>r.T?'📅 ':''}${pad(d.getDate())}.${pad(d.getMonth()+1)} (${WDS[d.getDay()]}) ${c.icon} ${n.start}–${n.end} — ${fmtDur(workMin(n))}${n.text?' · '+n.text:''}`)})}
   const cm=notes.filter(n=>n.type==='note'&&n.date>=r.S&&n.date<=r.E).sort((a,b)=>a.date.localeCompare(b.date));
   if(cm.length){L.push('',T('💬 Комментарии:'));cm.forEach(n=>L.push(`• ${dayLabel(n.date)}: ${n.text}`))}
@@ -4116,7 +4116,7 @@ function paintWd(){$$('#setWd [data-w]').forEach(b=>b.classList.toggle('on',sett
 $('#setWd').onclick=e=>{const b=e.target.closest('[data-w]');if(!b)return;const w=+b.dataset.w,a=new Set(settings.workDays);a.has(w)?a.delete(w):a.add(w);if(!a.size)return toast(T('Нужен хотя бы один рабочий день'));settings.workDays=[...a].sort();save('cal.settings',settings);paintWd();render()};
 $('#vacIn').value=settings.vacPay||'';$('#vacIn').onchange=e=>{settings.vacPay=Math.max(0,+e.target.value||0);save('cal.settings',settings);render()};
 $('#rateIn').onchange=e=>{settings.rate=Math.max(0,+e.target.value||0);save('cal.settings',settings)};
-$('#curIn').onchange=e=>{settings.cur=e.target.value;save('cal.settings',settings)};
+$('#curIn').onchange=e=>{settings.cur=e.target.value;save('cal.settings',settings);const m=$('#monCur');if(m)m.value=settings.cur};
 $('#fxIn').onchange=e=>{settings.fx=e.target.checked;if(settings.fx)fx.unlite();save('cal.settings',settings);fx.reset()};
 // прозрачность панелей: сквозь окна видно живой фон; чем прозрачнее — тем слабее размытие
 function applyGlass(){const v=+settings.glass||0,a=1-v/100,R=document.documentElement;R.classList.toggle('see',v>0);R.style.setProperty('--seeBlur',Math.round(16*a*a)+'px');R.style.setProperty('--seeMix',Math.round(88*a)+'%');R.style.setProperty('--seeDay',Math.round(100*a)+'%');const s=$('#glassV');if(s)s.textContent=v?v+'%':T('выкл.')}
@@ -4758,7 +4758,7 @@ function linkPush(force){
   linkT=setTimeout(async()=>{try{
     const R=remOf(),sig=JSON.stringify(R),day=ymd(new Date());
     if(!force&&sig===linkPush.sig&&linkPush.day===day)return;
-    const prev=load('cal.linkIds',[]),ids=R.map(n=>n.id),del=Array.isArray(prev)?prev.filter(i=>!ids.includes(i)).slice(0,500):[];
+    const prev=load('cal.linkIds',[]),ids=R.map(n=>n.id),all=new Set(notes.map(n=>n.id)),del=Array.isArray(prev)?prev.filter(i=>!ids.includes(i)&&!all.has(i)).slice(0,500):[];
     const body='c1.'+b64u(await enc(await zipStr(JSON.stringify({v:1,dev:devId,t:Date.now(),notes:R,del,alarms:alarmList(false)})),unb64u(link.key)));
     const r=await fetch(`${RELAY}${link.topic}?tags=rem`,{method:'PUT',body});if(!r.ok)return;
     linkPush.sig=sig;linkPush.day=day;save('cal.linkIds',ids)}catch(e){}},force?100:2500)}
@@ -4774,7 +4774,7 @@ async function linkPull(){
       let p;try{p=JSON.parse(await zipStr(await dec(unb64u(m.message.slice(3)),raw),true))}catch(e){continue}
       if(!p||p.dev===devId||!Array.isArray(p.notes))continue;
       const del=new Set(Array.isArray(p.del)?p.del.filter(x=>typeof x==='string'):[]);
-      const before=notes.length;notes=notes.filter(n=>!(del.has(n.id)&&(n.type==='rem'||n.type==='date')));if(notes.length!==before)changed=true;
+      const before=notes.length;const pt=+p.t||0;notes=notes.filter(n=>!(del.has(n.id)&&(n.type==='rem'||n.type==='date')&&!((n.upd||0)>pt)));if(notes.length!==before)changed=true;
       const ix=new Map(notes.map((n,i)=>[n.id,i]));
       for(const n of cleanList(p.notes,cleanNote)){if(n.type!=='rem'&&n.type!=='date')continue;
         if(ix.has(n.id)){const o=notes[ix.get(n.id)];if(noteNewer(n,o)){notes[ix.get(n.id)]=n;changed=true}}else{ix.set(n.id,notes.length);notes.push(n);changed=true}}}
@@ -5611,7 +5611,7 @@ function guessCat(t,txt){const s=String(txt||'').toLowerCase(),R=[[/ипотек
   [/пособи|декрет|příspěv|dávk|přídav/,'Пособие'],[/возврат|refund|vratk/,'Возврат'],[/продал|продаж|vinted|bazoš|prodej/,'Продажа']]; /*i18n:keep*/
   for(const[r,c]of R)if(r.test(s)&&MCAT[t].includes(c))return c;return T('Другое')}
 function monRange(){const y=monRef.getFullYear(),m=monRef.getMonth();if(monP==='w'){const a=monWeek();return[ymd(a),ymd(new Date(a.getFullYear(),a.getMonth(),a.getDate()+6))]}return monP==='m'?[ymd(new Date(y,m,1)),ymd(new Date(y,m+1,0))]:[y+'-01-01',y+'-12-31']}
-function monRender(){
+function monRender(){{const m=$('#monCur');if(m&&m.value!==settings.cur)m.value=settings.cur}
   const lock=!isPro();$('#monLock').hidden=!lock;$('#monBody').hidden=lock;
   if(lock){$('#monLock').innerHTML=T`<div class="big">💰</div><h3>Доходы и расходы</h3><p>Записывайте, сколько заработали и сколько потратили — Gemday покажет итог за месяц и год и куда ушли деньги. Чеки и выписки можно просто сфотографировать — бот впишет сам.</p><button class="cta" id="monTry">💎 Попробовать Gemday Pro</button>`;$('#monTry').onclick=proShow;return}
   famPaint();goalPaint();
@@ -5641,7 +5641,7 @@ function monRender(){
     return `<div class="mrow${famOn?' fam':''}${x.mine?' med':''}"${x.mine?` data-medit="${x.id}" title="${esc(T('Нажмите, чтобы изменить'))}"`:''}><small>${d.getDate()} ${MONTHS_G[d.getMonth()].slice(0,3)}${tm?`<em class="mtm">${tm}</em>`:''}</small><span>${who}${mcl(x.c)}${x.n?` <small>· ${esc(x.n)}</small>`:''}</span><span class="${x.t}">${x.t==='in'?'+':'−'}${fm(x.a)}${cur}</span>${x.mine?`<button data-mdel="${x.id}" title="${esc(T('Удалить'))}">✕</button>`:'<i></i>'}</div>`}).join(''):`<small style="color:var(--mut)">${T('Записей пока нет — добавьте вверху или напишите боту «потратил 300 на продукты»')}</small>`;
 }
 function monCatsFill(){$('#monCat').innerHTML=MCAT[monT].map(c=>`<option value="${c}">${mcl(c)}</option>`).join('');$$('#monType button').forEach(b=>b.classList.toggle('on',b.dataset.mt===monT))}
-monCatsFill();$('#monDate').value=ymd(new Date());
+monCatsFill();$('#monDate').value=ymd(new Date());$('#monCur').onchange=e=>{settings.cur=e.target.value;save('cal.settings',settings);$('#curIn').value=settings.cur;monRender()};
 $('#monType').onclick=e=>{const b=e.target.closest('[data-mt]');if(b){monT=b.dataset.mt;monCatsFill()}};
 // неделя (Пн–Вс), подпись «17–23 ноября 2026»
 function monWeek(){const d=new Date(monRef.getFullYear(),monRef.getMonth(),monRef.getDate());d.setDate(d.getDate()-(d.getDay()+6)%7);return d}
